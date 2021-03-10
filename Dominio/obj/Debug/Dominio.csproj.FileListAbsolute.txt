@@ -1,0 +1,9 @@
+C:\Users\Nato\source\repos\Solution1\Dominio\bin\Debug\Dominio.dll
+C:\Users\Nato\source\repos\Solution1\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Nato\source\repos\Solution1\Dominio\bin\Debug\AccesoDatos.dll
+C:\Users\Nato\source\repos\Solution1\Dominio\bin\Debug\AccesoDatos.pdb
+C:\Users\Nato\source\repos\Solution1\Dominio\obj\Debug\Dominio.csprojAssemblyReference.cache
+C:\Users\Nato\source\repos\Solution1\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\Nato\source\repos\Solution1\Dominio\obj\Debug\Dominio.csproj.CopyComplete
+C:\Users\Nato\source\repos\Solution1\Dominio\obj\Debug\Dominio.dll
+C:\Users\Nato\source\repos\Solution1\Dominio\obj\Debug\Dominio.pdb
