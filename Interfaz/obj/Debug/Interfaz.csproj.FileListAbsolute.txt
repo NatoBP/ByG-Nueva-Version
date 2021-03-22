@@ -1,5 +1,4 @@
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.csprojAssemblyReference.cache
-C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.Principal.resources
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.Properties.Resources.resources
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.csproj.GenerateResource.cache
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.csproj.CoreCompileInputs.cache
@@ -11,3 +10,5 @@ C:\Users\Nato\source\repos\Solution1\Interfaz\bin\Debug\Dominio.pdb
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.csproj.CopyComplete
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.exe
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.pdb
+C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.Clientes.resources
+C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.Principal_1.resources

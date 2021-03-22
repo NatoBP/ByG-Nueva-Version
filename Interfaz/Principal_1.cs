@@ -12,9 +12,9 @@ using System.Runtime.InteropServices;
 
 namespace Interfaz
 {
-    public partial class Principal : Form
+    public partial class Principal_1 : Form
     {
-        public Principal()
+        public Principal_1()
         {
             InitializeComponent();
             setBotones();
@@ -22,8 +22,9 @@ namespace Interfaz
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             this.DoubleBuffered = true;
         }
+
         #region //Botones del Menú
-        
+
         //Botón Alquileres
         private void btnAlquileres_Click(object sender, EventArgs e)
         {
@@ -34,7 +35,7 @@ namespace Interfaz
                 rbtAdminAlq.Location = new Point(0, 190);
                 rbtAlqDisponibles.Location = new Point(0, 235);
                 rbtAdminProp.Location = new Point(0, 280);
-                rbtTasaciones.Location = new Point(0, 325);
+                rbtClientes.Location = new Point(0, 325);
             }
 
             else if (rbtAdminAlq.Visible == false && rbtLocadores.Visible == true)
@@ -47,7 +48,7 @@ namespace Interfaz
                 rbtVerProp.Location = new Point(0, 370);
                 rbtNuevaProp.Location = new Point(0, 415);
 
-                rbtTasaciones.Location = new Point(0, 460);
+                rbtClientes.Location = new Point(0, 460);
 
             }
 
@@ -57,7 +58,7 @@ namespace Interfaz
                 rbtLocadores.Location = new Point(0, 235);
                 rbtVerProp.Location = new Point(0, 280);
                 rbtNuevaProp.Location = new Point(0, 325);
-                rbtTasaciones.Location = new Point(0, 370);
+                rbtClientes.Location = new Point(0, 370);
                 rbtAdminAlq.Visible = false;
                 rbtAlqDisponibles.Visible = false;
                 rbtNuevoContrato.Visible = false;
@@ -72,7 +73,7 @@ namespace Interfaz
             else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == true && rbtLocadores.Visible == false)
             {
                 rbtAdminProp.Location = new Point(0, 190);
-                rbtTasaciones.Location = new Point(0, 235);
+                rbtClientes.Location = new Point(0, 235);
                 rbtNuevoContrato.Visible = false;
                 rbtAlqVigentes.Visible = false;
                 rbtAlqNoVigentes.Visible = false;
@@ -89,13 +90,13 @@ namespace Interfaz
                 rbtLocadores.Location = new Point(0, 235);
                 rbtVerProp.Location = new Point(0, 280);
                 rbtNuevaProp.Location = new Point(0, 325);
-                rbtTasaciones.Location = new Point(0, 370);
+                rbtClientes.Location = new Point(0, 370);
             }
 
             else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == false && rbtLocadores.Visible == false)
             {
                 rbtAdminProp.Location = new Point(0, 190);
-                rbtTasaciones.Location = new Point(0, 235);
+                rbtClientes.Location = new Point(0, 235);
                 rbtAdminAlq.Visible = false;
                 rbtAlqDisponibles.Visible = false;
             }
@@ -108,7 +109,7 @@ namespace Interfaz
             {
                 rbtAlqDisponibles.Location = new Point(0, 460);
                 rbtAdminProp.Location = new Point(0, 505);
-                rbtTasaciones.Location = new Point(0, 550);
+                rbtClientes.Location = new Point(0, 550);
                 rbtNuevoContrato.Location = new Point(0, 235);
                 rbtNuevoContrato.Visible = true;
                 rbtAlqVigentes.Visible = true;
@@ -119,7 +120,7 @@ namespace Interfaz
             else if (rbtNuevoContrato.Visible == true && rbtLocadores.Visible == false)
             {
                 rbtAdminProp.Location = new Point(0, 280);
-                rbtTasaciones.Location = new Point(0, 325);
+                rbtClientes.Location = new Point(0, 325);
                 rbtAlqDisponibles.Location = new Point(0, 235);
                 rbtNuevoContrato.Visible = false;
                 rbtAlqVigentes.Visible = false;
@@ -139,7 +140,7 @@ namespace Interfaz
                 rbtLocadores.Location = new Point(0, 550);
                 rbtVerProp.Location = new Point(0, 595);
                 rbtNuevaProp.Location = new Point(0, 640);
-                rbtTasaciones.Location = new Point(0, 685);
+                rbtClientes.Location = new Point(0, 685);
 
             }
             else if (rbtNuevoContrato.Visible == true && rbtLocadores.Visible == true)
@@ -154,7 +155,7 @@ namespace Interfaz
                 rbtLocadores.Location = new Point(0, 325);
                 rbtVerProp.Location = new Point(0, 370);
                 rbtNuevaProp.Location = new Point(0, 415);
-                rbtTasaciones.Location = new Point(0, 460);
+                rbtClientes.Location = new Point(0, 460);
             }
         }
 
@@ -169,14 +170,14 @@ namespace Interfaz
                 rbtLocadores.Location = new Point(0, 235);
                 rbtVerProp.Location = new Point(0, 280);
                 rbtNuevaProp.Location = new Point(0, 325);
-                rbtTasaciones.Location = new Point(0, 370);
+                rbtClientes.Location = new Point(0, 370);
             }
             else if (rbtLocadores.Visible == true && rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == true)
             {
                 rbtLocadores.Visible = false;
                 rbtVerProp.Visible = false;
                 rbtNuevaProp.Visible = false;
-                rbtTasaciones.Location = new Point(0, 550);
+                rbtClientes.Location = new Point(0, 550);
             }
 
             else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == false && rbtLocadores.Visible == true)
@@ -184,14 +185,14 @@ namespace Interfaz
                 rbtLocadores.Visible = false;
                 rbtVerProp.Visible = false;
                 rbtNuevaProp.Visible = false;
-                rbtTasaciones.Location = new Point(0, 325);
+                rbtClientes.Location = new Point(0, 325);
             }
             else if (rbtAdminAlq.Visible == false && rbtLocadores.Visible == true)
             {
                 rbtLocadores.Visible = false;
                 rbtVerProp.Visible = false;
                 rbtNuevaProp.Visible = false;
-                rbtTasaciones.Location = new Point(0, 235);
+                rbtClientes.Location = new Point(0, 235);
 
             }
 
@@ -203,7 +204,7 @@ namespace Interfaz
                 rbtLocadores.Location = new Point(0, 550);
                 rbtVerProp.Location = new Point(0, 595);
                 rbtNuevaProp.Location = new Point(0, 640);
-                rbtTasaciones.Location = new Point(0, 685);
+                rbtClientes.Location = new Point(0, 685);
             }
             else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == false && rbtLocadores.Visible == false)
             {
@@ -213,7 +214,7 @@ namespace Interfaz
                 rbtLocadores.Location = new Point(0, 325);
                 rbtVerProp.Location = new Point(0, 370);
                 rbtNuevaProp.Location = new Point(0, 415);
-                rbtTasaciones.Location = new Point(0, 460);
+                rbtClientes.Location = new Point(0, 460);
             }
         }
 
@@ -308,6 +309,11 @@ namespace Interfaz
                 Application.Exit();
         }
 
+        private void rbtClientes_CheckedChanged(object sender, EventArgs e)
+        {
+            abrirVentanaPanel(new Clientes());
+        }
+
         //METODO PARA REDIMENCIONAR/CAMBIAR TAMAÑO A FORMULARIO  TIEMPO DE EJECUCION ----------------------------------------------------------
         private int tolerance = 15;
         private const int WM_NCHITTEST = 132;
@@ -339,7 +345,7 @@ namespace Interfaz
             sizeGripRectangle = new Rectangle(this.ClientRectangle.Width - tolerance, this.ClientRectangle.Height - tolerance, tolerance, tolerance);
 
             region.Exclude(sizeGripRectangle);
-            this.pnlBase.Region = region;
+            this.pnlPrincipal.Region = region;
             this.Invalidate();
         }
 
@@ -372,7 +378,9 @@ namespace Interfaz
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
-        
+
+
+
 
         //----------------COLOR Y GRIP DE RECTANGULO INFERIOR
         protected override void OnPaint(PaintEventArgs e)
@@ -384,6 +392,8 @@ namespace Interfaz
             base.OnPaint(e);
             ControlPaint.DrawSizeGrip(e.Graphics, Color.Transparent, sizeGripRectangle);
         }
+
+     
         #endregion
     }
 }
