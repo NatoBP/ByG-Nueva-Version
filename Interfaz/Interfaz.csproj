@@ -52,6 +52,12 @@
     <Compile Include="Clientes.Designer.cs">
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="IngresarBarrio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IngresarBarrio.Designer.cs">
+      <DependentUpon>IngresarBarrio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Principal_1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IngresarBarrio.resx">
+      <DependentUpon>IngresarBarrio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Principal_1.resx">
       <DependentUpon>Principal_1.cs</DependentUpon>
@@ -89,9 +98,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dominio\Dominio.csproj">
-      <Project>{f5bfb359-2a5b-4f84-bfc3-7ebdba743b7d}</Project>
-      <Name>Dominio</Name>
+    <ProjectReference Include="..\AccesoDatos\AccesoDatos.csproj">
+      <Project>{25df3eec-5f57-474d-9d79-b43bdd263b37}</Project>
+      <Name>AccesoDatos</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -88,14 +88,14 @@
             this.pnlMenu.Controls.Add(this.rbtVerProp);
             this.pnlMenu.Controls.Add(this.rbtNuevaProp);
             this.pnlMenu.Controls.Add(this.rbtEstadoCuentas);
-            this.pnlMenu.Controls.Add(this.rbtAdminAlq);
             this.pnlMenu.Controls.Add(this.rbtVentas);
             this.pnlMenu.Controls.Add(this.rbtRegistrarPagos);
-            this.pnlMenu.Controls.Add(this.rbtNuevoContrato);
-            this.pnlMenu.Controls.Add(this.rbtAlqDisponibles);
             this.pnlMenu.Controls.Add(this.rbtAlqNoVigentes);
             this.pnlMenu.Controls.Add(this.rbtAdminProp);
             this.pnlMenu.Controls.Add(this.rbtClientes);
+            this.pnlMenu.Controls.Add(this.rbtNuevoContrato);
+            this.pnlMenu.Controls.Add(this.rbtAlqDisponibles);
+            this.pnlMenu.Controls.Add(this.rbtAdminAlq);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlMenu.Location = new System.Drawing.Point(0, 0);
             this.pnlMenu.Name = "pnlMenu";

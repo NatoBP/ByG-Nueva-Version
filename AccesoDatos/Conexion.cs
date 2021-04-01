@@ -3,16 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace AccesoDatos
 {
-    public abstract class Conexion
+    class Conexion
     {
-        protected SqlConnection getConnection()
+        private SqlConnection cn = new SqlConnection(@"Data Source=localhost;Initial Catalog=BustosGuidoneInmobiliaria;Integrated Security=True");
+
+        public SqlConnection Conectar()
         {
-            return new SqlConnection(@"Data Source=localhost;Initial Catalog=BustosGuidoneInmobiliaria;Integrated Security=True");
+
+            
+            if (cn.State == ConnectionState.Closed)
+                cn.Open();
+            return cn;
         }
 
+
+        public SqlConnection Desconectar()
+        {
+            if (cn.State == ConnectionState.Open)
+                cn.Close();
+            return cn;
+        }
     }
 }
