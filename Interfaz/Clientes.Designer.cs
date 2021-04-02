@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Clientes));
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlBase = new System.Windows.Forms.Panel();
             this.txtDepto = new System.Windows.Forms.TextBox();
             this.txtPiso = new System.Windows.Forms.TextBox();
             this.label75 = new System.Windows.Forms.Label();
@@ -44,7 +44,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnModificarPropietario = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
             this.txtAltura = new System.Windows.Forms.TextBox();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
@@ -67,55 +67,55 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDNI = new System.Windows.Forms.TextBox();
-            this.panel1.SuspendLayout();
+            this.pnlBase.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTelefonos)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // pnlBase
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.txtDepto);
-            this.panel1.Controls.Add(this.txtPiso);
-            this.panel1.Controls.Add(this.label75);
-            this.panel1.Controls.Add(this.label72);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.btnCancelar);
-            this.panel1.Controls.Add(this.txtApellido);
-            this.panel1.Controls.Add(this.dgvTelefonos);
-            this.panel1.Controls.Add(this.cboTipoDNI);
-            this.panel1.Controls.Add(this.txtCodArea);
-            this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.btnModificarPropietario);
-            this.panel1.Controls.Add(this.txtAltura);
-            this.panel1.Controls.Add(this.txtTelefono);
-            this.panel1.Controls.Add(this.btnGuardar);
-            this.panel1.Controls.Add(this.cboProvincia);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.cboBarrio);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.txtNombre);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.btnCargarBarrio);
-            this.panel1.Controls.Add(this.cboDepartamento);
-            this.panel1.Controls.Add(this.txtDireccion);
-            this.panel1.Controls.Add(this.txtMail);
-            this.panel1.Controls.Add(this.cboCiudad);
-            this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.btnBorrarTelefono);
-            this.panel1.Controls.Add(this.btnCargarTelefono);
-            this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.txtDNI);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1050, 650);
-            this.panel1.TabIndex = 0;
+            this.pnlBase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlBase.Controls.Add(this.txtDepto);
+            this.pnlBase.Controls.Add(this.txtPiso);
+            this.pnlBase.Controls.Add(this.label75);
+            this.pnlBase.Controls.Add(this.label72);
+            this.pnlBase.Controls.Add(this.pictureBox1);
+            this.pnlBase.Controls.Add(this.btnCancelar);
+            this.pnlBase.Controls.Add(this.txtApellido);
+            this.pnlBase.Controls.Add(this.dgvTelefonos);
+            this.pnlBase.Controls.Add(this.cboTipoDNI);
+            this.pnlBase.Controls.Add(this.txtCodArea);
+            this.pnlBase.Controls.Add(this.label10);
+            this.pnlBase.Controls.Add(this.label5);
+            this.pnlBase.Controls.Add(this.label4);
+            this.pnlBase.Controls.Add(this.label7);
+            this.pnlBase.Controls.Add(this.btnEditar);
+            this.pnlBase.Controls.Add(this.txtAltura);
+            this.pnlBase.Controls.Add(this.txtTelefono);
+            this.pnlBase.Controls.Add(this.btnGuardar);
+            this.pnlBase.Controls.Add(this.cboProvincia);
+            this.pnlBase.Controls.Add(this.label3);
+            this.pnlBase.Controls.Add(this.label12);
+            this.pnlBase.Controls.Add(this.cboBarrio);
+            this.pnlBase.Controls.Add(this.label8);
+            this.pnlBase.Controls.Add(this.txtNombre);
+            this.pnlBase.Controls.Add(this.label6);
+            this.pnlBase.Controls.Add(this.label1);
+            this.pnlBase.Controls.Add(this.btnCargarBarrio);
+            this.pnlBase.Controls.Add(this.cboDepartamento);
+            this.pnlBase.Controls.Add(this.txtDireccion);
+            this.pnlBase.Controls.Add(this.txtMail);
+            this.pnlBase.Controls.Add(this.cboCiudad);
+            this.pnlBase.Controls.Add(this.label13);
+            this.pnlBase.Controls.Add(this.btnBorrarTelefono);
+            this.pnlBase.Controls.Add(this.btnCargarTelefono);
+            this.pnlBase.Controls.Add(this.label11);
+            this.pnlBase.Controls.Add(this.label2);
+            this.pnlBase.Controls.Add(this.txtDNI);
+            this.pnlBase.Location = new System.Drawing.Point(0, 0);
+            this.pnlBase.Name = "pnlBase";
+            this.pnlBase.Size = new System.Drawing.Size(1050, 650);
+            this.pnlBase.TabIndex = 0;
             // 
             // txtDepto
             // 
@@ -125,6 +125,7 @@
             this.txtDepto.Name = "txtDepto";
             this.txtDepto.Size = new System.Drawing.Size(34, 20);
             this.txtDepto.TabIndex = 360;
+            this.txtDepto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDepto_KeyPress);
             // 
             // txtPiso
             // 
@@ -134,6 +135,7 @@
             this.txtPiso.Name = "txtPiso";
             this.txtPiso.Size = new System.Drawing.Size(34, 20);
             this.txtPiso.TabIndex = 359;
+            this.txtPiso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPiso_KeyPress);
             // 
             // label75
             // 
@@ -177,6 +179,7 @@
             this.btnCancelar.TabIndex = 373;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // txtApellido
             // 
@@ -186,6 +189,7 @@
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(121, 20);
             this.txtApellido.TabIndex = 355;
+            this.txtApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellido_KeyPress_1);
             // 
             // dgvTelefonos
             // 
@@ -225,6 +229,7 @@
             this.txtCodArea.Name = "txtCodArea";
             this.txtCodArea.Size = new System.Drawing.Size(49, 20);
             this.txtCodArea.TabIndex = 367;
+            this.txtCodArea.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodArea_KeyPress_1);
             // 
             // label10
             // 
@@ -266,18 +271,19 @@
             this.label7.TabIndex = 380;
             this.label7.Text = "Altura:";
             // 
-            // btnModificarPropietario
+            // btnEditar
             // 
-            this.btnModificarPropietario.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnModificarPropietario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.btnModificarPropietario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnModificarPropietario.Location = new System.Drawing.Point(869, 354);
-            this.btnModificarPropietario.Name = "btnModificarPropietario";
-            this.btnModificarPropietario.Size = new System.Drawing.Size(119, 23);
-            this.btnModificarPropietario.TabIndex = 371;
-            this.btnModificarPropietario.Text = "Modificar Persona";
-            this.btnModificarPropietario.UseVisualStyleBackColor = false;
-            this.btnModificarPropietario.Visible = false;
+            this.btnEditar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
+            this.btnEditar.Enabled = false;
+            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditar.Location = new System.Drawing.Point(869, 354);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(119, 23);
+            this.btnEditar.TabIndex = 371;
+            this.btnEditar.Text = "Editar Datos";
+            this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // txtAltura
             // 
@@ -287,6 +293,7 @@
             this.txtAltura.Name = "txtAltura";
             this.txtAltura.Size = new System.Drawing.Size(121, 20);
             this.txtAltura.TabIndex = 358;
+            this.txtAltura.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAltura_KeyPress_1);
             // 
             // txtTelefono
             // 
@@ -296,6 +303,7 @@
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(130, 20);
             this.txtTelefono.TabIndex = 368;
+            this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress_1);
             // 
             // btnGuardar
             // 
@@ -371,6 +379,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(121, 20);
             this.txtNombre.TabIndex = 356;
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress_1);
             // 
             // label6
             // 
@@ -425,6 +434,7 @@
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(121, 20);
             this.txtDireccion.TabIndex = 357;
+            this.txtDireccion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDireccion_KeyPress_1);
             // 
             // txtMail
             // 
@@ -434,6 +444,7 @@
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(185, 20);
             this.txtMail.TabIndex = 366;
+            this.txtMail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMail_KeyPress);
             // 
             // cboCiudad
             // 
@@ -468,6 +479,7 @@
             this.btnBorrarTelefono.TabIndex = 370;
             this.btnBorrarTelefono.Text = "Borrar Teléfono";
             this.btnBorrarTelefono.UseVisualStyleBackColor = false;
+            this.btnBorrarTelefono.Click += new System.EventHandler(this.btnBorrarTelefono_Click);
             // 
             // btnCargarTelefono
             // 
@@ -510,6 +522,7 @@
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(121, 20);
             this.txtDNI.TabIndex = 353;
+            this.txtDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNI_KeyPress_1);
             // 
             // Clientes
             // 
@@ -518,12 +531,12 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(214)))), ((int)(((byte)(199)))));
             this.ClientSize = new System.Drawing.Size(1050, 650);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlBase);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Clientes";
             this.Text = "Clientes";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlBase.ResumeLayout(false);
+            this.pnlBase.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTelefonos)).EndInit();
             this.ResumeLayout(false);
@@ -532,7 +545,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlBase;
         private System.Windows.Forms.TextBox txtDepto;
         private System.Windows.Forms.TextBox txtPiso;
         private System.Windows.Forms.Label label75;
@@ -547,7 +560,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button btnModificarPropietario;
+        private System.Windows.Forms.Button btnEditar;
         public System.Windows.Forms.TextBox txtAltura;
         public System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Button btnGuardar;

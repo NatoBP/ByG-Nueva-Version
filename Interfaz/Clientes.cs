@@ -14,10 +14,14 @@ namespace Interfaz
 {
     public partial class Clientes : Form
     {
-
         Persona pr = new Persona();
         ClienteAD cl = new ClienteAD();
         TransaccionAD tc = new TransaccionAD();
+        public bool locador = false;
+        public bool locatario = false;
+        public bool garante = false;
+        public bool comprobantes = false;
+        public bool nuevaPropiedad = false;
 
         public Clientes()
         {
@@ -29,11 +33,9 @@ namespace Interfaz
             tc.traerCombo(cboCiudad, "Ciudades", "id_ciudad", "nombreCiu", "", -1);
             tc.traerCombo(cboBarrio, "Barrios", "id_barrio", "nombreBarr", "", -1);
             cboProvincia.SelectedValue = 14;
-            bool locador = false;
-            bool locatario = false;
-            bool garante = false;
         }
 
+        //BOTONES
         private void btnCargarBarrio_Click(object sender, EventArgs e)
         {
             IngresarBarrio ib = new IngresarBarrio();
@@ -59,6 +61,46 @@ namespace Interfaz
                 txtTelefono.Clear();
                 txtCodArea.Clear();
             }
+        }
+
+        private void btnBorrarTelefono_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvTelefonos.SelectedRows.Count > 0 && dgvTelefonos.CurrentRow != null)
+                {
+                    DialogResult opcion = MessageBox.Show("¿Está segura que desea borrar el registro?", "¿Borrar registro?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (opcion == DialogResult.Yes)
+                    {
+
+                        cl.BorrarTelefono(Convert.ToInt32(dgvTelefonos.CurrentRow.Cells[0].Value));
+
+                        foreach (var item in pr.pTelefono) //Primero borramos el registro de la lista
+                        {
+                            if (dgvTelefonos.CurrentRow.Cells[1].Value.ToString() == item.pcodigoArea && dgvTelefonos.CurrentRow.Cells[2].Value.ToString() == item.pnumero)
+                            {
+                                pr.pTelefono.Remove(new Telefono() { pIdTelefono = item.pIdTelefono, pcodigoArea = item.pcodigoArea, pnumero = item.pnumero });
+                            }
+                        }
+                        dgvTelefonos.Rows.Remove(dgvTelefonos.CurrentRow);//Después eliminamos la fila en el DGV
+
+                        pr.pTelefono = cl.buscarTelefonos(pr.pDNI, pr.pTipoDNI);//Volvemos a buscar la lista de teléfonos actualizada
+
+                        foreach (var item in pr.pTelefono)//Volvemos a cargar la lista en el DGV
+                        {
+                            dgvTelefonos.Rows.Add(item.pIdTelefono, item.pcodigoArea, item.pnumero);
+                        }
+
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.ToString());
+            }
+
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -97,17 +139,134 @@ namespace Interfaz
                 {
                     cl.InsertarPersona(pr);
 
-                    if (pr.pTelefono.Count() > 0) 
+                    if (locador == true) //Si se ingresa un nuevo Locador desde Nuevo Contrato
                     {
-                        cl.InsertarTelefono(pr.pTelefono);
+                        locador = false;
                     }
+                    else if (locatario == true)
+                    {
+                        locatario = false;
+                    }
+                    else if (garante == true)
+                    {
+                        garante = false;
+                    }
+                    else if (comprobantes == true)
+                    {
+                        comprobantes = false;
+                    }
+                    MessageBox.Show("Se ingresó correctamente");
+                }
+                else
+                {
+                    cl.modificarPersona(pr);
 
+                    if (locador == true) //Si se ingresa un nuevo Locador desde Nuevo Contrato
+                    {
+                        locador = false;
+                    }
+                    else if (locatario == true)
+                    {
+                        locatario = false;
+                    }
+                    else if (garante == true)
+                    {
+                        garante = false;
+                    }
+                    else if (comprobantes == true)
+                    {
+                        comprobantes = false;
+                    }
+                    MessageBox.Show("Se modificó correctamente");
                     
                 }
-            } 
+                
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (txtDNI.Enabled == true)
+            {
+                habilitarCamposCliente();
+                cboTipoDNI.Enabled = false;
+                txtDNI.Enabled = false;
+            }
+            else
+            {
+                deshabilitarCamposCliente();
+                txtDNI.Enabled = true;
+                cboTipoDNI.Enabled = true;
+            }
+           
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            foreach (Control c in pnlBase.Controls)
+            {
+                if (c is TextBox && !c.Text.Equals("") && c != txtDNI)
+                {
+                    DialogResult opcion = MessageBox.Show("Hay campos ingresados, ¿desea salir igual?", "Campos ingresados", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (opcion == DialogResult.Yes)
+                    {
+                        this.Close();
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                    break;
+                }
+            }
+            this.Close();
         }
 
 
+        //FUNCIONALIDAD COMBO TIPO-DNI
+        private void cboTipoDNI_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            limpiarCamposCliente();
+
+            if (txtDNI.Text != "")
+            {
+                try
+                {
+                    if (cl.VerificarPersona(Convert.ToInt32(cboTipoDNI.SelectedValue), Convert.ToInt32(txtDNI.Text)) != 0)
+
+                    {
+                        pr = cl.BuscarPersona(Convert.ToInt32(cboTipoDNI.SelectedValue), Convert.ToInt32(txtDNI.Text));
+                        pr.pTelefono = cl.buscarTelefonos(Convert.ToInt32(txtDNI.Text), Convert.ToInt32(cboTipoDNI.SelectedIndex + 1)); //Ya carga los teléfonos en la lista
+
+                        foreach (var item in pr.pTelefono)
+                        {
+                            dgvTelefonos.Rows.Add(item.pIdTelefono, item.pcodigoArea, item.pnumero);
+                        }
+
+                        txtApellido.Text = pr.pApellido;
+                        txtNombre.Text = pr.pNombre;
+                        txtDireccion.Text = pr.pDireccion;
+                        txtAltura.Text = Convert.ToString(pr.pAltura);
+                        cboProvincia.SelectedValue = pr.pProvincia;
+                        cboDepartamento.SelectedValue = pr.pdepartamento;
+                        cboCiudad.SelectedValue = pr.pciudad;
+                        cboBarrio.SelectedValue = pr.pBarrio;
+                        txtMail.Text = pr.pMail;
+                        deshabilitarCamposCliente();
+                    }
+                    else
+                        btnEditar.Enabled = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
+
+
+        //CONFIGURACIÓN DATAGRIDVIEW TELÉFONOS
         private void ConfiguracionDGV()
         {
             var dgv = dgvTelefonos;
@@ -150,6 +309,8 @@ namespace Interfaz
 
         }
 
+
+        //FUNCIONAMIENTO COMBOBOXES
         private void cboProvincia_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboProvincia.SelectedIndex >= 0)
@@ -174,49 +335,8 @@ namespace Interfaz
             }
         }
 
-        private void cboTipoDNI_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (txtDNI.Text != "")
-                {
 
-                    //if (bd.VerificarPersona(Convert.ToInt32(cboTipoDNI.SelectedValue), Convert.ToInt32(txtDNI.Text)) > 0)
-
-                    //{
-
-
-                    //    Int32 dni = Convert.ToInt32(txtDNI.Text);
-                    //    Int32 tipoDNI = cboTipoDNI.SelectedIndex + 1;
-                    //    p = new Persona();
-                    //    p = bd.CargarPersona(dni, tipoDNI);
-                    //    //pr.pTelefono = bd.CargarListaTelefonos(Convert.ToInt32(txtDNI.Text), Convert.ToInt32(cboTipoDNI.SelectedIndex + 1));
-                    //    foreach (var item in pr.pTelefono)
-                    //    {
-                    //        dgvTelefonos.Rows.Add(item.pIdTelefono, item.pcodigoArea, item.pnumero);
-                    //    }
-                    //    dgvTelefonos.Columns[0].Visible = false;
-                    //    txtApellido.Text = p.pApellido;
-                    //    txtNombre.Text = p.pNombre;
-                    //    txtDireccion.Text = p.pDireccion;
-                    //    txtAltura.Text = Convert.ToString(p.pAltura);
-                    //    cboProvincia.SelectedValue = p.pProvincia;
-                    //    cboDepartamento.SelectedValue = p.pdepartamento;
-                    //    cboCiudad.SelectedValue = p.pciudad;
-                    //    cboBarrio.SelectedValue = p.pBarrio;
-                    //    txtMail.Text = p.pMail;
-
-                    //}
-
-                }
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
-
+        //VALIDACIONES - HABILITACIÓN Y DESHABILITACIÓN DE CAMPOS
         private bool validarCamposCliente()
         {
             bool validar = false;
@@ -246,63 +366,238 @@ namespace Interfaz
 
         public void limpiarCamposCliente()
         {
-            //foreach (Control c in tblLocador.Controls)
-            //{
-            //    if (c is TextBox && !string.IsNullOrEmpty(c.Text))
-            //    {
-            //        c.Text = "";
-            //    }
-            //}
-            //cboTipoDNI.SelectedIndex = -1;
-            //cboProvincia.SelectedIndex = -1;
-            ////pr.pTelefono.Clear();
+            foreach (Control c in pnlBase.Controls)
+            {
+                if (c is TextBox && !string.IsNullOrEmpty(c.Text) && c != txtDNI)
+                {
+                    c.Text = "";
+                }
+            }
+            cboProvincia.SelectedIndex = -1;
 
-            //cboDepartamento.SelectedIndex = -1;
-            //cboCiudad.SelectedIndex = -1;
-            //cboBarrio.SelectedIndex = -1;
+            cboDepartamento.SelectedIndex = -1;
+            cboCiudad.SelectedIndex = -1;
+            cboBarrio.SelectedIndex = -1;
 
-            //dgvTelefonos.Rows.Clear();
-            //txtDNI.Focus();
+            dgvTelefonos.Rows.Clear();
+            txtDNI.Focus();
         }
 
         public void deshabilitarCamposCliente()
         {
-            //foreach (Control c in tblLocador.Controls)
-            //{
-            //    if (c is TextBox)
-            //    {
-            //        c.Enabled = false;
-            //    }
-            //    else if (c is ComboBox)
-            //    {
-            //        c.Enabled = false;
-            //    }
-            //    else if (c is Button)
-            //    {
-            //        c.Enabled = false;
-            //    }
-            //}
-            //dgvTelefonos.Enabled = false;
+            foreach (Control c in pnlBase.Controls)
+            {
+                if (c is TextBox && c != txtDNI)
+                {
+                    c.Enabled = false;
+                }
+                else if (c is ComboBox && c != cboTipoDNI)
+                {
+                    c.Enabled = false;
+                }
+                else if (c is Button)
+                {
+                    c.Enabled = false;
+                }
+            }
+            dgvTelefonos.Enabled = false;
+            btnEditar.Enabled = true;
         }
 
         public void habilitarCamposCliente()
         {
-            //foreach (Control c in tblLocador.Controls)
-            //{
-            //    if (c is TextBox)
-            //    {
-            //        c.Enabled = true;
-            //    }
-            //    else if (c is ComboBox && c != cboTipoDNI)
-            //    {
-            //        c.Enabled = true;
-            //    }
-            //    else if (c is Button)
-            //    {
-            //        c.Enabled = true;
-            //    }
-            //}
-            //dgvTelefonos.Enabled = true;
+            foreach (Control c in pnlBase.Controls)
+            {
+                if (c is TextBox)
+                {
+                    c.Enabled = true;
+                }
+                else if (c is ComboBox && c != cboTipoDNI)
+                {
+                    c.Enabled = true;
+                }
+                else if (c is Button)
+                {
+                    c.Enabled = true;
+                }
+            }
+            dgvTelefonos.Enabled = true;
+        }
+
+
+        //KEY PRESS - INHABILITACIÓN DE TECLAS EN TEXTBOXES
+        private void txtDNI_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsNumber(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtApellido_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsLetter(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsSeparator(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtNombre_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsLetter(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsSeparator(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDireccion_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsLetter(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsNumber(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsSeparator(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtAltura_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsNumber(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtMail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsSeparator(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void txtCodArea_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsNumber(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+        
+        private void txtTelefono_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsNumber(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPiso_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsNumber(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDepto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsLetter(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsNumber(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsSeparator(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
     }
 }

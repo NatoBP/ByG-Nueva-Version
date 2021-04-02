@@ -58,6 +58,12 @@
     <Compile Include="IngresarBarrio.Designer.cs">
       <DependentUpon>IngresarBarrio.cs</DependentUpon>
     </Compile>
+    <Compile Include="NuevoContrato.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NuevoContrato.Designer.cs">
+      <DependentUpon>NuevoContrato.cs</DependentUpon>
+    </Compile>
     <Compile Include="Principal_1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IngresarBarrio.resx">
       <DependentUpon>IngresarBarrio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NuevoContrato.resx">
+      <DependentUpon>NuevoContrato.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Principal_1.resx">
       <DependentUpon>Principal_1.cs</DependentUpon>

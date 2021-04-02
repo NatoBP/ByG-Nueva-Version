@@ -19,7 +19,7 @@ namespace Interfaz
         public IngresarBarrio()
         {
             InitializeComponent();
-            tc.traerCombo(cboPvcia, "Provincias", "id_provincia", "nombre", "", 0);
+            tc.traerCombo(cboPvcia, "Provincias", "id_provincia", "nombre", "", -1);
             tc.traerCombo(cboDepto, "Departamentos", "id_departamento", "nombreDpto", "", -1);
             tc.traerCombo(cboCiudad, "Ciudades", "id_ciudad", "nombreCiu", "", -1);
         }

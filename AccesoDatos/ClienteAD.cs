@@ -16,7 +16,8 @@ namespace AccesoDatos
         SqlDataReader dr;
         SqlDataAdapter da;
         DataTable dt;
-                     
+
+
         //VERIFICAR EXISTENCIA EN BD
         public int VerificarPersona(Int32 tipoDNI, Int32 dni)
         {
@@ -42,19 +43,36 @@ namespace AccesoDatos
         }
 
         //BUSCA UNA PERSONA Y LA CARGA EN UN DATATABLE
-        public DataTable BuscarPersona(Int32 tipoDNI, Int32 dni )
+        public Persona BuscarPersona(Int32 tipoDNI, Int32 dni )
         {
-            dt = new DataTable();
+            Persona p = new Persona();
 
             try
             {
                 cmd.Connection = cn.Conectar();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "exec BuscarTodo";
+                cmd.CommandText = "BuscarTodo";
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@tipoDNI", tipoDNI);
+                cmd.Parameters.AddWithValue("@tipo", tipoDNI);
                 cmd.Parameters.AddWithValue("@dni", dni);
-                dt.Load(cmd.ExecuteReader());
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    p.pDNI = dr.GetInt32(0);
+                    p.pApellido = Convert.ToString(dr.GetValue(2));
+                    p.pNombre = Convert.ToString(dr.GetValue(3));
+                    p.pDireccion = Convert.ToString(dr.GetValue(4));
+                    p.pAltura = Convert.ToInt32(dr.GetValue(5));
+                    p.pPiso = dr.GetInt32(6);
+                    p.pDepto = Convert.ToString(dr.GetValue(7));
+                    p.pMail = Convert.ToString(dr.GetValue(8));
+                    p.pBarrio = Convert.ToInt32(dr.GetValue(9));
+                    p.pciudad = Convert.ToInt32(dr.GetValue(10));
+                    p.pdepartamento = Convert.ToInt32(dr.GetValue(11));
+                    p.pProvincia = Convert.ToInt32(dr.GetValue(12));
+
+                }
             }
             catch (Exception ex)
             {
@@ -64,17 +82,18 @@ namespace AccesoDatos
             {
                 cn.Desconectar();
             }
-            return dt;
+            return p;
         }
 
+        //INSERTAR PERSONA
         public void InsertarPersona(Persona p)
         {
             try
             {
                 cmd.Connection = cn.Conectar();
-
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "incertarPersona";
+
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@dni", p.pDNI);
                 cmd.Parameters.AddWithValue("@tipDNI", p.pTipoDNI);
@@ -82,6 +101,7 @@ namespace AccesoDatos
                 cmd.Parameters.AddWithValue("@apellidos", p.pApellido);
                 cmd.Parameters.AddWithValue("@calle", p.pDireccion);
                 cmd.Parameters.AddWithValue("@numeroCalle", p.pAltura);
+
                 if (p.pBarrio == 0)
                 {
                     p.pBarrio = 3;
@@ -89,11 +109,84 @@ namespace AccesoDatos
                 }
                 else
                     cmd.Parameters.AddWithValue("@barrio", p.pBarrio);
+
                 cmd.Parameters.AddWithValue("@mail", p.pMail);
                 cmd.Parameters.AddWithValue("@piso", p.pPiso);
                 cmd.Parameters.AddWithValue("@depto", p.pDepto);
 
                 cmd.ExecuteNonQuery();
+                cn.Desconectar();
+
+                if (p.pTelefono.Count > 0)
+                    InsertarTelefono(p.pTelefono);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            
+        }
+
+        //MODIFICAR PERSONA
+        public void modificarPersona(Persona p)
+        {
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "modificarPersona";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@dni", p.pDNI);
+                cmd.Parameters.AddWithValue("@tipDNI", p.pTipoDNI);
+                cmd.Parameters.AddWithValue("@nombre", p.pNombre);
+                cmd.Parameters.AddWithValue("@apellidos", p.pApellido);
+                cmd.Parameters.AddWithValue("@calle", p.pDireccion);
+                cmd.Parameters.AddWithValue("@numeroCalle", p.pAltura);
+                cmd.Parameters.AddWithValue("@barrio", p.pBarrio);
+                cmd.Parameters.AddWithValue("@mail", p.pMail);
+                cmd.Parameters.AddWithValue("@piso", p.pPiso);
+                cmd.Parameters.AddWithValue("@depto", p.pDepto);
+
+                cmd.ExecuteNonQuery();
+                cn.Desconectar();
+
+                if (p.pTelefono.Count > 0)
+                    InsertarTelefono(p.pTelefono);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            
+        }
+
+        //BUSCAR TELEFONO
+        public List<Telefono> buscarTelefonos(int dni, int tipoDNI) 
+        {
+            Persona p = new Persona();
+            p.pTelefono.Clear();
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "mostrarTelefonos";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@dni", dni);
+                cmd.Parameters.AddWithValue("@tipoDNI", tipoDNI);
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Telefono t = new Telefono();
+                    
+                    t.pIdTelefono = Convert.ToInt32(dr.GetValue(0));
+                    t.pfkIdDocumento = Convert.ToInt32(dr.GetValue(1));
+                    t.pfkIdTipoDNI = Convert.ToInt32(dr.GetValue(2));
+                    t.pnumero = Convert.ToString(dr.GetValue(3));
+                    t.pcodigoArea = Convert.ToString(dr.GetValue(4));
+                    p.agregarTelefono(t);
+                }
             }
             catch (Exception e)
             {
@@ -103,8 +196,10 @@ namespace AccesoDatos
             {
                 cn.Desconectar();
             }
+            return p.pTelefono;
         }
 
+        //INSERTAR/MODIFICAR TELEFONO
         public void InsertarTelefono(List<Telefono> telefono)
         {
             try
@@ -132,6 +227,29 @@ namespace AccesoDatos
                 cn.Desconectar();
             }
         }
+
+        //BORRAR TELEFONO
+        public void BorrarTelefono(Int32 id)
+        {
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "borrarTelefono";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@idTelefono", id);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+        }
+
     }
 
 
