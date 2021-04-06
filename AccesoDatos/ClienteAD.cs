@@ -60,6 +60,7 @@ namespace AccesoDatos
                 while (dr.Read())
                 {
                     p.pDNI = dr.GetInt32(0);
+                    p.pTipoDNI = Convert.ToInt32(dr.GetValue(1));
                     p.pApellido = Convert.ToString(dr.GetValue(2));
                     p.pNombre = Convert.ToString(dr.GetValue(3));
                     p.pDireccion = Convert.ToString(dr.GetValue(4));
@@ -71,7 +72,6 @@ namespace AccesoDatos
                     p.pciudad = Convert.ToInt32(dr.GetValue(10));
                     p.pdepartamento = Convert.ToInt32(dr.GetValue(11));
                     p.pProvincia = Convert.ToInt32(dr.GetValue(12));
-
                 }
             }
             catch (Exception ex)
@@ -162,7 +162,7 @@ namespace AccesoDatos
         }
 
         //BUSCAR TELEFONO
-        public List<Telefono> buscarTelefonos(int dni, int tipoDNI) 
+        public List<Telefono> buscarTelefonos(int tipoDNI, int dni) 
         {
             Persona p = new Persona();
             p.pTelefono.Clear();
@@ -204,12 +204,13 @@ namespace AccesoDatos
         {
             try
             {
-                cmd.Connection = cn.Conectar();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "insertarTelefono";
-                cmd.Parameters.Clear();
                 foreach (var item in telefono)
                 {
+                    cmd.Connection = cn.Conectar();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "insertarTelefono";
+                    cmd.Parameters.Clear();
+
                     cmd.Parameters.AddWithValue("@idTelefono", item.pIdTelefono);
                     cmd.Parameters.AddWithValue("@idDNI", item.pfkIdDocumento);
                     cmd.Parameters.AddWithValue("@idtipoDNI", item.pfkIdTipoDNI);
@@ -251,6 +252,4 @@ namespace AccesoDatos
         }
 
     }
-
-
 }

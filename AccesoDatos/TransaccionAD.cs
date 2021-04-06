@@ -14,7 +14,9 @@ namespace AccesoDatos
         private Conexion cn = new Conexion();
         SqlCommand cmd;
         DataTable dt;
+        SqlDataReader dr;
 
+        //INSERTAR BARRIO
         public void insertarBarrio(string nombre, int id_ciudad)
         {
             try
@@ -40,6 +42,7 @@ namespace AccesoDatos
             }
         }
 
+        //TRAER COMBOS UBICACIÓN
         public void traerCombo(ComboBox cbo, string nombreTabla, string id_tabla, string display, string condicion, int idfk)
         {
             try
@@ -84,6 +87,39 @@ namespace AccesoDatos
                 cn.Desconectar();
             }
         }
+
+        //BUSCAR UBICACIÓN POR BARRIO
+        public int[] buscarUbicacion(int idBarrio)
+        {
+            int[] ubicacion = new int[4];
+            try
+            {
+                string comandoSql = "exec  mostrarUbicacion @idBarrio = " + idBarrio + "";
+                cmd.CommandText = comandoSql;
+                if (cn != null && cn.Conectar().State == ConnectionState.Closed)
+                {
+                    cn.Conectar();
+                }
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    ubicacion[0] = dr.GetInt32(0);
+                    ubicacion[1] = dr.GetInt32(1);
+                    ubicacion[2] = dr.GetInt32(2);
+                    ubicacion[3] = dr.GetInt32(3);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+            return ubicacion;
+        }
+
     }
 }
 

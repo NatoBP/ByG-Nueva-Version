@@ -14,3 +14,4 @@ C:\Users\Nato\source\repos\Solution1\Interfaz\bin\Debug\AccesoDatos.dll
 C:\Users\Nato\source\repos\Solution1\Interfaz\bin\Debug\AccesoDatos.pdb
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.IngresarBarrio.resources
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.NuevoContrato.resources
+C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.Propiedades.resources

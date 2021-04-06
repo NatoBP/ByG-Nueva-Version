@@ -22,17 +22,14 @@ namespace Interfaz
         public bool garante = false;
         public bool comprobantes = false;
         public bool nuevaPropiedad = false;
+        Int32 dni; //Estas variables se usan para hacer una nueva búsqueda de teléfono porque si no, no tengo el ID
+        Int32 tipo;
 
         public Clientes()
         {
             InitializeComponent();
             ConfiguracionDGV();
-            tc.traerCombo(cboTipoDNI, "TiposDNI", "id_DNI", "tipoDNI", "", -1);
-            tc.traerCombo(cboProvincia, "Provincias", "id_provincia", "nombre", "", -1);
-            tc.traerCombo(cboDepartamento, "Departamentos", "id_departamento", "nombreDpto", "", -1);
-            tc.traerCombo(cboCiudad, "Ciudades", "id_ciudad", "nombreCiu", "", -1);
-            tc.traerCombo(cboBarrio, "Barrios", "id_barrio", "nombreBarr", "", -1);
-            cboProvincia.SelectedValue = 14;
+            cargaInicial();
         }
 
         //BOTONES
@@ -56,7 +53,6 @@ namespace Interfaz
                 t.pnumero = txtTelefono.Text;
                 pr.agregarTelefono(t);
 
-
                 dgvTelefonos.Rows.Add(null, t.pcodigoArea, t.pnumero);
                 txtTelefono.Clear();
                 txtCodArea.Clear();
@@ -73,7 +69,6 @@ namespace Interfaz
 
                     if (opcion == DialogResult.Yes)
                     {
-
                         cl.BorrarTelefono(Convert.ToInt32(dgvTelefonos.CurrentRow.Cells[0].Value));
 
                         foreach (var item in pr.pTelefono) //Primero borramos el registro de la lista
@@ -91,8 +86,6 @@ namespace Interfaz
                         {
                             dgvTelefonos.Rows.Add(item.pIdTelefono, item.pcodigoArea, item.pnumero);
                         }
-
-                        
                     }
                 }
             }
@@ -107,8 +100,8 @@ namespace Interfaz
         {
             if (validarCamposCliente())
             {
-                pr.pDNI = Convert.ToInt32(txtDNI.Text);
-                pr.pTipoDNI = Convert.ToInt32(cboTipoDNI.SelectedValue);
+                dni = pr.pDNI = Convert.ToInt32(txtDNI.Text);
+                tipo = pr.pTipoDNI = Convert.ToInt32(cboTipoDNI.SelectedValue);
                 pr.pApellido = txtApellido.Text;
                 pr.pNombre = txtNombre.Text;
                 pr.pDireccion = txtDireccion.Text;
@@ -135,52 +128,162 @@ namespace Interfaz
                 pr.pProvincia = Convert.ToInt32(cboProvincia.SelectedValue);
                 pr.pMail = txtMail.Text.Trim();
 
-                if (cl.VerificarPersona(Convert.ToInt32(cboTipoDNI.SelectedValue), Convert.ToInt32(txtDNI.Text)) == 0)//Si la persona no existe en BD
+                //SI LA PERSONA NO EXISTE, INSERTAR
+                if (cl.VerificarPersona(pr.pTipoDNI, pr.pDNI)== 0)
                 {
-                    cl.InsertarPersona(pr);
+                    cl.InsertarPersona(pr); //Primero se hace la inserción con los campos ingresados
+
+                    pr.pTelefono = null; //Limpio la lista de teléfonos
+                    pr.pTelefono = cl.buscarTelefonos(tipo, dni); //Se necesita buscar los teléfonos porque si no, no tienen el ID
 
                     if (locador == true) //Si se ingresa un nuevo Locador desde Nuevo Contrato
                     {
-                        locador = false;
+                        this.Close();
+
+                        NuevoContrato nc = new NuevoContrato();
+                        locador = false; //Ponemos la bandera falso
+                       
+                        AddOwnedForm(nc);
+                        nc.TopLevel = false;
+                        nc.Dock = DockStyle.Fill;
+                        this.Controls.Add(nc);
+                        this.Tag = nc;
+
+                        nc.cargarCamposLocador(pr); //Cargamos los campos
+
+                        limpiarCamposCliente();
+
+                        nc.BringToFront();
+                        nc.Show();
                     }
                     else if (locatario == true)
                     {
+                        this.Close();
+                        NuevoContrato nc = new NuevoContrato();
                         locatario = false;
+
+                        AddOwnedForm(nc);
+                        nc.TopLevel = false;
+                        nc.Dock = DockStyle.Fill;
+                        this.Controls.Add(nc);
+                        this.Tag = nc;
+
+                        nc.cargarCamposLocatario(pr);
+
+                        limpiarCamposCliente();
+
+                        nc.BringToFront();
+                        nc.Show();
                     }
                     else if (garante == true)
                     {
+                        this.Close();
+                        NuevoContrato nc = new NuevoContrato();
                         garante = false;
+
+                        AddOwnedForm(nc);
+                        nc.TopLevel = false;
+                        nc.Dock = DockStyle.Fill;
+                        this.Controls.Add(nc);
+                        this.Tag = nc;
+
+                        nc.cargarCamposGarante(pr);
+
+                        limpiarCamposCliente();
+
+                        nc.BringToFront();
+                        nc.Show();
                     }
                     else if (comprobantes == true)
                     {
+                        this.Close();
                         comprobantes = false;
                     }
-                    MessageBox.Show("Se ingresó correctamente");
+                    else
+                    {
+                        this.Close();
+                    }
+                    //MessageBox.Show("Se ingresó correctamente");
                 }
+
+                //SI LA PERSONA EXISTE, ACTUALIZAR
                 else
                 {
                     cl.modificarPersona(pr);
 
+                    pr.pTelefono = null; //Limpio la lista de teléfonos
+                    pr.pTelefono = cl.buscarTelefonos(tipo, dni); //Se necesita buscar los teléfonos porque si no, no tienen el ID
+
                     if (locador == true) //Si se ingresa un nuevo Locador desde Nuevo Contrato
                     {
-                        locador = false;
+                        this.Close();
+                        NuevoContrato nc = new NuevoContrato();
+                        locador = false; //Ponemos la bandera falso
+
+                        AddOwnedForm(nc);
+                        nc.TopLevel = false;
+                        nc.Dock = DockStyle.Fill;
+                        this.Controls.Add(nc);
+                        this.Tag = nc;
+
+                        nc.cargarCamposLocador(pr); //Cargamos los campos
+
+                        limpiarCamposCliente();
+
+                        nc.BringToFront();
+                        nc.Show();
+                        
                     }
                     else if (locatario == true)
                     {
+                        this.Close();
+                        NuevoContrato nc = new NuevoContrato();
                         locatario = false;
+
+                        AddOwnedForm(nc);
+                        nc.TopLevel = false;
+                        nc.Dock = DockStyle.Fill;
+                        this.Controls.Add(nc);
+                        this.Tag = nc;
+
+                        nc.cargarCamposLocatario(pr);
+
+                        limpiarCamposCliente();
+
+                        nc.BringToFront();
+                        nc.Show();
                     }
                     else if (garante == true)
                     {
+                        this.Close();
+                        NuevoContrato nc = new NuevoContrato();
                         garante = false;
+
+                        AddOwnedForm(nc);
+                        nc.TopLevel = false;
+                        nc.Dock = DockStyle.Fill;
+                        this.Controls.Add(nc);
+                        this.Tag = nc;
+
+                        nc.cargarCamposGarante(pr);
+
+                        limpiarCamposCliente();
+
+                        nc.BringToFront();
+                        nc.Show();
                     }
                     else if (comprobantes == true)
                     {
+                        this.Close();
                         comprobantes = false;
+
+                        limpiarCamposCliente();
                     }
-                    MessageBox.Show("Se modificó correctamente");
-                    
+                    else
+                    {
+                        this.Close();
+                    }
                 }
-                
             }
         }
 
@@ -223,7 +326,6 @@ namespace Interfaz
             this.Close();
         }
 
-
         //FUNCIONALIDAD COMBO TIPO-DNI
         private void cboTipoDNI_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -237,7 +339,7 @@ namespace Interfaz
 
                     {
                         pr = cl.BuscarPersona(Convert.ToInt32(cboTipoDNI.SelectedValue), Convert.ToInt32(txtDNI.Text));
-                        pr.pTelefono = cl.buscarTelefonos(Convert.ToInt32(txtDNI.Text), Convert.ToInt32(cboTipoDNI.SelectedIndex + 1)); //Ya carga los teléfonos en la lista
+                        pr.pTelefono = cl.buscarTelefonos(Convert.ToInt32(cboTipoDNI.SelectedValue), Convert.ToInt32(txtDNI.Text)); //Ya carga los teléfonos en la lista
 
                         foreach (var item in pr.pTelefono)
                         {
@@ -248,6 +350,8 @@ namespace Interfaz
                         txtNombre.Text = pr.pNombre;
                         txtDireccion.Text = pr.pDireccion;
                         txtAltura.Text = Convert.ToString(pr.pAltura);
+                        txtPiso.Text = Convert.ToString(pr.pPiso);
+                        txtDepto.Text = pr.pDepto;
                         cboProvincia.SelectedValue = pr.pProvincia;
                         cboDepartamento.SelectedValue = pr.pdepartamento;
                         cboCiudad.SelectedValue = pr.pciudad;
@@ -265,6 +369,58 @@ namespace Interfaz
             }
         }
 
+
+        //NUEVOS CLIENTES CUYOS DATOS VIENEN DE OTRAS VENTANAS
+        public void nuevoCliente(Int32 tipo, string dni)
+        {
+            limpiarCamposCliente();
+
+            cboTipoDNI.SelectedValue = tipo;
+            txtDNI.Text = dni;
+            cboProvincia.SelectedValue = 14;
+            cboDepartamento.SelectedValue = 14021;
+        }
+
+        //CLIENTES CUYOS DATOS VIENEN PARA SER EDITADOS
+        public void editarCliente(Persona per)
+        {
+            limpiarCamposCliente();
+            cboTipoDNI.Enabled = false;
+            txtDNI.Enabled = false;
+            pr = null;
+            pr = per;
+
+            cboTipoDNI.SelectedValue = per.pTipoDNI;
+            txtDNI.Text = Convert.ToString(per.pDNI);
+            txtApellido.Text = per.pApellido;
+            foreach (var item in per.pTelefono)
+            {
+                dgvTelefonos.Rows.Add(item.pIdTelefono, item.pcodigoArea, item.pnumero);
+            }
+            txtNombre.Text = per.pNombre;
+            txtDireccion.Text = per.pDireccion;
+            txtAltura.Text = Convert.ToString(per.pAltura);
+            txtPiso.Text = Convert.ToString(per.pPiso);
+            txtDepto.Text = per.pDepto;
+            cboProvincia.SelectedValue = per.pProvincia;
+            cboDepartamento.SelectedValue = per.pdepartamento;
+            cboCiudad.SelectedValue = per.pciudad;
+            cboBarrio.SelectedValue = per.pBarrio;
+            txtMail.Text = per.pMail;
+        }
+
+
+        //CARGA INICIAL
+        private void cargaInicial()
+        {
+            tc.traerCombo(cboTipoDNI, "TiposDNI", "id_DNI", "tipoDNI", "", -1);
+            tc.traerCombo(cboProvincia, "Provincias", "id_provincia", "nombre", "", -1);
+            tc.traerCombo(cboDepartamento, "Departamentos", "id_departamento", "nombreDpto", "", -1);
+            tc.traerCombo(cboCiudad, "Ciudades", "id_ciudad", "nombreCiu", "", -1);
+            tc.traerCombo(cboBarrio, "Barrios", "id_barrio", "nombreBarr", "", -1);
+            cboProvincia.SelectedValue = 14;
+            cboDepartamento.SelectedValue = 14021;
+        }
 
         //CONFIGURACIÓN DATAGRIDVIEW TELÉFONOS
         private void ConfiguracionDGV()
@@ -309,8 +465,7 @@ namespace Interfaz
 
         }
 
-
-        //FUNCIONAMIENTO COMBOBOXES
+        //FUNCIONAMIENTO COMBO-BOXES
         private void cboProvincia_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboProvincia.SelectedIndex >= 0)
@@ -334,7 +489,6 @@ namespace Interfaz
                 tc.traerCombo(cboBarrio, "Barrios", "id_barrio", "nombreBarr", "ciudad", Convert.ToInt32(cboCiudad.SelectedValue));
             }
         }
-
 
         //VALIDACIONES - HABILITACIÓN Y DESHABILITACIÓN DE CAMPOS
         private bool validarCamposCliente()
@@ -423,7 +577,6 @@ namespace Interfaz
             }
             dgvTelefonos.Enabled = true;
         }
-
 
         //KEY PRESS - INHABILITACIÓN DE TECLAS EN TEXTBOXES
         private void txtDNI_KeyPress_1(object sender, KeyPressEventArgs e)

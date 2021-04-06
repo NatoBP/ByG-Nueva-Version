@@ -42,11 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\CaracteristicaPropiedad.cs" />
+    <Compile Include="Clases\Foto.cs" />
     <Compile Include="Clases\Persona.cs" />
+    <Compile Include="Clases\Propiedad.cs" />
     <Compile Include="Clases\Telefono.cs" />
     <Compile Include="ClienteAD.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropiedadAD.cs" />
     <Compile Include="TransaccionAD.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

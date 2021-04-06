@@ -314,6 +314,11 @@ namespace Interfaz
             abrirVentanaPanel(new Clientes());
         }
 
+        private void rbtNuevoContrato_CheckedChanged(object sender, EventArgs e)
+        {
+            abrirVentanaPanel(new NuevoContrato());
+        }
+
         //METODO PARA REDIMENCIONAR/CAMBIAR TAMAÑO A FORMULARIO  TIEMPO DE EJECUCION ----------------------------------------------------------
         private int tolerance = 15;
         private const int WM_NCHITTEST = 132;
@@ -360,7 +365,6 @@ namespace Interfaz
             if (this.pnlContenedor.Controls.Count > 0)
             {
                 this.pnlContenedor.Controls.RemoveAt(0);
-
             }
             Form fh = formhijo as Form;
             fh.TopLevel = false;
@@ -368,7 +372,6 @@ namespace Interfaz
             this.pnlContenedor.Controls.Add(fh);
             this.pnlContenedor.Tag = fh;
             fh.Show();
-
         }
 
         //BARRA TÍTULO
@@ -378,14 +381,15 @@ namespace Interfaz
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
-
-
+        private void rbtNuevaProp_CheckedChanged(object sender, EventArgs e)
+        {
+            abrirVentanaPanel(new Propiedades());
+        }
 
 
         //----------------COLOR Y GRIP DE RECTANGULO INFERIOR
         protected override void OnPaint(PaintEventArgs e)
         {
-
             SolidBrush blueBrush = new SolidBrush(Color.FromArgb(99, 103, 125));
             e.Graphics.FillRectangle(blueBrush, sizeGripRectangle);
 
@@ -393,7 +397,6 @@ namespace Interfaz
             ControlPaint.DrawSizeGrip(e.Graphics, Color.Transparent, sizeGripRectangle);
         }
 
-     
         #endregion
     }
 }
