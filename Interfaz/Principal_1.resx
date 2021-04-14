@@ -1241,7 +1241,7 @@
   <data name="rbtAlquileres.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        ugAAALoBTx5ghQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIFSURBVFhH7dZL
+        twAAALcBRi4NFgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIFSURBVFhH7dZL
         qE1RHMfxnccAGSiPkRATr0RGBgZSrolCKI8UcglJ5KZMmHDv5GbCgDGlRBFJZgZkIAOMGCiGiijP+H7X
         XqvWKed0nbOt7uD+6tNda51z9/9/9rvqIbvwPtrhQsnMxDcMYyiOZ6BYFuM3lmJJHLtWLMdh0c/4Eseu
         Fclh/MJ+bIscu+Zn/zV7YKGDYdaaTp81kt34iUNh9vfsQ9o7jWYrLH4yzDrnKPzuzjBrIJvxA6fCbGQ5
@@ -1276,7 +1276,7 @@
   <data name="rbtAdminProp.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        sQAAALEBxi1JjQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOmSURBVFhHtZZp
+        rgAAAK4B+ff3XQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOmSURBVFhHtZZp
         qI5pGMdfZMIwsmTJxFAj8sWWD2RryCRLdmXLHlE+yJpEyPJhirJETPhg+UQpDZIi21jKTgiNGGM3thK/
         33vep55zn/d93ucV//p1nuec89z3/77u67ruO4MWwFv4XAJvYDp8Ezn5cJhVAmPhH/gmckUO+gD2puAx
         zIBPcLsAx6EhpFJkwMHT6DBo4CV0yMNocMzLkMpEZMCVOXgxnoIGnkE+aeIOrIXr0BgSpYG2MBIceAIM
@@ -1331,7 +1331,7 @@
   <data name="rbtClientes.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        sQAAALEBxi1JjQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOmSURBVFhHtZZp
+        rgAAAK4B+ff3XQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOmSURBVFhHtZZp
         qI5pGMdfZMIwsmTJxFAj8sWWD2RryCRLdmXLHlE+yJpEyPJhirJETPhg+UQpDZIi21jKTgiNGGM3thK/
         33vep55zn/d93ucV//p1nuec89z3/77u67ruO4MWwFv4XAJvYDp8Ezn5cJhVAmPhH/gmckUO+gD2puAx
         zIBPcLsAx6EhpFJkwMHT6DBo4CV0yMNocMzLkMpEZMCVOXgxnoIGnkE+aeIOrIXr0BgSpYG2MBIceAIM

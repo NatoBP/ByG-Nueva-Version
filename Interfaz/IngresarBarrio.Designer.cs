@@ -60,6 +60,7 @@
             this.txtBarrio.Name = "txtBarrio";
             this.txtBarrio.Size = new System.Drawing.Size(121, 20);
             this.txtBarrio.TabIndex = 71;
+            this.txtBarrio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBarrio_KeyPress);
             // 
             // btnCargarBarrio
             // 

@@ -81,6 +81,7 @@
             this.label61 = new System.Windows.Forms.Label();
             this.label62 = new System.Windows.Forms.Label();
             this.grpGarante = new System.Windows.Forms.GroupBox();
+            this.btnQuitarGarante = new System.Windows.Forms.Button();
             this.btnEditarGarante = new System.Windows.Forms.Button();
             this.label79 = new System.Windows.Forms.Label();
             this.lblMailGarante = new System.Windows.Forms.Label();
@@ -141,7 +142,6 @@
             this.txtDuracion = new System.Windows.Forms.TextBox();
             this.label54 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
-            this.btnQuitarGarante = new System.Windows.Forms.Button();
             this.pnlBase.SuspendLayout();
             this.grpLocador.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPropiedades)).BeginInit();
@@ -364,6 +364,7 @@
             this.txtDNILocador.Size = new System.Drawing.Size(132, 20);
             this.txtDNILocador.TabIndex = 0;
             this.txtDNILocador.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDNILocador.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNILocador_KeyPress);
             // 
             // grpLocatario
             // 
@@ -672,6 +673,7 @@
             this.txtDNILocatario.Size = new System.Drawing.Size(132, 20);
             this.txtDNILocatario.TabIndex = 0;
             this.txtDNILocatario.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDNILocatario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNILocatario_KeyPress);
             // 
             // label60
             // 
@@ -744,6 +746,19 @@
             this.grpGarante.TabIndex = 6;
             this.grpGarante.TabStop = false;
             this.grpGarante.Text = "Garantes";
+            // 
+            // btnQuitarGarante
+            // 
+            this.btnQuitarGarante.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
+            this.btnQuitarGarante.FlatAppearance.BorderSize = 0;
+            this.btnQuitarGarante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQuitarGarante.Location = new System.Drawing.Point(775, 109);
+            this.btnQuitarGarante.Name = "btnQuitarGarante";
+            this.btnQuitarGarante.Size = new System.Drawing.Size(50, 23);
+            this.btnQuitarGarante.TabIndex = 126;
+            this.btnQuitarGarante.Text = "<<";
+            this.btnQuitarGarante.UseVisualStyleBackColor = false;
+            this.btnQuitarGarante.Click += new System.EventHandler(this.btnQuitarGarante_Click);
             // 
             // btnEditarGarante
             // 
@@ -1040,6 +1055,7 @@
             this.txtDNIGarante.Size = new System.Drawing.Size(132, 20);
             this.txtDNIGarante.TabIndex = 0;
             this.txtDNIGarante.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDNIGarante.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNIGarante_KeyPress);
             // 
             // label16
             // 
@@ -1129,6 +1145,7 @@
             this.txt2doAumento.Size = new System.Drawing.Size(25, 20);
             this.txt2doAumento.TabIndex = 11;
             this.txt2doAumento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txt2doAumento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt2doAumento_KeyPress);
             // 
             // txt1erAumento
             // 
@@ -1138,6 +1155,7 @@
             this.txt1erAumento.Size = new System.Drawing.Size(25, 20);
             this.txt1erAumento.TabIndex = 10;
             this.txt1erAumento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txt1erAumento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt1erAumento_KeyPress);
             // 
             // dtpActualizacion2
             // 
@@ -1204,6 +1222,7 @@
             this.txtDiaVencimiento.Size = new System.Drawing.Size(60, 20);
             this.txtDiaVencimiento.TabIndex = 2;
             this.txtDiaVencimiento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDiaVencimiento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDiaVencimiento_KeyPress);
             // 
             // txtIntereses
             // 
@@ -1213,6 +1232,7 @@
             this.txtIntereses.Size = new System.Drawing.Size(60, 20);
             this.txtIntereses.TabIndex = 1;
             this.txtIntereses.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtIntereses.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIntereses_KeyPress);
             // 
             // btnRegistrarContrato
             // 
@@ -1225,6 +1245,7 @@
             this.btnRegistrarContrato.TabIndex = 12;
             this.btnRegistrarContrato.Text = "Registrar Contrato";
             this.btnRegistrarContrato.UseVisualStyleBackColor = false;
+            this.btnRegistrarContrato.Click += new System.EventHandler(this.btnRegistrarContrato_Click);
             // 
             // label20
             // 
@@ -1286,6 +1307,7 @@
             this.txtDeposito.Size = new System.Drawing.Size(60, 20);
             this.txtDeposito.TabIndex = 5;
             this.txtDeposito.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDeposito.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDeposito_KeyPress);
             // 
             // label53
             // 
@@ -1304,6 +1326,7 @@
             this.txtPrecioAlquiler.Size = new System.Drawing.Size(60, 20);
             this.txtPrecioAlquiler.TabIndex = 0;
             this.txtPrecioAlquiler.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPrecioAlquiler.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioAlquiler_KeyPress);
             // 
             // txtDuracion
             // 
@@ -1314,6 +1337,7 @@
             this.txtDuracion.TabIndex = 4;
             this.txtDuracion.Text = "36";
             this.txtDuracion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDuracion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDuracion_KeyPress);
             // 
             // label54
             // 
@@ -1332,19 +1356,6 @@
             this.label55.Size = new System.Drawing.Size(98, 13);
             this.label55.TabIndex = 11;
             this.label55.Text = "Duración en meses";
-            // 
-            // btnQuitarGarante
-            // 
-            this.btnQuitarGarante.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.btnQuitarGarante.FlatAppearance.BorderSize = 0;
-            this.btnQuitarGarante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQuitarGarante.Location = new System.Drawing.Point(775, 109);
-            this.btnQuitarGarante.Name = "btnQuitarGarante";
-            this.btnQuitarGarante.Size = new System.Drawing.Size(50, 23);
-            this.btnQuitarGarante.TabIndex = 126;
-            this.btnQuitarGarante.Text = "<<";
-            this.btnQuitarGarante.UseVisualStyleBackColor = false;
-            this.btnQuitarGarante.Click += new System.EventHandler(this.btnQuitarGarante_Click);
             // 
             // NuevoContrato
             // 

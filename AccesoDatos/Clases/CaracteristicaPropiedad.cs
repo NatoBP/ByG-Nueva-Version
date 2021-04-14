@@ -8,10 +8,11 @@ namespace AccesoDatos.Clases
 {
     public class CaracteristicaPropiedad
     {
-        int id;
+        Int32 id;
         string caracteristica;
         string descripcion;
-        int valor;
+        Int32 valor;
+        double importe;
 
         public CaracteristicaPropiedad()
         {
@@ -19,32 +20,34 @@ namespace AccesoDatos.Clases
             caracteristica = "";
             descripcion = "";
             valor = 0;
+            importe = 0;
         }
 
-        public CaracteristicaPropiedad(int idCaracteristica, string nombre, int valor)
+        public CaracteristicaPropiedad(Int32 id, string nombre, Int32 valor)
         {
-            this.id = idCaracteristica;
+            this.id = id;
             this.caracteristica = nombre;
             this.valor = valor;
 
         }
 
-        public CaracteristicaPropiedad(int idCaracteristica, string nombre, string descripcion)
+        public CaracteristicaPropiedad(Int32 id, string nombre, string descripcion, double importe)
         {
-            this.id = idCaracteristica;
+            this.id = id;
             this.caracteristica = nombre;
             this.descripcion = descripcion;
+            this.importe = importe;
         }
 
-        public CaracteristicaPropiedad(int idCaracteristica, int valor)
+        public CaracteristicaPropiedad(Int32 id, Int32 valor)
         {
-            this.id = idCaracteristica;
+            this.id = id;
             this.caracteristica = "";
             this.valor = valor;
         }
 
         //PROPIEDADES
-        public int pId
+        public Int32 pId
         {
             set { id = value; }
             get { return id; }
@@ -62,10 +65,16 @@ namespace AccesoDatos.Clases
             get { return descripcion; }
         }
 
-        public int pValor
+        public Int32 pValor
         {
             set { valor = value; }
             get { return valor; }
+        }
+
+        public double pImporte
+        {
+            set { importe = value; }
+            get { return importe; }
         }
 
 

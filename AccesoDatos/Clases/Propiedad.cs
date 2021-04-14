@@ -62,7 +62,10 @@ namespace AccesoDatos.Clases
 
         public void agregarCaracteristica(CaracteristicaPropiedad c)
         {
-            caracteristicas.Add(c);
+            if (c != null)
+                caracteristicas.Add(c);
+            else
+                return;
         }
 
         public void agregarFotos(Foto f)
@@ -70,9 +73,9 @@ namespace AccesoDatos.Clases
             listaFotos.Add(f);
         }
 
-        internal List<CaracteristicaPropiedad> Caracteristicas { get => caracteristicas; }
+        public List<CaracteristicaPropiedad> Caracteristicas { get => caracteristicas; }
 
-        internal List<Foto> ListaFotos { get => listaFotos; }
+        public List<Foto> ListaFotos { get => listaFotos; }
 
         //PROPIEDADES
         public Int32 pId_propiedad

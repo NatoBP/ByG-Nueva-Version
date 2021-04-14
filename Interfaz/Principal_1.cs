@@ -386,6 +386,21 @@ namespace Interfaz
             abrirVentanaPanel(new Propiedades());
         }
 
+        private void rbtAlqVigentes_CheckedChanged(object sender, EventArgs e)
+        {
+            abrirVentanaPanel(new AlquileresVigentes());
+        }
+
+        private void rbtAlqNoVigentes_CheckedChanged(object sender, EventArgs e)
+        {
+            abrirVentanaPanel(new AlquileresNoVigentes());
+        }
+
+        private void rbtEstadoCuentas_CheckedChanged(object sender, EventArgs e)
+        {
+            abrirVentanaPanel(new EstadoDeCuentas());
+        }
+
 
         //----------------COLOR Y GRIP DE RECTANGULO INFERIOR
         protected override void OnPaint(PaintEventArgs e)

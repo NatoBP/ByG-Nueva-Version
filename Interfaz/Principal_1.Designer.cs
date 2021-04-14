@@ -226,6 +226,7 @@
             this.rbtAlqVigentes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtAlqVigentes.UseVisualStyleBackColor = false;
             this.rbtAlqVigentes.Visible = false;
+            this.rbtAlqVigentes.CheckedChanged += new System.EventHandler(this.rbtAlqVigentes_CheckedChanged);
             this.rbtAlqVigentes.Click += new System.EventHandler(this.rbtAlqVigentes_Click);
             // 
             // rbtAlquileres
@@ -309,6 +310,7 @@
             this.rbtEstadoCuentas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtEstadoCuentas.UseVisualStyleBackColor = false;
             this.rbtEstadoCuentas.Visible = false;
+            this.rbtEstadoCuentas.CheckedChanged += new System.EventHandler(this.rbtEstadoCuentas_CheckedChanged);
             this.rbtEstadoCuentas.Click += new System.EventHandler(this.rbtEstadoCuentas_Click);
             // 
             // rbtVentas
@@ -357,6 +359,7 @@
             this.rbtAlqNoVigentes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtAlqNoVigentes.UseVisualStyleBackColor = false;
             this.rbtAlqNoVigentes.Visible = false;
+            this.rbtAlqNoVigentes.CheckedChanged += new System.EventHandler(this.rbtAlqNoVigentes_CheckedChanged);
             this.rbtAlqNoVigentes.Click += new System.EventHandler(this.rbtAlqNoVigentes_Click);
             // 
             // rbtAdminProp

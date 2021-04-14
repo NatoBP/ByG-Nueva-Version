@@ -462,7 +462,6 @@ namespace Interfaz
 
             dgv.AllowUserToResizeColumns = false;
             dgv.AllowUserToResizeRows = false;
-
         }
 
         //FUNCIONAMIENTO COMBO-BOXES

@@ -172,6 +172,7 @@
             // 
             this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Location = new System.Drawing.Point(869, 598);
             this.btnCancelar.Name = "btnCancelar";
@@ -276,6 +277,7 @@
             this.btnEditar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
             this.btnEditar.Enabled = false;
+            this.btnEditar.FlatAppearance.BorderSize = 0;
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditar.Location = new System.Drawing.Point(869, 354);
             this.btnEditar.Name = "btnEditar";
@@ -309,6 +311,7 @@
             // 
             this.btnGuardar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
+            this.btnGuardar.FlatAppearance.BorderSize = 0;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Location = new System.Drawing.Point(869, 536);
             this.btnGuardar.Name = "btnGuardar";
@@ -405,6 +408,7 @@
             // 
             this.btnCargarBarrio.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCargarBarrio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
+            this.btnCargarBarrio.FlatAppearance.BorderSize = 0;
             this.btnCargarBarrio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCargarBarrio.Location = new System.Drawing.Point(697, 536);
             this.btnCargarBarrio.Name = "btnCargarBarrio";
@@ -472,6 +476,7 @@
             // 
             this.btnBorrarTelefono.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnBorrarTelefono.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
+            this.btnBorrarTelefono.FlatAppearance.BorderSize = 0;
             this.btnBorrarTelefono.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBorrarTelefono.Location = new System.Drawing.Point(869, 308);
             this.btnBorrarTelefono.Name = "btnBorrarTelefono";
@@ -485,6 +490,7 @@
             // 
             this.btnCargarTelefono.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCargarTelefono.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
+            this.btnCargarTelefono.FlatAppearance.BorderSize = 0;
             this.btnCargarTelefono.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCargarTelefono.Location = new System.Drawing.Point(869, 260);
             this.btnCargarTelefono.Name = "btnCargarTelefono";

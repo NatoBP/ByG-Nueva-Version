@@ -84,7 +84,7 @@ namespace AccesoDatos
             }
             return p;
         }
-
+        
         //INSERTAR PERSONA
         public void InsertarPersona(Persona p)
         {
