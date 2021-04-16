@@ -30,6 +30,18 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlBase = new System.Windows.Forms.Panel();
+            this.pnlNuevaProp = new System.Windows.Forms.Panel();
+            this.grpNuevaProp = new System.Windows.Forms.GroupBox();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnBuscarApellido = new System.Windows.Forms.Button();
+            this.cboTipoBuscar = new System.Windows.Forms.ComboBox();
+            this.txtNombreBuscar = new System.Windows.Forms.TextBox();
+            this.txtApellidoBuscar = new System.Windows.Forms.TextBox();
+            this.txtDniBuscar = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.grpCaracteristicas = new System.Windows.Forms.GroupBox();
             this.btnBorrarImagen = new System.Windows.Forms.Button();
             this.pctImagen = new System.Windows.Forms.PictureBox();
@@ -75,7 +87,9 @@
             this.label43 = new System.Windows.Forms.Label();
             this.cboDepto = new System.Windows.Forms.ComboBox();
             this.cboProvincia = new System.Windows.Forms.ComboBox();
+            this.label44 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnNuevaProp = new System.Windows.Forms.Button();
             this.btnVerFotos = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnEditar = new System.Windows.Forms.Button();
@@ -85,8 +99,9 @@
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.lblDireccion = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
             this.pnlBase.SuspendLayout();
+            this.pnlNuevaProp.SuspendLayout();
+            this.grpNuevaProp.SuspendLayout();
             this.grpCaracteristicas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctImagen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaracteristicas)).BeginInit();
@@ -97,6 +112,7 @@
             // 
             // pnlBase
             // 
+            this.pnlBase.Controls.Add(this.pnlNuevaProp);
             this.pnlBase.Controls.Add(this.grpCaracteristicas);
             this.pnlBase.Controls.Add(this.grpPropiedad);
             this.pnlBase.Controls.Add(this.groupBox1);
@@ -105,6 +121,129 @@
             this.pnlBase.Name = "pnlBase";
             this.pnlBase.Size = new System.Drawing.Size(1050, 650);
             this.pnlBase.TabIndex = 0;
+            // 
+            // pnlNuevaProp
+            // 
+            this.pnlNuevaProp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlNuevaProp.Controls.Add(this.grpNuevaProp);
+            this.pnlNuevaProp.Location = new System.Drawing.Point(0, 0);
+            this.pnlNuevaProp.Name = "pnlNuevaProp";
+            this.pnlNuevaProp.Size = new System.Drawing.Size(456, 204);
+            this.pnlNuevaProp.TabIndex = 121;
+            this.pnlNuevaProp.Visible = false;
+            // 
+            // grpNuevaProp
+            // 
+            this.grpNuevaProp.Controls.Add(this.btnCancelar);
+            this.grpNuevaProp.Controls.Add(this.btnBuscarApellido);
+            this.grpNuevaProp.Controls.Add(this.cboTipoBuscar);
+            this.grpNuevaProp.Controls.Add(this.txtNombreBuscar);
+            this.grpNuevaProp.Controls.Add(this.txtApellidoBuscar);
+            this.grpNuevaProp.Controls.Add(this.txtDniBuscar);
+            this.grpNuevaProp.Controls.Add(this.label6);
+            this.grpNuevaProp.Controls.Add(this.label5);
+            this.grpNuevaProp.Controls.Add(this.label4);
+            this.grpNuevaProp.Controls.Add(this.label3);
+            this.grpNuevaProp.Location = new System.Drawing.Point(9, 4);
+            this.grpNuevaProp.Name = "grpNuevaProp";
+            this.grpNuevaProp.Size = new System.Drawing.Size(444, 194);
+            this.grpNuevaProp.TabIndex = 0;
+            this.grpNuevaProp.TabStop = false;
+            this.grpNuevaProp.Text = "Nueva Propiedad:";
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Location = new System.Drawing.Point(288, 148);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(140, 23);
+            this.btnCancelar.TabIndex = 14;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnBuscarApellido
+            // 
+            this.btnBuscarApellido.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
+            this.btnBuscarApellido.FlatAppearance.BorderSize = 0;
+            this.btnBuscarApellido.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscarApellido.Location = new System.Drawing.Point(288, 25);
+            this.btnBuscarApellido.Name = "btnBuscarApellido";
+            this.btnBuscarApellido.Size = new System.Drawing.Size(140, 23);
+            this.btnBuscarApellido.TabIndex = 13;
+            this.btnBuscarApellido.Text = "Buscar por Apellido";
+            this.btnBuscarApellido.UseVisualStyleBackColor = false;
+            this.btnBuscarApellido.Click += new System.EventHandler(this.btnBuscarApellido_Click);
+            // 
+            // cboTipoBuscar
+            // 
+            this.cboTipoBuscar.Enabled = false;
+            this.cboTipoBuscar.FormattingEnabled = true;
+            this.cboTipoBuscar.Location = new System.Drawing.Point(104, 148);
+            this.cboTipoBuscar.Name = "cboTipoBuscar";
+            this.cboTipoBuscar.Size = new System.Drawing.Size(140, 21);
+            this.cboTipoBuscar.TabIndex = 7;
+            // 
+            // txtNombreBuscar
+            // 
+            this.txtNombreBuscar.Enabled = false;
+            this.txtNombreBuscar.Location = new System.Drawing.Point(104, 66);
+            this.txtNombreBuscar.Name = "txtNombreBuscar";
+            this.txtNombreBuscar.Size = new System.Drawing.Size(140, 20);
+            this.txtNombreBuscar.TabIndex = 6;
+            // 
+            // txtApellidoBuscar
+            // 
+            this.txtApellidoBuscar.Location = new System.Drawing.Point(104, 25);
+            this.txtApellidoBuscar.Name = "txtApellidoBuscar";
+            this.txtApellidoBuscar.Size = new System.Drawing.Size(140, 20);
+            this.txtApellidoBuscar.TabIndex = 5;
+            // 
+            // txtDniBuscar
+            // 
+            this.txtDniBuscar.Enabled = false;
+            this.txtDniBuscar.Location = new System.Drawing.Point(104, 107);
+            this.txtDniBuscar.Name = "txtDniBuscar";
+            this.txtDniBuscar.Size = new System.Drawing.Size(140, 20);
+            this.txtDniBuscar.TabIndex = 4;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(49, 67);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Nombre:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(49, 25);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Apellido:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(67, 153);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Tipo:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(61, 110);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "D.N.I.:";
             // 
             // grpCaracteristicas
             // 
@@ -537,6 +676,7 @@
             this.cboCiudad.Name = "cboCiudad";
             this.cboCiudad.Size = new System.Drawing.Size(140, 21);
             this.cboCiudad.TabIndex = 7;
+            this.cboCiudad.SelectedIndexChanged += new System.EventHandler(this.cboCiudad_SelectedIndexChanged);
             // 
             // cboTipoProp
             // 
@@ -593,6 +733,7 @@
             this.cboDepto.Name = "cboDepto";
             this.cboDepto.Size = new System.Drawing.Size(140, 21);
             this.cboDepto.TabIndex = 6;
+            this.cboDepto.SelectedIndexChanged += new System.EventHandler(this.cboDepto_SelectedIndexChanged);
             // 
             // cboProvincia
             // 
@@ -604,10 +745,21 @@
             this.cboProvincia.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cboProvincia.Size = new System.Drawing.Size(140, 21);
             this.cboProvincia.TabIndex = 5;
+            this.cboProvincia.SelectedIndexChanged += new System.EventHandler(this.cboProvincia_SelectedIndexChanged);
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(39, 56);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(54, 13);
+            this.label44.TabIndex = 74;
+            this.label44.Text = "Provincia:";
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.btnNuevaProp);
             this.groupBox1.Controls.Add(this.btnVerFotos);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.btnEditar);
@@ -623,6 +775,19 @@
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Búsqueda de Propiedades";
+            // 
+            // btnNuevaProp
+            // 
+            this.btnNuevaProp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
+            this.btnNuevaProp.FlatAppearance.BorderSize = 0;
+            this.btnNuevaProp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNuevaProp.Location = new System.Drawing.Point(104, 150);
+            this.btnNuevaProp.Name = "btnNuevaProp";
+            this.btnNuevaProp.Size = new System.Drawing.Size(140, 23);
+            this.btnNuevaProp.TabIndex = 120;
+            this.btnNuevaProp.Text = "Nueva Propiedad";
+            this.btnNuevaProp.UseVisualStyleBackColor = false;
+            this.btnNuevaProp.Click += new System.EventHandler(this.btnNuevaProp_Click);
             // 
             // btnVerFotos
             // 
@@ -651,7 +816,7 @@
             this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
             this.btnEditar.FlatAppearance.BorderSize = 0;
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditar.Location = new System.Drawing.Point(305, 86);
+            this.btnEditar.Location = new System.Drawing.Point(305, 67);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(140, 23);
             this.btnEditar.TabIndex = 119;
@@ -686,10 +851,10 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
+            this.btnBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
             this.btnBuscar.FlatAppearance.BorderSize = 0;
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscar.Location = new System.Drawing.Point(100, 150);
+            this.btnBuscar.Location = new System.Drawing.Point(103, 107);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(140, 23);
             this.btnBuscar.TabIndex = 2;
@@ -700,7 +865,7 @@
             // txtDireccion
             // 
             this.txtDireccion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDireccion.Location = new System.Drawing.Point(103, 64);
+            this.txtDireccion.Location = new System.Drawing.Point(103, 67);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(140, 20);
             this.txtDireccion.TabIndex = 1;
@@ -710,7 +875,7 @@
             // txtApellido
             // 
             this.txtApellido.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtApellido.Location = new System.Drawing.Point(103, 25);
+            this.txtApellido.Location = new System.Drawing.Point(103, 27);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(140, 20);
             this.txtApellido.TabIndex = 0;
@@ -735,15 +900,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "por Apellido:";
             // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(39, 56);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(54, 13);
-            this.label44.TabIndex = 74;
-            this.label44.Text = "Provincia:";
-            // 
             // Propiedades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -755,6 +911,9 @@
             this.Name = "Propiedades";
             this.Text = "Propiedades";
             this.pnlBase.ResumeLayout(false);
+            this.pnlNuevaProp.ResumeLayout(false);
+            this.grpNuevaProp.ResumeLayout(false);
+            this.grpNuevaProp.PerformLayout();
             this.grpCaracteristicas.ResumeLayout(false);
             this.grpCaracteristicas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctImagen)).EndInit();
@@ -827,5 +986,18 @@
         private System.Windows.Forms.Button btnVerFotos;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Panel pnlNuevaProp;
+        private System.Windows.Forms.GroupBox grpNuevaProp;
+        private System.Windows.Forms.Button btnBuscarApellido;
+        private System.Windows.Forms.ComboBox cboTipoBuscar;
+        private System.Windows.Forms.TextBox txtNombreBuscar;
+        private System.Windows.Forms.TextBox txtApellidoBuscar;
+        private System.Windows.Forms.TextBox txtDniBuscar;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnNuevaProp;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }

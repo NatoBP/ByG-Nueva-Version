@@ -17,35 +17,42 @@ namespace AccesoDatos
         SqlDataAdapter da;
         DataTable dt;
 
+        Persona p;
 
         //VERIFICAR EXISTENCIA EN BD
         public int VerificarPersona(Int32 tipoDNI, Int32 dni)
         {
-            cmd.Connection = cn.Conectar();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Select Count(*) From Personas Where tipoDNI = @tipo AND id_DNI = @dni";
-            cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@tipo", tipoDNI);
-            cmd.Parameters.AddWithValue("@dni", dni);
-            cmd.ExecuteScalar();
+            int i = 0;
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "Select Count(*) From Personas Where tipoDNI = @tipo AND id_DNI = @dni";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@tipo", tipoDNI);
+                cmd.Parameters.AddWithValue("@dni", dni);
 
-            if (Convert.ToInt32(cmd.ExecuteScalar()) > 0)
+                if (Convert.ToInt32(cmd.ExecuteScalar()) > 0)
+                    i = 1;
+
+                else
+                    i = 0;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
             {
                 cn.Desconectar();
-                return 1;
             }
-
-            else
-            {
-                cn.Desconectar();
-                return 0;
-            }
+            return i;
         }
 
         //BUSCA UNA PERSONA Y LA CARGA EN UN DATATABLE
         public Persona BuscarPersona(Int32 tipoDNI, Int32 dni )
         {
-            Persona p = new Persona();
+            p = new Persona();
 
             try
             {
@@ -82,6 +89,48 @@ namespace AccesoDatos
             {
                 cn.Desconectar();
             }
+            return p;
+        }
+
+        public Persona BuscarPersonaPorApellido(string apellido)
+        {
+            p = new Persona();
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "buscarPersonaPorApellido";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@apellido", apellido);
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    p.pDNI = dr.GetInt32(0);
+                    p.pTipoDNI = Convert.ToInt32(dr.GetValue(1));
+                    p.pApellido = Convert.ToString(dr.GetValue(2));
+                    p.pNombre = Convert.ToString(dr.GetValue(3));
+                    p.pDireccion = Convert.ToString(dr.GetValue(4));
+                    p.pAltura = Convert.ToInt32(dr.GetValue(5));
+                    p.pPiso = dr.GetInt32(6);
+                    p.pDepto = Convert.ToString(dr.GetValue(7));
+                    p.pMail = Convert.ToString(dr.GetValue(8));
+                    p.pBarrio = Convert.ToInt32(dr.GetValue(9));
+                    p.pciudad = Convert.ToInt32(dr.GetValue(10));
+                    p.pdepartamento = Convert.ToInt32(dr.GetValue(11));
+                    p.pProvincia = Convert.ToInt32(dr.GetValue(12));
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+
             return p;
         }
         

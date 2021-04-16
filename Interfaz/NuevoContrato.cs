@@ -78,7 +78,7 @@ namespace Interfaz
                             c = new Clientes();
                             c.locador = true;
                             c.habilitarCamposCliente();
-                            c.nuevoCliente(Convert.ToInt32(cboTipo.SelectedValue), txtDNILocador.Text);
+                            c.nuevoCliente(Convert.ToInt32(cboTipo.SelectedValue), txtDNILocador.Text, "");
 
                             AddOwnedForm(c);
                             c.TopLevel = false;
@@ -133,7 +133,7 @@ namespace Interfaz
             if (txtDNILocador.Text != "" && cboTipo.SelectedIndex != -1)
             {
                 Propiedades prop = new Propiedades();
-                prop.cargarNuevaPropiedad(locador.pTipoDNI, locador.pDNI);
+                //prop.cargarNuevaPropiedad(locador.pTipoDNI, locador.pDNI);
 
                 //lblPropietario.Text = pr.pApellido + " " + pr.pNombre;
                 //lblDNIProp.Text = Convert.ToString(pr.pDNI);
@@ -188,7 +188,7 @@ namespace Interfaz
                             c = new Clientes();
                             c.locatario = true;
                             c.habilitarCamposCliente();
-                            c.nuevoCliente(Convert.ToInt32(cboTipoLocatario.SelectedValue), txtDNILocatario.Text);
+                            c.nuevoCliente(Convert.ToInt32(cboTipoLocatario.SelectedValue), txtDNILocatario.Text,"");
 
                             AddOwnedForm(c);
                             c.TopLevel = false;
@@ -275,7 +275,7 @@ namespace Interfaz
                             c = new Clientes();
                             c.garante = true;
                             c.habilitarCamposCliente();
-                            c.nuevoCliente(Convert.ToInt32(cboTipoGarante.SelectedValue), txtDNIGarante.Text);
+                            c.nuevoCliente(Convert.ToInt32(cboTipoGarante.SelectedValue), txtDNIGarante.Text,"");
 
                             AddOwnedForm(c);
                             c.TopLevel = false;

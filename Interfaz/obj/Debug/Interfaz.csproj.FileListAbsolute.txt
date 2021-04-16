@@ -18,3 +18,4 @@ C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.Propiedades.res
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.AlquileresVigentes.resources
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.AlquileresNoVigentes.resources
 C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.EstadoDeCuentas.resources
+C:\Users\Nato\source\repos\Solution1\Interfaz\obj\Debug\Interfaz.VisorDeFotos.resources

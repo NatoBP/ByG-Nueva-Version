@@ -16,8 +16,10 @@ namespace AccesoDatos
         SqlCommand cmd = new SqlCommand();
         SqlDataReader dr;
         DataTable dt = new DataTable();
-        List<CaracteristicaPropiedad> lista; 
+        Propiedad p;
 
+
+        //PROPIEDADES
         public void InsertarPropiedad(Propiedad p)
         {
             try
@@ -32,11 +34,42 @@ namespace AccesoDatos
                 cmd.Parameters.AddWithValue("@calle", p.pCalle);
                 cmd.Parameters.AddWithValue("@numeroCalle", p.pNumeroCalle);
                 cmd.Parameters.AddWithValue("@fkbarrio", p.pBarrio);
-                cmd.Parameters.AddWithValue(" @descripcion", p.pDescripcion);
+                cmd.Parameters.AddWithValue("@descripcion", p.pDescripcion);
                 cmd.Parameters.AddWithValue("@fk_tipoPropiedad", p.TipoPropiedad);
                 cmd.Parameters.AddWithValue("@dpto", p.pDpto);
                 cmd.Parameters.AddWithValue("@piso", p.pPiso);
                 cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+        }
+
+        public void ModificarPropiedad(Propiedad p)
+        {
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "modificarPropiedad";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@idPropiedad",p.pId_propiedad);
+                cmd.Parameters.AddWithValue("@calle", p.pCalle);
+                cmd.Parameters.AddWithValue("@numeroCalle", p.pNumeroCalle);
+                cmd.Parameters.AddWithValue("@barrio", p.pBarrio);
+                cmd.Parameters.AddWithValue("@descripcion", p.pDescripcion);
+                cmd.Parameters.AddWithValue("@tipoPropiedad", p.TipoPropiedad);
+                cmd.Parameters.AddWithValue("@depto", p.pDpto);
+                cmd.Parameters.AddWithValue("@piso", p.pPiso);
+
+                cmd.ExecuteNonQuery();
+
             }
             catch (Exception e)
             {
@@ -96,42 +129,6 @@ namespace AccesoDatos
             return lista;
         }
 
-        public List<CaracteristicaPropiedad> CargarCaracteristicas(int id)
-        {
-            lista = new List<CaracteristicaPropiedad>();
-            try
-            {
-                cmd.Connection = cn.Conectar();
-
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "mostrarCaracteristicas";
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@idProp", id);
-
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    CaracteristicaPropiedad c = new CaracteristicaPropiedad();
-
-                    c.pId = dr.GetInt32(0);
-                    c.pValor = dr.GetInt32(1);
-                    c.pCaracteristica = dr.GetString(2);
-
-                    lista.Add(c);
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Error: " + e.ToString());
-            }
-            finally
-            {
-                cn.Desconectar();
-            }
-            return lista;
-        }
-
         public List<LocadorDTO> BuscarPropiedadPorNombreDireccion(string apellido, string direccion)
         {
             List<LocadorDTO> lista = new List<LocadorDTO>();
@@ -165,7 +162,7 @@ namespace AccesoDatos
                     Int32 TipoDni = Convert.ToInt32(dr.GetValue(14));
                     Int32 Dni = Convert.ToInt32(dr.GetValue(15));
 
-                    LocadorDTO prop = new LocadorDTO(Id, Dni, TipoDni,Nombre, Apellido, Calle, Nro, piso, depto, descripcion, tipoPropiedad, idBarrio, Barrio, Ciudad, deparatamento, provincia);
+                    LocadorDTO prop = new LocadorDTO(Id, Dni, TipoDni, Nombre, Apellido, Calle, Nro, piso, depto, descripcion, tipoPropiedad, idBarrio, Barrio, Ciudad, deparatamento, provincia);
                     lista.Add(prop);
                 }
             }
@@ -179,6 +176,183 @@ namespace AccesoDatos
             }
             return lista;
         }
+
+        public int BuscarIdPropiedad()
+        {
+            int id = 0;
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "Select Max(id_Propiedad) from Propiedades";
+
+                id = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+            return id;
+        } //Busca el ID de la última propiedad registrada
+
+        public bool VerificarPropiedad(string calle, Int32 numero, Int32 piso, string depto, Int32 ciudad)
+        {
+            bool existe = false;
+
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "buscarPropiedadDuplicada";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@calle", calle);
+                cmd.Parameters.AddWithValue("@numero", numero);
+                cmd.Parameters.AddWithValue("@piso", piso);
+                cmd.Parameters.AddWithValue("@depto", depto);
+                cmd.Parameters.AddWithValue("@ciudad", ciudad);
+
+                if (Convert.ToInt32(cmd.ExecuteScalar()) > 0)
+                    existe = true;
+
+                else
+                    existe = false;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+            return existe;
+        }
+
+        //CARACTERISTICAS
+        public void InsertarCaracteristicas(CaracteristicaPropiedad c, int id)
+        {
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "CargarCaracteristicas"; //El mismo método sirve para inserciones nuevas o actualizaciones
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@idCaracteristic", c.pId);
+                cmd.Parameters.AddWithValue("@idPropiedad", id);
+                cmd.Parameters.AddWithValue("@valor", c.pValor);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+
+        }
+
+        public List<CaracteristicaPropiedad> CargarCaracteristicas(int id)
+        {
+            p = new Propiedad();
+            try
+            {
+                cmd.Connection = cn.Conectar();
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "mostrarCaracteristicas";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@idProp", id);
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    CaracteristicaPropiedad c = new CaracteristicaPropiedad();
+
+                    c.pId = dr.GetInt32(0);
+                    c.pValor = dr.GetInt32(1);
+                    c.pCaracteristica = dr.GetString(2);
+
+                    p.agregarCaracteristica(c);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+            return p.Caracteristicas;
+        }
+
+        //FOTOS
+        public List<Foto> buscarFoto(int idPropiedad) //Busca las fotos para el visor
+        {
+            p = new Propiedad();
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT idFoto, foto FROM Fotos WHERE fkidPropiedad = @idPropiedad";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@idPropiedad", idPropiedad);
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    int id = dr.GetInt32(0);
+                    byte[] foto = (byte[])dr["foto"];
+                    String descripcion = "";
+                    Foto f = new Foto(id, descripcion, foto);
+                    p.agregarFotos(f);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+            return p.ListaFotos;
+        }
+
+        public void guardarFoto(byte[] foto, int idPropiedad)
+        {
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "INSERT INTO Fotos (fkidPropiedad,foto) values (@idPropiedad,@Foto)";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@Foto", foto);
+                cmd.Parameters.AddWithValue("@idPropiedad", idPropiedad);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+        }
+
 
         //public Propiedad buscarDatosPropiedad(Int32 idProp) //carga dgv de propiedadesAlta
         //{
@@ -222,10 +396,5 @@ namespace AccesoDatos
         //    }
         //    return prop;
         //}
-
-        public void BuscarIdPropiedad()
-        {
-
-        }
     }
 }

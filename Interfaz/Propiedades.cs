@@ -18,14 +18,18 @@ namespace Interfaz
     {
         TransaccionAD tc = new TransaccionAD();
         PropiedadAD pAd = new PropiedadAD();
+        ClienteAD cl = new ClienteAD();
+        Persona per;
 
         Propiedad p = new Propiedad();
 
         List<LocadorDTO> lista = new List<LocadorDTO>();
         List<CaracteristicaPropiedad> caracteristicasP = new List<CaracteristicaPropiedad>();
+        List<Foto> listaFoto = new List<Foto>();
 
         Int32 contadorFoto = 0;
         int[] ubicacion = new int[4];
+        bool modificar = false;
 
         public Propiedades()
         {
@@ -39,7 +43,7 @@ namespace Interfaz
 
 
         //BOTONES
-
+                //Buscar Propiedades
         private void btnBuscarLoc_Click(object sender, EventArgs e)
         {
             lista = null;
@@ -52,20 +56,112 @@ namespace Interfaz
             }
         }
 
+                //Nueva Propiedad
+        private void btnNuevaProp_Click(object sender, EventArgs e)
+        {
+            pnlNuevaProp.Visible = true;
+            pnlNuevaProp.Show();
+            grpPropiedad.SendToBack();
+            dgvPropiedades.Enabled = false;
+        }
+
+                //Buscar locador por apellido
+        private void btnBuscarApellido_Click(object sender, EventArgs e)
+        {
+            lista = null;
+
+            //Si la persona tiene propiedades registradas:
+            if ((lista = pAd.BuscarPropiedadPorNombreDireccion(txtApellidoBuscar.Text, "")).Count != 0)
+            {
+                dgvPropiedades.Rows.Clear();
+                foreach (var item in lista)
+                {
+                    dgvPropiedades.Rows.Add(item.Id, item.Dni, item.TipoDni, item.Apellido, item.Nombre, item.Calle, item.Nro, item.Piso,
+                                            item.Depto, item.Descripcion, item.TipoPropiedad, item.IdBarrio, item.Barrio, item.Ciudad, item.Departamento, item.Provincia);
+                }
+                foreach (var item in lista)
+                {
+                    txtApellidoBuscar.Text = item.Apellido;
+                    txtNombreBuscar.Text = item.Nombre;
+                    txtDniBuscar.Text = Convert.ToString(item.Dni);
+                    cboTipoBuscar.SelectedValue = Convert.ToInt32(item.TipoDni);
+                    break;
+                }
+                habilitarCampos();
+                limpiarCampos();
+                cboProvincia.SelectedValue = 14;
+                cboDepto.SelectedValue = 14021;
+            }
+            
+            //Si no hay propiedades, se busca el registro de la persona
+            else
+            {
+                per = new Persona();
+                per = cl.BuscarPersonaPorApellido(txtApellidoBuscar.Text);
+
+                if(per.pDNI != 0) //Si la persona existe
+                {
+                    txtApellidoBuscar.Text = per.pApellido;
+                    txtNombreBuscar.Text = per.pNombre;
+                    txtDniBuscar.Text = Convert.ToString(per.pDNI);
+                    cboTipoBuscar.SelectedValue = Convert.ToInt32(per.pTipoDNI);
+                    limpiarCuadros();
+                    limpiarCampos();
+                    habilitarCampos();
+                    
+                    cboProvincia.SelectedValue = 14;
+                    cboDepto.SelectedValue = 14021;
+                }
+                else            //Si la persona no existe
+                {
+                    DialogResult opcion = MessageBox.Show("La persona no está registrada, ¿desea ingresarla?", "¿Ingresar nueva persona?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if(opcion == DialogResult.Yes)
+                    {
+                        Clientes c = new Clientes();
+                        c.nuevaPropiedad = true;
+                        c.nuevoCliente(-1, "",txtApellidoBuscar.Text);
+
+                        AddOwnedForm(c);
+                        c.TopLevel = false;
+                        c.Dock = DockStyle.Fill;
+                        this.Controls.Add(c);
+                        this.Tag = c;
+
+                        c.BringToFront();
+                        c.Show();
+                    }
+                }
+            }
+        }
+
+                //Cancelar
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            limpiarCamposNuevaProp();
+            pnlNuevaProp.Visible = false;
+            dgvPropiedades.Enabled = true;
+            deshabilitarCampos();
+            limpiarCampos();
+        }
+
+                //Editar
         private void Editar_Click(object sender, EventArgs e)
         {
             habilitarCampos();
+            modificar = true;
         }
 
+                //Ver Fotos
         private void btnVerFotos_Click(object sender, EventArgs e)
         {
-            //VisorDeFotos vf = new VisorDeFotos(Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value));
-            //if (vf.noHayFotos() == 0)
-            //    return;
-            //else
-            //    vf.ShowDialog();
+            VisorDeFotos vf = new VisorDeFotos(Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value));
+            if (vf.noHayFotos() == 0)
+                return;
+            else
+                vf.ShowDialog();
         }
 
+                //Agregar Característica
         private void btnAgregarCaracteristica_Click(object sender, EventArgs e)
         {
             if (txtOtros.Text != "" && txtOtros.Text != "0")
@@ -88,6 +184,7 @@ namespace Interfaz
                 MessageBox.Show("Verifique los datos ingresados");
         }
 
+                //Quitar Característica
         private void btnQuitarCaracteristica_Click(object sender, EventArgs e)
         {
             if(p.Caracteristicas.Count >= 1)
@@ -100,6 +197,7 @@ namespace Interfaz
             cboCaracteristicas.Focus();
         }
 
+                //Cargar Imagen
         private void btnCargarImagen_Click(object sender, EventArgs e)
         {
             try
@@ -134,7 +232,6 @@ namespace Interfaz
                     }
                     else
                     {
-
                         for (int i = 0; i < ofd.FileNames.Length; i++)
                         {
 
@@ -159,7 +256,8 @@ namespace Interfaz
                 MessageBox.Show("El archivo seleccionado no es un tipo de imagen válido: \n" + ex.Message);
             }
         }
-
+                
+                //Borrar Imagen
         private void btnBorrarImagen_Click(object sender, EventArgs e)
         {
             if (lstNombreImagen.SelectedIndex >= 0)
@@ -178,34 +276,57 @@ namespace Interfaz
             }
         }
 
-        //Muestra las fotos al seleccionar
+                //Muestra las fotos al seleccionar
         private void lstNombreImagen_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lstNombreImagen.SelectedIndex >= 0)
             {
-                foreach (var item in p.ListaFotos)
+                if(p.ListaFotos.Count > 0) //Si están en la lista de nuevas fotos cargadas
                 {
-                    if (lstNombreImagen.SelectedItem.Equals(item.pDescripcion))
+                    foreach (var item in p.ListaFotos)
                     {
-                        MemoryStream ms = new MemoryStream(item.pFotoBinaria);
-                        pctImagen.Image = Image.FromStream(ms);
-                        break;
+                        if (lstNombreImagen.SelectedItem.Equals(item.pDescripcion))
+                        {
+                            MemoryStream ms = new MemoryStream(item.pFotoBinaria);
+                            pctImagen.Image = Image.FromStream(ms);
+                            break;
+                        }
+                    }
+                }
+                if(listaFoto.Count > 0) //Si están en la lista de fotos guardadas
+                {
+                    foreach (var item in listaFoto)
+                    {
+                        if (lstNombreImagen.SelectedItem.Equals(item.pDescripcion))
+                        {
+                            MemoryStream ms = new MemoryStream(item.pFotoBinaria);
+                            pctImagen.Image = Image.FromStream(ms);
+                            break;
+                        }
                     }
                 }
             }
         }
 
+                //Guardar
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            int ultimaPropiedad = 0;
             var dgv = dgvPropiedades;
+            
 
             if (validarCamposPropiedad())
             {
-                p = null;
-
-                p.pDni = Convert.ToInt32(dgv.CurrentRow.Cells[1].Value);
-                p.pTipoDNI = Convert.ToInt32(dgv.CurrentRow.Cells[2].Value);
+                //Datos Propiedad
+                if(modificar == false) //Si es una propiedad nueva
+                {
+                    p.pDni = Convert.ToInt32(txtDniBuscar.Text);
+                    p.pTipoDNI = Convert.ToInt32(cboTipoBuscar.SelectedValue);
+                }
+                else //Si la propiedad existe en BD
+                {
+                    p.pDni = Convert.ToInt32(dgv.CurrentRow.Cells[1].Value);
+                    p.pTipoDNI = Convert.ToInt32(dgv.CurrentRow.Cells[2].Value);
+                }
                 p.pCalle = txtDireccionProp.Text;
                 p.pNumeroCalle = Convert.ToInt32(txtNro.Text);
                 p.pBarrio = Convert.ToInt32(cboBarrio.SelectedValue);
@@ -215,19 +336,20 @@ namespace Interfaz
                 p.pDescripcion = rtxtObservaciones.Text;
 
                 p.TipoPropiedad = Convert.ToInt32(cboTipoProp.SelectedValue);
-                if (p.TipoPropiedad == 2)
-                {
-                    p.pPiso = Convert.ToInt32(txtPiso.Text);
-                    p.pDpto = txtDpto.Text;
-                }
-                else
-                {
+
+                if (txtPiso.Text == "")
                     p.pPiso = 0;
+                else
+                    p.pPiso = Convert.ToInt32(txtPiso.Text);
+                
+
+                if (txtDpto.Text == "")
                     p.pDpto = "";
-                }
+                else
+                    p.pDpto = txtDpto.Text;
 
-                pAd.InsertarPropiedad(p);
 
+                //Características Propiedad
                 p.agregarCaracteristica(new CaracteristicaPropiedad(1, Convert.ToInt32(txtSupCub.Text)));
 
                 p.agregarCaracteristica(new CaracteristicaPropiedad(2, Convert.ToInt32(txtHabitaciones.Text)));
@@ -240,41 +362,75 @@ namespace Interfaz
 
                 p.agregarCaracteristica(new CaracteristicaPropiedad(6, Convert.ToInt32(txtPatio.Text)));
 
-                //////////////////////////////////////////////////////////////////
-                //VER MANERA DE INGRESAR NUEVA PROPIEDAD Y QUE APAREZCAN CAMPOS DNI, TIPO Y NOMBRE, O ACTUALIZAR
 
+                //Si guardamos una propiedad nueva
+                if (modificar == false && pAd.VerificarPropiedad(p.pCalle, p.pNumeroCalle, p.pPiso, p.pDpto, p.pCiudad) == false) 
+                {
+                    pAd.InsertarPropiedad(p);
 
-                //foreach (var item in p.Caracteristicas) //Refuncionalizar para que funcione la lista de la Clase Propiedad como en las Fotos
-                //{
-                //    int caract = Convert.ToInt32(dgv.CurrentRow.Cells[0]);
-                //    ad.consultaID("Select id_Propiedad from Propiedades ");
+                    int idProp = pAd.BuscarIdPropiedad(); //Busca el ID de la última Propiedad Registrada
 
-                //    int valor = Convert.ToInt32(item.Valor);
+                    foreach (var item in p.Caracteristicas) 
+                    {
+                        pAd.InsertarCaracteristicas(item, idProp);
+                    }
 
-                //    comando = "EXEC CargarCaracteristicas @idCaracteristic = " + caract + ", " +
-                //        "@idPropiedad = " + ultimaPropiedad + ", @valor = " + valor;
-                //    ad.actualizarBD(comando);
-                //}
-                ////INSERTA LAS FOTOS UNA POR UNA
-                //if (p.ListaFotos != null)
-                //{
-                //    foreach (var item in p.ListaFotos)
-                //    {
-                //        ad.guardarFoto(item.FotoBinaria, ultimaPropiedad);
-                //    }
+                    //INSERTA LAS FOTOS UNA POR UNA
+                    if (p.ListaFotos != null)
+                    {
+                        foreach (var item in p.ListaFotos)
+                        {
+                            pAd.guardarFoto(item.pFotoBinaria, idProp);
+                        }
 
-                //    p.ListaFotos.Clear();
-                //}
-                //registroGuardado();
-                //// tblInmo.SelectedIndex = 0;
-                //// btnIngresarPropiedad.Enabled = true;
-                //caracPorProp.Clear(); //Se limpia la lista de características
-                //LisPropiedades.Clear();
-                //limpiarCamposPropiedad();
-                ////deshabilitarCamposPropiedad();
+                        p.ListaFotos.Clear();
+                    }
+
+                    p.Caracteristicas.Clear(); //Se limpia la lista de características
+                    limpiarCampos();
+                    limpiarCamposNuevaProp();
+                    limpiarCuadros();
+                    cargarPropiedades();
+                    deshabilitarCampos();
+                    registroGuardado();
+                }
+
+                //Si la propiedad existe, actualizamos
+                else
+                {
+                    p.pId_propiedad = Convert.ToInt32(dgv.CurrentRow.Cells[0].Value);
+                    pAd.ModificarPropiedad(p);
+
+                    foreach (var item in p.Caracteristicas)
+                    {
+                        pAd.InsertarCaracteristicas(item, p.pId_propiedad);
+                    }
+
+                    if (p.ListaFotos != null)
+                    {
+                        foreach (var item in p.ListaFotos)
+                        {
+                            pAd.guardarFoto(item.pFotoBinaria, p.pId_propiedad);
+                        }
+
+                        p.ListaFotos.Clear();
+                    }
+
+                    p.Caracteristicas.Clear(); //Se limpia la lista de características
+                    limpiarCampos();
+                    limpiarCamposNuevaProp();
+                    limpiarCuadros();
+                    deshabilitarCampos();
+                    registroGuardado();
+                }
+                cargarPropiedades();
             }
         }
 
+        private void registroGuardado()
+        {
+            MessageBox.Show("Registro guardado");
+        }
 
         //MÉTODOS DE CARGA DE DATOS
 
@@ -289,7 +445,7 @@ namespace Interfaz
                                         item.Depto, item.Descripcion, item.TipoPropiedad, item.IdBarrio , item.Barrio, item.Ciudad, item.Departamento, item.Provincia);
             }
         }
-        
+
         private void cargaInicial()
         {
             tc.traerCombo(cboTipoProp, "TipoPropiedades", "id_tipoPropiedad", "descripcion", "", -1);
@@ -298,21 +454,50 @@ namespace Interfaz
             tc.traerCombo(cboDepto, "Departamentos", "id_departamento", "nombreDpto", "", -1);
             tc.traerCombo(cboCiudad, "Ciudades", "id_ciudad", "nombreCiu", "", -1);
             tc.traerCombo(cboBarrio, "Barrios", "id_barrio", "nombreBarr", "", -1);
-           
+            tc.traerCombo(cboTipoBuscar, "TiposDNI", "id_DNI", "tipoDNI", "", -1);
             cboProvincia.SelectedValue = 14;
             cboDepto.SelectedValue = 14021;
         }
 
+        private void mostrarFotosGuardadas(int id)
+        {
+            lstNombreImagen.Items.Clear();
+           
+            listaFoto = pAd.buscarFoto(id);
+            if(listaFoto.Count > 0)
+            {
+                int i = 1;
 
-        //CONFIGURACIONES DATAGRID VIEW
+                foreach (var item in listaFoto)
+                {
+                    string descripcion = "Foto - " + i;
+                    item.pDescripcion = descripcion;
+                    lstNombreImagen.Items.Add(item.pDescripcion);
+                    i++;
+                    pctImagen.Image = convertir(item.pFotoBinaria);
+                }
+            }
+        }
 
-            //DGV PROPIEDADES
+        public Image convertir(byte[] bytesArr)
+        {
+            using (MemoryStream memstr = new MemoryStream(bytesArr))
+            {
+                Image img = Image.FromStream(memstr);
+                return img;
+            }
+        }
+
+        #region CONFIGURACIONES DATAGRID VIEWS
+
+        //DGV PROPIEDADES
 
         private void seleccion()
         {
+            modificar = false; //Bandera que controla si una propiedad se ingresa como nueva o no. Si se cambia la selección, es porque no se va a modificar
+
             if (dgvPropiedades.Rows.Count > 0 && dgvPropiedades.CurrentRow != null)
             {
-
                 foreach (var item in lista)
                 {
                     if(item.Id == Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value))
@@ -350,7 +535,6 @@ namespace Interfaz
                 dgvCaracteristicas.Rows.Clear();
                 foreach (var i in caracteristicasP)
                 {
-
                     switch (i.pId)
                     {
                         case 1:
@@ -372,12 +556,14 @@ namespace Interfaz
                             txtPatio.Text = Convert.ToString(i.pValor);
                             break;
                         default:
-                            dgvCaracteristicas.Rows.Add(i.pCaracteristica, i.pValor);
+                            dgvCaracteristicas.Rows.Add(i.pId, i.pCaracteristica, i.pValor);
                             break;
                     }
                 }
                 btnVerFotos.Enabled = true;
+                mostrarFotosGuardadas(Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value));
             }
+            
         }
 
         private void ConfiguracionDgvPropiedades()
@@ -455,12 +641,12 @@ namespace Interfaz
 
         private void dgvPropiedades_SelectionChanged(object sender, EventArgs e)
         {
-            seleccion();
             if (txtDireccion.Enabled == true)
             {
                 deshabilitarCampos();
                 limpiarCampos();
             }
+            seleccion();
         }
 
             //DGV CARACTERÍSTICAS
@@ -483,18 +669,8 @@ namespace Interfaz
 
             dgv.Columns.Add("id", "ID:");
             dgv.Columns[0].Visible = false;
-
             dgv.Columns.Add("caracteristica", "Item:");
-
-
-            dgv.Columns.Add("Descripcion", "Descripcion:");
-            dgv.Columns[2].Visible = false;
-
             dgv.Columns.Add("Cantidad", "Cantidad:");
-
-            dgv.Columns.Add("importe", "Importe:");
-            dgv.Columns[4].Visible = false;
-
 
             dgv.AutoResizeColumns();
 
@@ -545,8 +721,9 @@ namespace Interfaz
             btnQuitarCaracteristica.Enabled = true;
         }
 
+        #endregion
 
-        //VALIDACIONES / LIMPIEZAS / HABILITAR / DESHABILITAR
+        #region VALIDACIONES / LIMPIEZAS / HABILITAR / DESHABILITAR
 
         private bool validarCamposPropiedad()
         {
@@ -611,6 +788,8 @@ namespace Interfaz
                 else if (c is Button)
                     c.Enabled = false;
             }
+            rtxtObservaciones.Enabled = false;
+            lstNombreImagen.Enabled = false;
         }
 
         private void habilitarCampos()
@@ -634,6 +813,8 @@ namespace Interfaz
                 else if (c is Button)
                     c.Enabled = true;
             }
+            rtxtObservaciones.Enabled = true;
+            lstNombreImagen.Enabled = true;
         }
 
         private void limpiarCampos()
@@ -648,6 +829,23 @@ namespace Interfaz
                 if (item is TextBox)
                     item.Text = "";
             }
+        }
+
+        private void limpiarCamposNuevaProp()
+        {
+            foreach (Control item in grpNuevaProp.Controls)
+            {
+                if (item is TextBox)
+                    item.Text = "";
+            }
+        }
+
+        private void limpiarCuadros()
+        {
+            dgvPropiedades.Rows.Clear();
+            dgvCaracteristicas.Rows.Clear();
+            lstNombreImagen.Items.Clear();
+            pctImagen.Image = null; 
         }
 
         private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
@@ -885,5 +1083,31 @@ namespace Interfaz
                 e.Handled = true;
             }
         }
+
+        private void cboProvincia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboProvincia.SelectedIndex >= 0)
+            {
+                tc.traerCombo(cboDepto, "Departamentos", "id_departamento", "nombreDpto", "provincia", Convert.ToInt32(cboProvincia.SelectedValue));
+            }
+        }
+
+        private void cboDepto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboDepto.SelectedIndex >= 0)
+            {
+                tc.traerCombo(cboCiudad, "Ciudades", "id_ciudad", "nombreCiu", "departamento", Convert.ToInt32(cboDepto.SelectedValue));
+            }
+        }
+
+        private void cboCiudad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboCiudad.SelectedIndex >= 0)
+            {
+                tc.traerCombo(cboBarrio, "Barrios", "id_barrio", "nombreBarr", "ciudad", Convert.ToInt32(cboCiudad.SelectedValue));
+            }
+        }
+
+        #endregion
     }
 }

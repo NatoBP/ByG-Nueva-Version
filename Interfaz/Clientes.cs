@@ -371,12 +371,13 @@ namespace Interfaz
 
 
         //NUEVOS CLIENTES CUYOS DATOS VIENEN DE OTRAS VENTANAS
-        public void nuevoCliente(Int32 tipo, string dni)
+        public void nuevoCliente(Int32 tipo, string dni, string apellido)
         {
             limpiarCamposCliente();
 
             cboTipoDNI.SelectedValue = tipo;
             txtDNI.Text = dni;
+            txtApellido.Text = apellido;
             cboProvincia.SelectedValue = 14;
             cboDepartamento.SelectedValue = 14021;
         }

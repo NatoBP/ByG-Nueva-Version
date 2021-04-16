@@ -96,6 +96,12 @@
     <Compile Include="Propiedades.Designer.cs">
       <DependentUpon>Propiedades.cs</DependentUpon>
     </Compile>
+    <Compile Include="VisorDeFotos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisorDeFotos.Designer.cs">
+      <DependentUpon>VisorDeFotos.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AlquileresNoVigentes.resx">
       <DependentUpon>AlquileresNoVigentes.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,6 +134,9 @@
     </Compile>
     <EmbeddedResource Include="Propiedades.resx">
       <DependentUpon>Propiedades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisorDeFotos.resx">
+      <DependentUpon>VisorDeFotos.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
