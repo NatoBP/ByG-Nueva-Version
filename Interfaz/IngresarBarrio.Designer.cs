@@ -158,6 +158,7 @@
             this.Controls.Add(this.label10);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "IngresarBarrio";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "IngresarBarrio";
             this.ResumeLayout(false);
             this.PerformLayout();

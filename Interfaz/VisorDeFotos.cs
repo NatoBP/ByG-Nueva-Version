@@ -42,6 +42,12 @@ namespace Interfaz
             }
         }
 
+        private void pctCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+        }
+
         private void btnAdelantar_Click(object sender, EventArgs e)
         {
             if (posicion < items - 1 && listaFotos.Count != 0)
@@ -76,5 +82,8 @@ namespace Interfaz
             int num = listaFotos.Count;
             return num;
         }
+
+        
+        
     }
 }

@@ -34,14 +34,14 @@ namespace Interfaz
         //INTERFAZ
         Clientes c;
 
-
         public NuevoContrato()
         {
             InitializeComponent();
             cargaInicial();
         }
 
-        //BOTONES LOCADOR
+        //BOTONES 
+                //Locador
         private void btnBuscarProp_Click(object sender, EventArgs e)
         {
             dgvPropiedades.Rows.Clear();
@@ -79,15 +79,7 @@ namespace Interfaz
                             c.locador = true;
                             c.habilitarCamposCliente();
                             c.nuevoCliente(Convert.ToInt32(cboTipo.SelectedValue), txtDNILocador.Text, "");
-
-                            AddOwnedForm(c);
-                            c.TopLevel = false;
-                            c.Dock = DockStyle.Fill;
-                            this.Controls.Add(c);
-                            this.Tag = c;
-
-                            c.BringToFront();
-                            c.Show();
+                            abrirVentana(c);
                         }
                     }
                 }
@@ -105,16 +97,8 @@ namespace Interfaz
                 c = new Clientes();
                 c.locador = true;
                 c.habilitarCamposCliente();
-
-                AddOwnedForm(c);
-                c.TopLevel = false;
-                c.Dock = DockStyle.Fill;
-                this.Controls.Add(c);
-                this.Tag = c;
-
-                c.BringToFront();
-                c.Show();
                 c.editarCliente(locador);
+                abrirVentana(c);
             }
         }
 
@@ -125,24 +109,16 @@ namespace Interfaz
 
         private void btnIngresarPropiedad_Click(object sender, EventArgs e)
         {
-            //limpiarCamposPropiedad();
-            //habilitarCamposPropiedad();
-            //btnQuitarCaracteristica.Enabled = false; //deshabilita el sacar caracteristicas, hasta que haya alguna
-            //inicializarText();
-
             if (txtDNILocador.Text != "" && cboTipo.SelectedIndex != -1)
             {
                 Propiedades prop = new Propiedades();
-                //prop.cargarNuevaPropiedad(locador.pTipoDNI, locador.pDNI);
-
-                //lblPropietario.Text = pr.pApellido + " " + pr.pNombre;
-                //lblDNIProp.Text = Convert.ToString(pr.pDNI);
-                //lblTipoDNI.Text = Convert.ToString(cboTipo.SelectedIndex + 1);
+                prop.NuevoContrato = true;
+                prop.nuevaPropiedad(locador);
+                abrirVentana(prop);
             }
         }
 
-
-        //BOTONES LOCATARIO
+               //Locatario
         private void cboTipoLocatario_SelectedIndexChanged(object sender, EventArgs e)
         {
             limpiarCamposLocatario();
@@ -190,14 +166,7 @@ namespace Interfaz
                             c.habilitarCamposCliente();
                             c.nuevoCliente(Convert.ToInt32(cboTipoLocatario.SelectedValue), txtDNILocatario.Text,"");
 
-                            AddOwnedForm(c);
-                            c.TopLevel = false;
-                            c.Dock = DockStyle.Fill;
-                            this.Controls.Add(c);
-                            this.Tag = c;
-
-                            c.BringToFront();
-                            c.Show();
+                            abrirVentana(c);
                         }
                     }
                 }
@@ -215,21 +184,13 @@ namespace Interfaz
                 c = new Clientes();
                 c.locatario = true;
                 c.habilitarCamposCliente();
-
-                AddOwnedForm(c);
-                c.TopLevel = false;
-                c.Dock = DockStyle.Fill;
-                this.Controls.Add(c);
-                this.Tag = c;
-
-                c.BringToFront();
-                c.Show();
                 c.editarCliente(locatario);
+                limpiarCamposLocatario();
+                abrirVentana(c);
             }
         }
 
-
-        //BOTONES GARANTES
+                //Garantes
         private void cboTipoGarante_SelectedIndexChanged(object sender, EventArgs e)
         {
             limpiarCamposGarante();
@@ -277,14 +238,7 @@ namespace Interfaz
                             c.habilitarCamposCliente();
                             c.nuevoCliente(Convert.ToInt32(cboTipoGarante.SelectedValue), txtDNIGarante.Text,"");
 
-                            AddOwnedForm(c);
-                            c.TopLevel = false;
-                            c.Dock = DockStyle.Fill;
-                            this.Controls.Add(c);
-                            this.Tag = c;
-
-                            c.BringToFront();
-                            c.Show();
+                            abrirVentana(c);
                         }
                     }
                 }
@@ -302,17 +256,9 @@ namespace Interfaz
                 c = new Clientes();
                 c.garante = true;
                 c.habilitarCamposCliente();
-
-
-                AddOwnedForm(c);
-                c.TopLevel = false;
-                c.Dock = DockStyle.Fill;
-                this.Controls.Add(c);
-                this.Tag = c;
-
-                c.BringToFront();
-                c.Show();
                 c.editarCliente(garante);
+
+                abrirVentana(c);
             }
         }
 
@@ -351,9 +297,7 @@ namespace Interfaz
             }
         }
 
-
-        //BOTÓN REGISTRAR CONTRATO
-
+                //Registrar Contrato
         private void btnRegistrarContrato_Click(object sender, EventArgs e)
         {
             if (ValidarPestanaContrato())
@@ -799,13 +743,10 @@ namespace Interfaz
 
         }
 
-        private bool ValidarPestanaContrato()
-        {
-            throw new NotImplementedException();
-        }
 
+        //CONFIGURACIÓN ENVÍO Y RECEPCIÓN DE DATOS A OTRAS VENTANAS
+                //Cargar campos desde Clientes / Propiedad 
 
-        //CARGAR CAMPOS DESDE CLIENTES (NUEVO CLIENTE / ACTUALIZAR)
         public void cargarCamposLocador(Persona p)
         {
             locador = null;
@@ -818,29 +759,43 @@ namespace Interfaz
             tc.traerCombo(cboBarrioLocador, "Barrios", "id_barrio", "nombreBarr", "id_barrio", p.pBarrio);
         }
 
+        public void cargarPropiedad(Persona per)
+        {
+            listaProp = null;
+            listaProp = p.CargarListaPropiedades(per.pDNI, per.pTipoDNI);
+            foreach (var item in listaProp)
+            {
+                dgvPropiedades.Rows.Add(item.pId_propiedad, item.pCalle, item.pNumeroCalle);
+            }
+        }
+
         public void cargarCamposLocatario(Persona p)
         {
+            //limpiarCamposLocatario();
+            locatario = null;
             locatario = p;
-            txtDNILocatario.Text = Convert.ToString(p.pDNI);
-            cboTipoLocatario.SelectedValue = p.pTipoDNI;
-            lblApeLocatario.Text = p.pApellido;
-            lblNomLocatario.Text = p.pNombre;
+            txtDNILocatario.Text = Convert.ToString(locatario.pDNI);
+            cboTipoLocatario.SelectedValue = locatario.pTipoDNI;
+            lblApeLocatario.Text = locatario.pApellido;
+            lblNomLocatario.Text = locatario.pNombre;
 
-            if (p.pTelefono.Count > 0)
-                foreach (var item in p.pTelefono)
+            if (locatario.pTelefono.Count > 0)
+            {
+                foreach (var item in locatario.pTelefono)
                 {
                     lblCodArLocatario.Text = Convert.ToString(item.pcodigoArea);
                     lblTelLocatario.Text = Convert.ToString(item.pnumero);
                     break;
                 }
+            }
 
-            lblDirLocatario.Text = Convert.ToString(p.pDireccion);
-            lblNumLocatario.Text = Convert.ToString(p.pAltura);
-            lblPisoLocatario.Text = Convert.ToString(p.pPiso);
-            lblDepartLocatario.Text = p.pDepto;
-            lblMailLocatario.Text = p.pMail;
+            lblDirLocatario.Text = Convert.ToString(locatario.pDireccion);
+            lblNumLocatario.Text = Convert.ToString(locatario.pAltura);
+            lblPisoLocatario.Text = Convert.ToString(locatario.pPiso);
+            lblDepartLocatario.Text = locatario.pDepto;
+            lblMailLocatario.Text = locatario.pMail;
 
-            ubicacion = tc.buscarUbicacion(p.pBarrio);
+            ubicacion = tc.buscarUbicacion(locatario.pBarrio);
 
             for (int i = 0; i < ubicacion.Length; i++)
             {
@@ -857,6 +812,7 @@ namespace Interfaz
 
         public void cargarCamposGarante(Persona p)
         {
+            garante = null;
             garante = p;
             txtDNIGarante.Text = Convert.ToString(p.pDNI);
             cboTipoGarante.SelectedValue = p.pTipoDNI;
@@ -891,10 +847,24 @@ namespace Interfaz
             }
         }
 
+                //Abrir otras ventanas
+        private void abrirVentana(Form formHijo)
+        {
+
+            Form fh = formHijo as Form;
+            AddOwnedForm(fh);
+            fh.TopLevel = false;
+            fh.Dock = DockStyle.Fill;
+            this.Controls.Add(fh);
+            this.Tag = fh;
+
+            fh.BringToFront();
+            fh.Show();
+        }
+
 
         //CONFIGURACIONES
-
-        //CARGA INICIAL
+                //Carga Inicial
         private void cargaInicial()
         {
             tc.traerCombo(cboTipo, "TiposDNI", "id_DNI", "tipoDNI", "", -1);
@@ -931,7 +901,7 @@ namespace Interfaz
             ConfiguracionDgvGarantes();
         }
 
-        //DATAGRIDVIEW PROPIEDADES
+                //Dgv Propiedades
         private void ConfiguracionDgvPropiedades()
         {
             var dgv = dgvPropiedades;
@@ -974,7 +944,7 @@ namespace Interfaz
             dgv.AllowUserToResizeRows = false;
         }
 
-        //DATAGRIDVIEW GARANTES
+                //Dgv Garantes
         private void ConfiguracionDgvGarantes()
         {
             var dgv = dgvGarantes;
@@ -1038,7 +1008,13 @@ namespace Interfaz
             dgv.AllowUserToResizeRows = false;
         }
 
-        //VALIDACIONES Y LIMPIEZAS
+        #region VALIDACIONES Y LIMPIEZAS
+
+        private bool ValidarPestanaContrato()
+        {
+            throw new NotImplementedException();
+        }
+
         private void limpiarCamposLocador()
         {
             lblApellidoLocador.Text = "";
@@ -1244,5 +1220,9 @@ namespace Interfaz
                 e.Handled = true;
             }
         }
+
+        #endregion
+
+       
     }
 }

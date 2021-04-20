@@ -29,7 +29,11 @@ namespace Interfaz
 
         Int32 contadorFoto = 0;
         int[] ubicacion = new int[4];
+
+        //Banderas
+
         bool modificar = false;
+        public bool NuevoContrato = false;
 
         public Propiedades()
         {
@@ -42,8 +46,8 @@ namespace Interfaz
         }
 
 
-        //BOTONES
-                //Buscar Propiedades
+        #region BOTONES
+        //Buscar Propiedades
         private void btnBuscarLoc_Click(object sender, EventArgs e)
         {
             lista = null;
@@ -121,14 +125,7 @@ namespace Interfaz
                         c.nuevaPropiedad = true;
                         c.nuevoCliente(-1, "",txtApellidoBuscar.Text);
 
-                        AddOwnedForm(c);
-                        c.TopLevel = false;
-                        c.Dock = DockStyle.Fill;
-                        this.Controls.Add(c);
-                        this.Tag = c;
-
-                        c.BringToFront();
-                        c.Show();
+                        abrirVentana(c);
                     }
                 }
             }
@@ -158,7 +155,9 @@ namespace Interfaz
             if (vf.noHayFotos() == 0)
                 return;
             else
-                vf.ShowDialog();
+            {
+                abrirVentana(vf);
+            }
         }
 
                 //Agregar Característica
@@ -195,6 +194,16 @@ namespace Interfaz
             }
             cargarDGV();
             cboCaracteristicas.Focus();
+        }
+
+                //Ingresar Barrio
+        private void btnIngresarBarrio_Click(object sender, EventArgs e)
+        {
+            IngresarBarrio ib = new IngresarBarrio();
+            ib.cboPvcia.SelectedValue = cboProvincia.SelectedValue;
+            ib.cboDepto.SelectedValue = cboDepto.SelectedValue;
+            ib.cboCiudad.SelectedValue = cboCiudad.SelectedValue;
+            ib.ShowDialog();
         }
 
                 //Cargar Imagen
@@ -382,11 +391,10 @@ namespace Interfaz
                         {
                             pAd.guardarFoto(item.pFotoBinaria, idProp);
                         }
-
                         p.ListaFotos.Clear();
                     }
 
-                    p.Caracteristicas.Clear(); //Se limpia la lista de características
+                    p.Caracteristicas.Clear();
                     limpiarCampos();
                     limpiarCamposNuevaProp();
                     limpiarCuadros();
@@ -412,7 +420,6 @@ namespace Interfaz
                         {
                             pAd.guardarFoto(item.pFotoBinaria, p.pId_propiedad);
                         }
-
                         p.ListaFotos.Clear();
                     }
 
@@ -423,16 +430,84 @@ namespace Interfaz
                     deshabilitarCampos();
                     registroGuardado();
                 }
+
                 cargarPropiedades();
+
+                if (NuevoContrato == true)
+                {
+                    NuevoContrato nc = new NuevoContrato();
+                    nc.cargarCamposLocador(per);
+                    nc.cargarPropiedad(per);
+                    NuevoContrato = false;
+                    abrirVentana(nc);
+                }
             }
         }
+
+        private void btnCancelarProp_Click(object sender, EventArgs e)
+        {
+            foreach (Control c in pnlBase.Controls)
+            {
+                if (c is TextBox && !c.Text.Equals("") && c != txtDniBuscar)
+                {
+                    DialogResult opcion = MessageBox.Show("Hay campos ingresados, ¿desea salir igual?", "Campos ingresados", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (opcion == DialogResult.Yes)
+                    {
+                        this.Close();
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                    break;
+                }
+            }
+            this.Close();
+        }
+
+        #endregion
 
         private void registroGuardado()
         {
             MessageBox.Show("Registro guardado");
         }
 
+        private void abrirVentana(object formHijo)
+        {
+            Form fh = formHijo as Form;
+            AddOwnedForm(fh);
+            fh.TopLevel = false;
+            fh.Dock = DockStyle.Fill;
+            this.Controls.Add(fh);
+            this.Tag = fh;
+
+            fh.BringToFront();
+            fh.Show();
+        }
+
         //MÉTODOS DE CARGA DE DATOS
+                //Carga datos del locador desde Nuevo Contrato
+        public void nuevaPropiedad(Persona p)
+        {
+            per = null;
+            per = p;
+            limpiarCampos();
+            limpiarCamposNuevaProp();
+            limpiarCuadros();
+            pnlNuevaProp.Visible = true;
+            pnlNuevaProp.Show();
+            grpPropiedad.SendToBack();
+            habilitarCampos();
+            dgvPropiedades.Enabled = false;
+
+            cboTipoBuscar.SelectedValue = p.pTipoDNI;
+            txtDniBuscar.Text = Convert.ToString(p.pDNI);
+            txtApellidoBuscar.Text = p.pApellido;
+            txtNombreBuscar.Text = p.pNombre;
+            cboProvincia.SelectedValue = 14;
+            cboDepto.SelectedValue = 14021;
+        }
 
         private void cargarPropiedades()
         {
@@ -462,7 +537,7 @@ namespace Interfaz
         private void mostrarFotosGuardadas(int id)
         {
             lstNombreImagen.Items.Clear();
-           
+
             listaFoto = pAd.buscarFoto(id);
             if(listaFoto.Count > 0)
             {
@@ -479,7 +554,7 @@ namespace Interfaz
             }
         }
 
-        public Image convertir(byte[] bytesArr)
+        private Image convertir(byte[] bytesArr)
         {
             using (MemoryStream memstr = new MemoryStream(bytesArr))
             {
@@ -488,6 +563,7 @@ namespace Interfaz
             }
         }
 
+
         #region CONFIGURACIONES DATAGRID VIEWS
 
         //DGV PROPIEDADES
@@ -495,12 +571,12 @@ namespace Interfaz
         private void seleccion()
         {
             modificar = false; //Bandera que controla si una propiedad se ingresa como nueva o no. Si se cambia la selección, es porque no se va a modificar
-
+            pctImagen.Image = null;
             if (dgvPropiedades.Rows.Count > 0 && dgvPropiedades.CurrentRow != null)
             {
                 foreach (var item in lista)
                 {
-                    if(item.Id == Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value))
+                    if (item.Id == Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value))
                     {
                         txtDireccionProp.Text = item.Calle;
                         txtNro.Text = item.Nro.ToString();
@@ -514,7 +590,7 @@ namespace Interfaz
                         cboTipoProp.SelectedValue = item.TipoPropiedad;
 
                         ubicacion = tc.buscarUbicacion(Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[11].Value));
-               
+
                         for (int i = 0; i < ubicacion.Length; i++)
                         {
                             if (i == 0)
@@ -563,7 +639,6 @@ namespace Interfaz
                 btnVerFotos.Enabled = true;
                 mostrarFotosGuardadas(Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value));
             }
-            
         }
 
         private void ConfiguracionDgvPropiedades()
@@ -776,6 +851,9 @@ namespace Interfaz
 
                 else if (c is ComboBox)
                     c.Enabled = false;
+
+                else if (c is Button)
+                    c.Enabled = false;
             }
             foreach (Control c in grpCaracteristicas.Controls)
             {
@@ -790,6 +868,7 @@ namespace Interfaz
             }
             rtxtObservaciones.Enabled = false;
             lstNombreImagen.Enabled = false;
+            dgvCaracteristicas.Enabled = false;
         }
 
         private void habilitarCampos()
@@ -800,6 +879,9 @@ namespace Interfaz
                     c.Enabled = true;
 
                 else if (c is ComboBox)
+                    c.Enabled = true;
+
+                else if (c is Button)
                     c.Enabled = true;
             }
             foreach (Control c in grpCaracteristicas.Controls)
@@ -815,6 +897,7 @@ namespace Interfaz
             }
             rtxtObservaciones.Enabled = true;
             lstNombreImagen.Enabled = true;
+            dgvCaracteristicas.Enabled = true;
         }
 
         private void limpiarCampos()
@@ -1108,6 +1191,10 @@ namespace Interfaz
             }
         }
 
+
+
         #endregion
+
+       
     }
 }
