@@ -34,6 +34,9 @@ namespace Interfaz
         //INTERFAZ
         Clientes c;
 
+        public Persona datos;
+
+
         public NuevoContrato()
         {
             InitializeComponent();
@@ -79,7 +82,7 @@ namespace Interfaz
                             c.locador = true;
                             c.habilitarCamposCliente();
                             c.nuevoCliente(Convert.ToInt32(cboTipo.SelectedValue), txtDNILocador.Text, "");
-                            abrirVentana(c);
+                            //abrirVentana(c);
                         }
                     }
                 }
@@ -98,7 +101,7 @@ namespace Interfaz
                 c.locador = true;
                 c.habilitarCamposCliente();
                 c.editarCliente(locador);
-                abrirVentana(c);
+                abrirVentana<Clientes>(c);
             }
         }
 
@@ -114,7 +117,7 @@ namespace Interfaz
                 Propiedades prop = new Propiedades();
                 prop.NuevoContrato = true;
                 prop.nuevaPropiedad(locador);
-                abrirVentana(prop);
+                abrirVentana<Propiedades>(prop);
             }
         }
 
@@ -166,7 +169,7 @@ namespace Interfaz
                             c.habilitarCamposCliente();
                             c.nuevoCliente(Convert.ToInt32(cboTipoLocatario.SelectedValue), txtDNILocatario.Text,"");
 
-                            abrirVentana(c);
+                            //abrirVentana(c);
                         }
                     }
                 }
@@ -185,8 +188,7 @@ namespace Interfaz
                 c.locatario = true;
                 c.habilitarCamposCliente();
                 c.editarCliente(locatario);
-                limpiarCamposLocatario();
-                abrirVentana(c);
+                abrirVentana<Clientes>(c);
             }
         }
 
@@ -238,7 +240,7 @@ namespace Interfaz
                             c.habilitarCamposCliente();
                             c.nuevoCliente(Convert.ToInt32(cboTipoGarante.SelectedValue), txtDNIGarante.Text,"");
 
-                            abrirVentana(c);
+                            //abrirVentana(c);
                         }
                     }
                 }
@@ -258,7 +260,7 @@ namespace Interfaz
                 c.habilitarCamposCliente();
                 c.editarCliente(garante);
 
-                abrirVentana(c);
+                abrirVentana<Clientes>(c);
             }
         }
 
@@ -267,7 +269,6 @@ namespace Interfaz
             if (lblApeGarante.Text != "" && lblNomGarante.Text != "" && txtDNIGarante.Text != "" && cboTipoGarante.SelectedIndex != -1)
             {
                 listaGarantes.Add(garante);
-                //ct.agregarGarante(garante);
                 dgvGarantes.Rows.Add(garante.pApellido, garante.pNombre);
                 limpiarCamposGarante();
                 txtDNIGarante.Text = "";
@@ -749,6 +750,7 @@ namespace Interfaz
 
         public void cargarCamposLocador(Persona p)
         {
+            limpiarCamposLocador();
             locador = null;
             locador = p;
             txtDNILocador.Text = Convert.ToString(p.pDNI);
@@ -771,7 +773,7 @@ namespace Interfaz
 
         public void cargarCamposLocatario(Persona p)
         {
-            //limpiarCamposLocatario();
+            limpiarCamposLocatario();
             locatario = null;
             locatario = p;
             txtDNILocatario.Text = Convert.ToString(locatario.pDNI);
@@ -812,6 +814,7 @@ namespace Interfaz
 
         public void cargarCamposGarante(Persona p)
         {
+            limpiarCamposGarante();
             garante = null;
             garante = p;
             txtDNIGarante.Text = Convert.ToString(p.pDNI);
@@ -847,24 +850,32 @@ namespace Interfaz
             }
         }
 
-                //Abrir otras ventanas
-        private void abrirVentana(Form formHijo)
+        //Abrir otras ventanas
+ 
+        private void abrirVentana<MiForm>(Form formHijo) where MiForm : Form, new()
         {
+            Form fh;
+            fh = pnlBase.Controls.OfType<MiForm>().FirstOrDefault();
 
-            Form fh = formHijo as Form;
-            AddOwnedForm(fh);
-            fh.TopLevel = false;
-            fh.Dock = DockStyle.Fill;
-            this.Controls.Add(fh);
-            this.Tag = fh;
+            if (fh == null)
+            {
+                fh = formHijo as Form;
+                AddOwnedForm(fh);
+                fh.TopLevel = false;
+                fh.Dock = DockStyle.Fill;
+                this.Controls.Add(fh);
+                this.Tag = fh;
 
-            fh.BringToFront();
-            fh.Show();
+                fh.BringToFront();
+                fh.Show();
+            }
+
         }
 
 
+
         //CONFIGURACIONES
-                //Carga Inicial
+        //Carga Inicial
         private void cargaInicial()
         {
             tc.traerCombo(cboTipo, "TiposDNI", "id_DNI", "tipoDNI", "", -1);
@@ -1222,7 +1233,5 @@ namespace Interfaz
         }
 
         #endregion
-
-       
     }
 }

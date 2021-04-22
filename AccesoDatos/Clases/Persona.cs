@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AccesoDatos;
 
-namespace AccesoDatos
+namespace AccesoDatos.Clases
 {
      public class Persona
     {
@@ -67,6 +67,12 @@ namespace AccesoDatos
         public void agregarTelefono(Telefono t)
         {
             telefono.Add(t);
+        }
+
+        public List<Telefono> quitarTelefono(Telefono t)
+        {
+            telefono.Remove(new Telefono() { pIdTelefono = t.pIdTelefono, pcodigoArea = t.pcodigoArea, pnumero = t.pnumero });
+            return telefono;
         }
 
         public List<Telefono> getTelefono()

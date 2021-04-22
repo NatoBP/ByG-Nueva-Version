@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AccesoDatos.Clases;
 using AccesoDatos;
 
 
@@ -19,7 +20,7 @@ namespace Interfaz
         TransaccionAD tc = new TransaccionAD();
 
         //Banderas
-        public bool locador = false;
+        public bool locador = false; //HAY QUE ENCONTRAR LA FORMA DE QUE SEAN PRIVADAS
         public bool locatario = false;
         public bool garante = false;
         public bool comprobantes = false;
@@ -27,6 +28,8 @@ namespace Interfaz
 
         Int32 dni; //Estas variables se usan para hacer una nueva búsqueda de teléfono porque si no, no tengo el ID
         Int32 tipo;
+
+        List<int> idTelefonoBorrar = new List<int>();
 
         public Clientes()
         {
@@ -72,22 +75,28 @@ namespace Interfaz
 
                     if (opcion == DialogResult.Yes)
                     {
-                        cl.BorrarTelefono(Convert.ToInt32(dgvTelefonos.CurrentRow.Cells[0].Value));
+                        string codigoA = dgvTelefonos.CurrentRow.Cells[1].Value.ToString();
+                        string numero = dgvTelefonos.CurrentRow.Cells[2].Value.ToString();
 
-                        foreach (var item in pr.pTelefono) //Primero borramos el registro de la lista
+                        for (int i = 0; i < pr.pTelefono.Count; i++) //Es necesario un ciclo For para Remove porque las listas necesitan de los índices para funcionar y no se puede con Foreach
                         {
-                            if (dgvTelefonos.CurrentRow.Cells[1].Value.ToString() == item.pcodigoArea && dgvTelefonos.CurrentRow.Cells[2].Value.ToString() == item.pnumero)
+                            if(pr.pTelefono[i].pcodigoArea.Equals(codigoA) && pr.pTelefono[i].pnumero.Equals(numero))
                             {
-                                pr.pTelefono.Remove(new Telefono() { pIdTelefono = item.pIdTelefono, pcodigoArea = item.pcodigoArea, pnumero = item.pnumero });
+                                idTelefonoBorrar.Add(Convert.ToInt32(dgvTelefonos.CurrentRow.Cells[0].Value)); //Obtenemos el Id para después borrar el teléfono al Guardar
+
+                                pr.pTelefono.RemoveAt(i);
+                                i--;
                             }
                         }
-                        dgvTelefonos.Rows.Remove(dgvTelefonos.CurrentRow);//Después eliminamos la fila en el DGV
 
-                        pr.pTelefono = cl.buscarTelefonos(pr.pDNI, pr.pTipoDNI);//Volvemos a buscar la lista de teléfonos actualizada
+                        dgvTelefonos.Rows.Clear();
 
-                        foreach (var item in pr.pTelefono)//Volvemos a cargar la lista en el DGV
+                        if(pr.pTelefono.Count > 0)
                         {
-                            dgvTelefonos.Rows.Add(item.pIdTelefono, item.pcodigoArea, item.pnumero);
+                            foreach (var item in pr.pTelefono)//Volvemos a cargar la lista en el DGV
+                            {
+                                dgvTelefonos.Rows.Add(item.pIdTelefono, item.pcodigoArea, item.pnumero);
+                            }
                         }
                     }
                 }
@@ -131,7 +140,7 @@ namespace Interfaz
                 pr.pProvincia = Convert.ToInt32(cboProvincia.SelectedValue);
                 pr.pMail = txtMail.Text.Trim();
 
-                //Si la persona no existe, INSERTAR
+                //Si la persona No existe, INSERTAR
                 if (cl.VerificarPersona(pr.pTipoDNI, pr.pDNI) == 0)
                 {
                     cl.InsertarPersona(pr); //Primero se hace la inserción con los campos ingresados
@@ -141,91 +150,98 @@ namespace Interfaz
 
                     if (locador == true) //Si se ingresa un nuevo Locador desde Nuevo Contrato
                     {
-                        this.Close();
-
-                        NuevoContrato nc = new NuevoContrato();
+                        NuevoContrato nc = (NuevoContrato)this.ParentForm;
                         locador = false; //Ponemos la bandera falso
+                        abrirVentana<NuevoContrato>(nc);
                         nc.cargarCamposLocador(pr); //Cargamos los campos
 
-                        abrirVentana(nc);
+                        this.Close();
                     }
                     else if (locatario == true)
                     {
-                        this.Close();
-                        NuevoContrato nc = new NuevoContrato();
+                        NuevoContrato nc = (NuevoContrato)this.ParentForm;
                         locatario = false;
+                        abrirVentana<NuevoContrato>(nc);
                         nc.cargarCamposLocatario(pr);
 
-                        abrirVentana(nc);
+                        this.Close();
                     }
                     else if (garante == true)
                     {
-                        this.Close();
-                        NuevoContrato nc = new NuevoContrato();
+                        NuevoContrato nc = (NuevoContrato)this.ParentForm;
                         garante = false;
+                        abrirVentana<NuevoContrato>(nc);
                         nc.cargarCamposGarante(pr);
 
-                        abrirVentana(nc);
+                        this.Close();
                     }
                     else if (comprobantes == true)
                     {
-                        this.Close();
+                        EstadoDeCuentas ec = (EstadoDeCuentas)this.ParentForm;
                         comprobantes = false;
-                        EstadoDeCuentas ec = new EstadoDeCuentas();
-                        abrirVentana(ec);
+                        abrirVentana<EstadoDeCuentas>(ec);
+                        //FALTA CARGA DE DATOS EN LA VENTANA ESTADO DE CUENTAS
+
+                        this.Close();
                     }
                     else
                     {
+                        MessageBox.Show("Se ingresó correctamente el registro");
                         this.Close();
                     }
-                    //MessageBox.Show("Se ingresó correctamente");
                 }
 
                 //Si la persona existe, ACTUALIZAR
                 else
                 {
                     cl.modificarPersona(pr);
-
+                    foreach (var item in idTelefonoBorrar)
+                    {
+                        if (item != 0) //Si el valor es 0, es porque el teléfono se cargó y se borró en el momento por lo cual no está ingresado en BD y no hace falta borrarlo
+                            cl.BorrarTelefono(item);
+                    }
                     pr.pTelefono = null; //Limpio la lista de teléfonos
                     pr.pTelefono = cl.buscarTelefonos(tipo, dni); //Se necesita buscar los teléfonos porque si no, no tienen el ID
 
-                    if (locador == true) //Si se ingresa un nuevo Locador desde Nuevo Contrato
+                    if (locador == true) 
                     {
-                        this.Close();
-                        NuevoContrato nc = new NuevoContrato();
-                        locador = false; //Ponemos la bandera falso
-                        nc.cargarCamposLocador(pr); //Cargamos los campos
+                        NuevoContrato nc = (NuevoContrato)this.ParentForm;
+                        locador = false; 
+                        abrirVentana<NuevoContrato>(nc);
+                        nc.cargarCamposLocador(pr); 
 
-                        abrirVentana(nc);
+                        this.Close();
                     }
                     else if (locatario == true)
                     {
-                        this.Close();
-                        NuevoContrato nc = new NuevoContrato();
+                        NuevoContrato nc = (NuevoContrato)this.ParentForm;
                         locatario = false;
+                        abrirVentana<NuevoContrato>(nc);
                         nc.cargarCamposLocatario(pr);
 
-                        abrirVentana(nc);
+                        this.Close();
                     }
                     else if (garante == true)
                     {
-                        this.Close();
-                        NuevoContrato nc = new NuevoContrato();
+                        NuevoContrato nc = (NuevoContrato)this.ParentForm;
                         garante = false;
+                        abrirVentana<NuevoContrato>(nc);
                         nc.cargarCamposGarante(pr);
 
-                        abrirVentana(nc);
+                        this.Close();
                     }
                     else if (comprobantes == true)
                     {
-                        this.Close();
+                        EstadoDeCuentas ec = (EstadoDeCuentas)this.ParentForm;
                         comprobantes = false;
-                        EstadoDeCuentas ec = new EstadoDeCuentas();
+                        abrirVentana<EstadoDeCuentas>(ec);
+
+                        this.Close();
                         //FALTA CARGA DE DATOS EN LA VENTANA ESTADO DE CUENTAS
-                        abrirVentana(ec);
                     }
                     else
                     {
+                        MessageBox.Show("Se modificó correctamente el registro");
                         this.Close();
                     }
                 }
@@ -357,18 +373,21 @@ namespace Interfaz
         }
 
         //Abrir Ventana
-        private void abrirVentana(Form formHijo)
+        private void abrirVentana<MiForm>(Form formHijo) where MiForm : Form, new()
         {
-            Form fh = formHijo as Form;
-            formHijo = Owner as Form;
-            //AddOwnedForm(fh);
-            fh.TopLevel = false;
-            fh.Dock = DockStyle.Fill;
-            this.Controls.Add(fh);
-            this.Tag = fh;
+            Form fh;
+            fh = pnlBase.Controls.OfType<MiForm>().FirstOrDefault();
 
-            fh.BringToFront();
-            fh.Show();
+            if (fh == null)
+            {
+                fh = formHijo as Form;
+                fh.TopLevel = false;
+                fh.Dock = DockStyle.Fill;
+                this.Tag = fh;
+
+                fh.BringToFront();
+                fh.Show();
+            }
         }
 
 
