@@ -14,21 +14,24 @@ namespace AccesoDatos
     {
         private Conexion cn = new Conexion();
         SqlCommand cmd = new SqlCommand();
-        DataTable dt;
+        DataSet ds;
+        SqlDataAdapter da;
+        SqlDataReader dr;
 
 
-        public DataTable buscarEstadoCuenta(int dni, int tipoDNI)
+        public DataSet buscarEstadoCuenta(int dni, int tipoDNI)
         {
             try
             {
-                dt = new DataTable();
+                ds = new DataSet();
                 cmd.Connection = cn.Conectar();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "EstadoCuentaPersona";
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_dni", dni);
                 cmd.Parameters.AddWithValue("@tipoDNI", tipoDNI);
-                dt.Load(cmd.ExecuteReader());
+                da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
             }
             catch (Exception e)
             {
@@ -39,7 +42,7 @@ namespace AccesoDatos
                 cn.Desconectar();
             }
 
-            return dt;
+            return ds;
         }
 
         public void insertarAsientoDeuda(Comprobante c)
@@ -80,10 +83,10 @@ namespace AccesoDatos
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "cargarItemAsientoDeuda";
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@comprobante", idComprobante);
-                    cmd.Parameters.AddWithValue("@itemR", itemReci[i].pId);
-                    cmd.Parameters.AddWithValue("@imp", itemReci[i].pImporte);
-                    cmd.Parameters.AddWithValue("@desc", itemReci[i].pDescripcion);
+                    cmd.Parameters.AddWithValue("@fk_comprobante", idComprobante);
+                    cmd.Parameters.AddWithValue("@fk_itemComprobante", itemReci[i].pId);
+                    cmd.Parameters.AddWithValue("@importe", itemReci[i].pImporte);
+                    cmd.Parameters.AddWithValue("@descripcion", itemReci[i].pDescripcion);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -106,7 +109,14 @@ namespace AccesoDatos
                 cmd.Connection = cn.Conectar();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "Select Max(id_DeudaPersona) from DeudasPersonas";
-                id = cmd.ExecuteNonQuery();
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    id = dr.GetInt32(0);
+                    break;
+                }
             }
             catch (Exception e)
             {

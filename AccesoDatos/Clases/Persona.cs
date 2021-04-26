@@ -60,7 +60,6 @@ namespace AccesoDatos.Clases
             this.departamento = departamento;
             this.provincia = provincia;
             this.observaciones = observaciones;
-
         }
 
 
@@ -69,72 +68,48 @@ namespace AccesoDatos.Clases
             telefono.Add(t);
         }
 
-        public List<Telefono> quitarTelefono(Telefono t)
-        {
-            telefono.Remove(new Telefono() { pIdTelefono = t.pIdTelefono, pcodigoArea = t.pcodigoArea, pnumero = t.pnumero });
-            return telefono;
-        }
-
-        public List<Telefono> getTelefono()
-        {
-            List<Telefono> lista = new List<Telefono>();
-            foreach (var item in telefono)
-            {
-                lista.Add(item);
-            }
-            return lista;
-        }
-
-        //DNI
         public Int32 pDNI
         {
             get { return dni; }
             set { dni = value; }
         }
 
-        //TIPO DNI
         public Int32 pTipoDNI
         {
             get { return tipoDni; }
             set { tipoDni = value; }
         }
 
-        //APELLIDO
         public string pApellido
         {
             get { return apellido; }
             set { apellido = value; }
         }
 
-        //NOMBRE
         public string pNombre
         {
             get { return nombre; }
             set { nombre = value; }
         }
 
-        //TELEFONO
-        public List<Telefono> pTelefono //Esto no debería estar. Revisar apuntes Arreglos y Colecciones/Composición (Lab III)
+        public List<Telefono> pTelefono 
         {
             get { return telefono; }
             set { telefono = value; }
         }
 
-        //MAIL
         public string pMail
         {
             get { return mail; }
             set { mail = value; }
         }
 
-        //DIRECCION
         public string pDireccion
         {
             get { return direccion; }
             set { direccion = value; }
         }
 
-        //ALTURA
         public Int32 pAltura
         {
             get { return altura; }
@@ -153,41 +128,36 @@ namespace AccesoDatos.Clases
             set { depto = value; }
         }
 
-        //BARRIO
         public Int32 pBarrio
         {
             get { return barrio; }
             set { barrio = value; }
         }
 
-        //LOCALIDAD
         public Int32 pciudad
         {
             get { return ciudad; }
             set { ciudad = value; }
         }
+
         public Int32 pdepartamento
         {
             get { return departamento; }
             set { departamento = value; }
         }
 
-        //PROVINCIA
         public Int32 pProvincia
         {
             get { return provincia; }
             set { provincia = value; }
         }
 
-
-        //OBSERVACIONES
         public string pObservaciones
         {
             get { return observaciones; }
             set { observaciones = value; }
         }
 
-        //TO STRING
         public override string ToString()
         {
             return "Datos: \n" +

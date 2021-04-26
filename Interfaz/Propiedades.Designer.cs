@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlBase = new System.Windows.Forms.Panel();
             this.grpCaracteristicas = new System.Windows.Forms.GroupBox();
+            this.btnCancelarProp = new System.Windows.Forms.Button();
             this.btnBorrarImagen = new System.Windows.Forms.Button();
             this.pctImagen = new System.Windows.Forms.PictureBox();
             this.lstNombreImagen = new System.Windows.Forms.ListBox();
@@ -100,7 +101,6 @@
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.lblDireccion = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnCancelarProp = new System.Windows.Forms.Button();
             this.pnlBase.SuspendLayout();
             this.grpCaracteristicas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctImagen)).BeginInit();
@@ -158,6 +158,19 @@
             this.grpCaracteristicas.TabIndex = 11;
             this.grpCaracteristicas.TabStop = false;
             this.grpCaracteristicas.Text = "Características de la Propiedad";
+            // 
+            // btnCancelarProp
+            // 
+            this.btnCancelarProp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
+            this.btnCancelarProp.FlatAppearance.BorderSize = 0;
+            this.btnCancelarProp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelarProp.Location = new System.Drawing.Point(718, 192);
+            this.btnCancelarProp.Name = "btnCancelarProp";
+            this.btnCancelarProp.Size = new System.Drawing.Size(140, 23);
+            this.btnCancelarProp.TabIndex = 124;
+            this.btnCancelarProp.Text = "Cancelar";
+            this.btnCancelarProp.UseVisualStyleBackColor = false;
+            this.btnCancelarProp.Click += new System.EventHandler(this.btnCancelarProp_Click);
             // 
             // btnBorrarImagen
             // 
@@ -572,7 +585,7 @@
             this.btnIngresarBarrio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
             this.btnIngresarBarrio.FlatAppearance.BorderSize = 0;
             this.btnIngresarBarrio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIngresarBarrio.Location = new System.Drawing.Point(305, 159);
+            this.btnIngresarBarrio.Location = new System.Drawing.Point(288, 159);
             this.btnIngresarBarrio.Name = "btnIngresarBarrio";
             this.btnIngresarBarrio.Size = new System.Drawing.Size(140, 23);
             this.btnIngresarBarrio.TabIndex = 118;
@@ -848,14 +861,14 @@
             this.dgvPropiedades.AllowUserToResizeRows = false;
             this.dgvPropiedades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPropiedades.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPropiedades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPropiedades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvPropiedades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPropiedades.Location = new System.Drawing.Point(451, 25);
             this.dgvPropiedades.Name = "dgvPropiedades";
@@ -916,19 +929,6 @@
             this.label1.Size = new System.Drawing.Size(65, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "por Apellido:";
-            // 
-            // btnCancelarProp
-            // 
-            this.btnCancelarProp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.btnCancelarProp.FlatAppearance.BorderSize = 0;
-            this.btnCancelarProp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelarProp.Location = new System.Drawing.Point(718, 192);
-            this.btnCancelarProp.Name = "btnCancelarProp";
-            this.btnCancelarProp.Size = new System.Drawing.Size(140, 23);
-            this.btnCancelarProp.TabIndex = 124;
-            this.btnCancelarProp.Text = "Cancelar";
-            this.btnCancelarProp.UseVisualStyleBackColor = false;
-            this.btnCancelarProp.Click += new System.EventHandler(this.btnCancelarProp_Click);
             // 
             // Propiedades
             // 

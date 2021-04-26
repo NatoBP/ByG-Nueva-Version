@@ -176,7 +176,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Location = new System.Drawing.Point(869, 598);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(119, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(120, 23);
             this.btnCancelar.TabIndex = 373;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
@@ -281,7 +281,7 @@
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditar.Location = new System.Drawing.Point(869, 354);
             this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(119, 23);
+            this.btnEditar.Size = new System.Drawing.Size(120, 23);
             this.btnEditar.TabIndex = 371;
             this.btnEditar.Text = "Editar Datos";
             this.btnEditar.UseVisualStyleBackColor = false;
@@ -315,7 +315,7 @@
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Location = new System.Drawing.Point(869, 536);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(119, 23);
+            this.btnGuardar.Size = new System.Drawing.Size(120, 23);
             this.btnGuardar.TabIndex = 372;
             this.btnGuardar.Text = "Guardar Persona";
             this.btnGuardar.UseVisualStyleBackColor = false;
@@ -412,7 +412,7 @@
             this.btnCargarBarrio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCargarBarrio.Location = new System.Drawing.Point(697, 536);
             this.btnCargarBarrio.Name = "btnCargarBarrio";
-            this.btnCargarBarrio.Size = new System.Drawing.Size(121, 23);
+            this.btnCargarBarrio.Size = new System.Drawing.Size(120, 23);
             this.btnCargarBarrio.TabIndex = 365;
             this.btnCargarBarrio.Text = "Ingresar Barrio";
             this.btnCargarBarrio.UseVisualStyleBackColor = false;
@@ -480,7 +480,7 @@
             this.btnBorrarTelefono.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBorrarTelefono.Location = new System.Drawing.Point(869, 308);
             this.btnBorrarTelefono.Name = "btnBorrarTelefono";
-            this.btnBorrarTelefono.Size = new System.Drawing.Size(119, 23);
+            this.btnBorrarTelefono.Size = new System.Drawing.Size(120, 23);
             this.btnBorrarTelefono.TabIndex = 370;
             this.btnBorrarTelefono.Text = "Borrar Teléfono";
             this.btnBorrarTelefono.UseVisualStyleBackColor = false;
@@ -494,7 +494,7 @@
             this.btnCargarTelefono.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCargarTelefono.Location = new System.Drawing.Point(869, 260);
             this.btnCargarTelefono.Name = "btnCargarTelefono";
-            this.btnCargarTelefono.Size = new System.Drawing.Size(119, 23);
+            this.btnCargarTelefono.Size = new System.Drawing.Size(120, 23);
             this.btnCargarTelefono.TabIndex = 369;
             this.btnCargarTelefono.Text = "Cargar Teléfono";
             this.btnCargarTelefono.UseVisualStyleBackColor = false;

@@ -656,6 +656,7 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.Orange;
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.AutoGenerateColumns = false;
             dgv.Columns.Add("idPropiedad", "idPropiedad");
             dgv.Columns[0].Visible = false;
             dgv.Columns.Add("DNI", "D.N.I.:");
@@ -742,6 +743,7 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
+            dgv.AutoGenerateColumns = false;
             dgv.Columns.Add("id", "ID:");
             dgv.Columns[0].Visible = false;
             dgv.Columns.Add("caracteristica", "Item:");

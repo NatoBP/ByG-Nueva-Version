@@ -34,9 +34,6 @@ namespace Interfaz
         //INTERFAZ
         Clientes c;
 
-        public Persona datos;
-
-
         public NuevoContrato()
         {
             InitializeComponent();
@@ -850,8 +847,7 @@ namespace Interfaz
             }
         }
 
-        //Abrir otras ventanas
- 
+                //Abrir otras ventanas
         private void abrirVentana<MiForm>(Form formHijo) where MiForm : Form, new()
         {
             Form fh;
@@ -869,13 +865,11 @@ namespace Interfaz
                 fh.BringToFront();
                 fh.Show();
             }
-
         }
 
 
-
         //CONFIGURACIONES
-        //Carga Inicial
+                //Carga Inicial
         private void cargaInicial()
         {
             tc.traerCombo(cboTipo, "TiposDNI", "id_DNI", "tipoDNI", "", -1);
@@ -928,6 +922,7 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.Orange;
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.AutoGenerateColumns = false;
             dgv.Columns.Add("idPropiedad", "idPropiedad");
             dgv.Columns[0].Visible = false;
             dgv.Columns.Add("Dirección", "Dirección:");
@@ -972,30 +967,9 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            //dgv.Columns.Add("dni", "DNI:");
-            //dgv.Columns[0].Visible = false;
-
-            //dgv.Columns.Add("tipo", "TIPO:");
-            //dgv.Columns[1].Visible = false;
-
+            dgv.AutoGenerateColumns = false;
             dgv.Columns.Add("apellido", "Apellido:");
             dgv.Columns.Add("nombre", "Nombre:");
-            //dgv.Columns.Add("cod area", "Cód. Área:");
-            //dgv.Columns[4].Visible = false;
-            //dgv.Columns.Add("telefono", "Teléfono:");
-            //dgv.Columns[5].Visible = false;
-
-            //dgv.Columns.Add("direccion", "Direccion:");
-            //dgv.Columns[6].Visible = false;
-
-            //dgv.Columns.Add("numero", "Número:");
-            //dgv.Columns[7].Visible = false;
-
-            //dgv.Columns.Add("ciudad", "Ciudad:");
-            //dgv.Columns[8].Visible = false;
-
-            //dgv.Columns.Add("provincia", "Provincia:");
-            //dgv.Columns[9].Visible = false;
 
             //FUENTE
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font(dgv.Font, FontStyle.Bold);

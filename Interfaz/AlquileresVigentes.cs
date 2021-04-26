@@ -9,19 +9,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AccesoDatos;
+using AccesoDatos.Clases;
 
 namespace Interfaz
 {
     public partial class AlquileresVigentes : Form
     {
         AlquileresAD alq = new AlquileresAD();
+        Persona pr;
 
         public AlquileresVigentes()
         {
             InitializeComponent();
             ConfiguracionDGV();
             buscarVigentes();
-
             //invisibilizarColumnas();
 
             deshabilitarCampos();
@@ -87,7 +88,7 @@ namespace Interfaz
         //Selección
         private void dgvAlquileresV_SelectionChanged(object sender, EventArgs e)
         {
-            cargarCampos();
+            cargarDatosACampos();
         }
 
         //Click
@@ -95,7 +96,7 @@ namespace Interfaz
         {
             if (dgvAlquileresV.Rows.Count > 0)
             {
-                cargarCampos();
+                cargarDatosACampos();
             }
         }
 
@@ -113,7 +114,7 @@ namespace Interfaz
         }
 
         //Cargar Campos
-        private void cargarCampos()
+        private void cargarDatosACampos()
         {
             if (dgvAlquileresV.CurrentRow != null)
             {
@@ -149,6 +150,35 @@ namespace Interfaz
 
         }
 
+        public void CargarPersona(Persona p)
+        {
+            limpiarCampos();
+            pr = null;
+            pr = p;
+            txtApellido.Text = p.pApellido;
+            txtNombre.Text = p.pNombre;
+            //Falta refresh para cargar Estado de Cuenta actualizado del Cliente
+        }
+
+        private void abrirVentana<MiForm>(Form formHijo) where MiForm : Form, new()
+        {
+            Form fh;
+            fh = pnlBase.Controls.OfType<MiForm>().FirstOrDefault();
+
+            if (fh == null)
+            {
+                fh = formHijo as Form;
+                AddOwnedForm(fh);
+                fh.TopLevel = false;
+                fh.Dock = DockStyle.Fill;
+                this.Controls.Add(fh);
+                this.Tag = fh;
+
+                fh.BringToFront();
+                fh.Show();
+            }
+        }
+
 
         //CONFIGURACIÓN DATAGRIDVIEW
         private void ConfiguracionDGV()
@@ -166,7 +196,7 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.Orange;
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
+            dgv.AutoGenerateColumns = false;
             dgv.Columns.Add("Apellido Locatario", "Apellido Locatario/a:");
             dgv.Columns.Add("Nombre Locatario", "Nombre Locatario/a:");
             dgv.Columns.Add("Apellido Locador", "Apellido Locador/a:");
@@ -214,6 +244,10 @@ namespace Interfaz
 
 
         //VALIDACIONES Y LIMPIEZAS
+        private void limpiarCampos()
+        {
+            throw new NotImplementedException();
+        }
 
         private void deshabilitarCampos()
         {

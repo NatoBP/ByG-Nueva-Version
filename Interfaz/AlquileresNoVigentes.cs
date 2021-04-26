@@ -153,17 +153,7 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            //dgv.Columns[0].Visible = false;
-            //dgv.Columns[1].Visible = false;
-            //dgv.Columns[8].Visible = false;
-            //dgv.Columns[9].Visible = false;
-            //dgv.Columns[10].Visible = false;
-            //dgv.Columns[11].Visible = false;
-            //dgv.Columns[12].Visible = false;
-            //dgv.Columns[13].Visible = false;
-            //dgv.Columns[14].Visible = false;
-            //dgv.Columns[15].Visible = false;
-
+            dgv.AutoGenerateColumns = false;
             dgv.Columns.Add("Apellido Locatario", "Apellido Locatario/a:");
             dgv.Columns.Add("Nombre Locatario", "Nombre Locatario/a:");
             dgv.Columns.Add("Apellido Locador", "Apellido Locador/a:");

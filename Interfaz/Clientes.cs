@@ -206,6 +206,7 @@ namespace Interfaz
                     if (locador == true) 
                     {
                         NuevoContrato nc = (NuevoContrato)this.ParentForm;
+                        
                         locador = false; 
                         abrirVentana<NuevoContrato>(nc);
                         nc.cargarCamposLocador(pr); 
@@ -420,6 +421,7 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.Orange;
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.AutoGenerateColumns = false;
             dgv.Columns.Add("idTelefono", "idTelefono");
             dgv.Columns[0].Visible = false;
             dgv.Columns.Add("Cod. Area", "Cód. Área:");
