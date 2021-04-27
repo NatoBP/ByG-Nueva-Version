@@ -142,47 +142,29 @@ namespace Interfaz
                         TotalEstadoCuenta();
 
                         AbrirVentanaComprobante(pr, c, c.pItem);
-
-                        //Si hay que volver a la ventana Alquileres Vigentes
-                        if (AlquileresV == true) 
-                        {
-                            AlquileresVigentes aV = (AlquileresVigentes)this.ParentForm;
-                            AlquileresV = false;
-
-                            AbrirVentana<AlquileresVigentes>(aV);
-                            aV.CargarPersona(pr);
-
-                            this.Close();
-                        }
-
                     }
                     //Si la persona No está registrada en BD
                     else
                     {
-                        DialogResult opcion = MessageBox.Show("La persona no está ingresada en la base de datos. \n ¿Desea imprimir de todas formas?", "¿Imprimir?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (opcion == DialogResult.Yes)
-                        {
-                            pr.pApellido = txtApellido.Text;
-                            pr.pNombre = txtNombre.Text;
-                            pr.pDNI = Convert.ToInt32(txtDni.Text);
-                            pr.pTipoDNI = Convert.ToInt32(cboTipoDNI.SelectedValue);
-                            cl.InsertarPersona(pr);
+                        pr.pApellido = txtApellido.Text;
+                        pr.pNombre = txtNombre.Text;
+                        pr.pDNI = Convert.ToInt32(txtDni.Text);
+                        pr.pTipoDNI = Convert.ToInt32(cboTipoDNI.SelectedValue);
+                        cl.InsertarPersona(pr);
 
-                            c.pdni = Convert.ToInt32(txtDni.Text);
-                            c.ptipoDNI = Convert.ToInt32(cboTipoDNI.SelectedValue);
-                            c.pfecha = dtpFecha.Value;
-                            c.pDescripcion = txtDescripcion.Text;
+                        c.pdni = Convert.ToInt32(txtDni.Text);
+                        c.ptipoDNI = Convert.ToInt32(cboTipoDNI.SelectedValue);
+                        c.pfecha = dtpFecha.Value;
+                        c.pDescripcion = txtDescripcion.Text;
 
-                            ec.insertarAsientoDeuda(c);
-                            ec.guardarItemAsiento(c.pItem);
+                        ec.insertarAsientoDeuda(c);
+                        ec.guardarItemAsiento(c.pItem);
 
-                            RefreshEstadoCuenta(c.pdni, c.ptipoDNI);
-                            TotalEstadoCuenta();
-                        }
+                        RefreshEstadoCuenta(c.pdni, c.ptipoDNI);
+                        TotalEstadoCuenta();
+
+                        AbrirVentanaComprobante(pr, c, c.pItem); //Imprimir
                     }
-
-                    AbrirVentanaComprobante(pr,c,c.pItem); //Imprimir
-
                 }
                 catch (Exception ex)
                 {
@@ -190,6 +172,18 @@ namespace Interfaz
                 }
             }
             limpiarCampos(1);
+
+            //Si hay que volver a la ventana Alquileres Vigentes
+            if (AlquileresV == true)
+            {
+                AlquileresVigentes aV = (AlquileresVigentes)this.ParentForm;
+                AlquileresV = false;
+
+                AbrirVentana<AlquileresVigentes>(aV);
+                aV.CargarPersona(pr);
+
+                this.Close();
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -202,6 +196,7 @@ namespace Interfaz
                     if (opcion == DialogResult.Yes)
                     {
                         limpiarCampos(1);
+                        this.Close();
                     }
                     break; //Hay que cortar el ciclo para que no salga más de un Message Box
                 }

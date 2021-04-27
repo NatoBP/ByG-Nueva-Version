@@ -67,6 +67,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDNI = new System.Windows.Forms.TextBox();
+            this.btnBorrarPersona = new System.Windows.Forms.Button();
             this.pnlBase.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTelefonos)).BeginInit();
@@ -75,6 +76,7 @@
             // pnlBase
             // 
             this.pnlBase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlBase.Controls.Add(this.btnBorrarPersona);
             this.pnlBase.Controls.Add(this.txtDepto);
             this.pnlBase.Controls.Add(this.txtPiso);
             this.pnlBase.Controls.Add(this.label75);
@@ -530,6 +532,22 @@
             this.txtDNI.TabIndex = 353;
             this.txtDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNI_KeyPress_1);
             // 
+            // btnBorrarPersona
+            // 
+            this.btnBorrarPersona.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnBorrarPersona.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(68)))), ((int)(((byte)(83)))));
+            this.btnBorrarPersona.Enabled = false;
+            this.btnBorrarPersona.FlatAppearance.BorderSize = 0;
+            this.btnBorrarPersona.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBorrarPersona.ForeColor = System.Drawing.Color.White;
+            this.btnBorrarPersona.Location = new System.Drawing.Point(869, 412);
+            this.btnBorrarPersona.Name = "btnBorrarPersona";
+            this.btnBorrarPersona.Size = new System.Drawing.Size(120, 23);
+            this.btnBorrarPersona.TabIndex = 390;
+            this.btnBorrarPersona.Text = "Borrar Persona";
+            this.btnBorrarPersona.UseVisualStyleBackColor = false;
+            this.btnBorrarPersona.Click += new System.EventHandler(this.btnBorrarPersona_Click);
+            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -588,5 +606,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox txtDNI;
+        private System.Windows.Forms.Button btnBorrarPersona;
     }
 }

@@ -311,8 +311,17 @@ namespace Interfaz
                         txtApellido.Text = pr.pApellido;
                         txtNombre.Text = pr.pNombre;
                         txtDireccion.Text = pr.pDireccion;
-                        txtAltura.Text = Convert.ToString(pr.pAltura);
-                        txtPiso.Text = Convert.ToString(pr.pPiso);
+
+                        if (pr.pAltura == 0)
+                            txtAltura.Text = "";
+                        else
+                            txtAltura.Text = Convert.ToString(pr.pAltura);
+
+                        if (pr.pPiso == 0)
+                            txtPiso.Text = "";
+                        else
+                            txtPiso.Text = Convert.ToString(pr.pPiso);
+
                         txtDepto.Text = pr.pDepto;
                         cboProvincia.SelectedValue = pr.pProvincia;
                         cboDepartamento.SelectedValue = pr.pdepartamento;
@@ -371,6 +380,27 @@ namespace Interfaz
             cboCiudad.SelectedValue = per.pciudad;
             cboBarrio.SelectedValue = per.pBarrio;
             txtMail.Text = per.pMail;
+        }
+
+        private void btnBorrarPersona_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult opcion = MessageBox.Show("¿Está segura que desea borrar este registro?", "Borrar Persona", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (opcion == DialogResult.Yes)
+                {
+                    cl.borrarPersona(pr);
+                    limpiarCamposCliente();
+                    txtDNI.Clear();
+                }
+                else
+                    return;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
         //Abrir Ventana
@@ -739,5 +769,7 @@ namespace Interfaz
             }
         }
         #endregion
+
+        
     }
 }

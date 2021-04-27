@@ -808,7 +808,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>4.69604cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -887,9 +887,9 @@
         </TablixRowHierarchy>
         <DataSetName>DsComprobante</DataSetName>
         <Top>1.55485cm</Top>
-        <Left>16.44979cm</Left>
+        <Left>14.25375cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>4.69604cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>

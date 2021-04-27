@@ -211,6 +211,28 @@ namespace AccesoDatos
             
         }
 
+        public void borrarPersona(Persona p)
+        {
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "BajaPersona";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@dni", p.pDNI);
+                cmd.Parameters.AddWithValue("@tipoDNI", p.pTipoDNI);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+        }
+
         //BUSCAR TELEFONO
         public List<Telefono> buscarTelefonos(int tipoDNI, int dni) 
         {
