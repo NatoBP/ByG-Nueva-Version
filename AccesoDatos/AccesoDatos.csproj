@@ -46,6 +46,7 @@
     <Compile Include="Clases\CaracteristicaPropiedad.cs" />
     <Compile Include="Clases\Comprobante.cs" />
     <Compile Include="Clases\Contrato.cs" />
+    <Compile Include="Clases\DTOPropiedad.cs" />
     <Compile Include="Clases\Foto.cs" />
     <Compile Include="Clases\LocadorDTO.cs" />
     <Compile Include="Clases\Persona.cs" />

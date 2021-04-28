@@ -116,7 +116,7 @@ namespace AccesoDatos
 
                     lista.Add(p);
                 }
-
+                dr.Close();
             }
             catch (Exception e)
             {
@@ -165,6 +165,7 @@ namespace AccesoDatos
                     LocadorDTO prop = new LocadorDTO(Id, Dni, TipoDni, Nombre, Apellido, Calle, Nro, piso, depto, descripcion, tipoPropiedad, idBarrio, Barrio, Ciudad, deparatamento, provincia);
                     lista.Add(prop);
                 }
+                dr.Close();
             }
             catch (Exception e)
             {
@@ -198,6 +199,44 @@ namespace AccesoDatos
             }
             return id;
         } //Busca el ID de la última propiedad registrada
+
+        public DTOPropiedad buscarDTOPropiedad(int id) //Busca la propiedad para armar el Contrato
+        {
+            DTOPropiedad prop = new DTOPropiedad();
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "cargarDtoPropiedad";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@idPropiedad", id);
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    prop.Calle = Convert.ToString(dr.GetValue(0));
+                    prop.NumeroCalle = Convert.ToInt32(dr.GetValue(1));
+                    prop.Ciudad = Convert.ToString(dr.GetValue(2));
+                    prop.Provincia = Convert.ToString(dr.GetValue(3));
+                    prop.Observaciones = Convert.ToString(dr.GetValue(4));
+                    prop.TipoPropiedad = Convert.ToString(dr.GetValue(5));
+                    prop.Piso = Convert.ToInt32(dr.GetValue(6));
+                    prop.Dpto = Convert.ToString(dr.GetValue(7));
+                    prop.Superficie = Convert.ToInt32(dr.GetValue(8));
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+            return prop;
+        } 
 
         public bool VerificarPropiedad(string calle, Int32 numero, Int32 piso, string depto, Int32 ciudad)
         {
@@ -284,6 +323,7 @@ namespace AccesoDatos
 
                     p.agregarCaracteristica(c);
                 }
+                dr.Close();
             }
             catch (Exception e)
             {
@@ -317,6 +357,7 @@ namespace AccesoDatos
                     Foto f = new Foto(id, descripcion, foto);
                     p.agregarFotos(f);
                 }
+                dr.Close();
             }
             catch (Exception e)
             {

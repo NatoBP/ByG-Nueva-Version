@@ -266,6 +266,27 @@ namespace Interfaz
            
         }
 
+        private void btnBorrarPersona_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult opcion = MessageBox.Show("¿Está segura que desea borrar este registro?", "Borrar Persona", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (opcion == DialogResult.Yes)
+                {
+                    cl.borrarPersona(pr);
+                    limpiarCamposCliente();
+                    txtDNI.Clear();
+                }
+                else
+                    return;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             foreach (Control c in pnlBase.Controls)
@@ -382,28 +403,7 @@ namespace Interfaz
             txtMail.Text = per.pMail;
         }
 
-        private void btnBorrarPersona_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DialogResult opcion = MessageBox.Show("¿Está segura que desea borrar este registro?", "Borrar Persona", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (opcion == DialogResult.Yes)
-                {
-                    cl.borrarPersona(pr);
-                    limpiarCamposCliente();
-                    txtDNI.Clear();
-                }
-                else
-                    return;
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
-
-        //Abrir Ventana
+                //Abrir Ventana
         private void abrirVentana<MiForm>(Form formHijo) where MiForm : Form, new()
         {
             Form fh;
@@ -565,7 +565,7 @@ namespace Interfaz
                 {
                     c.Enabled = false;
                 }
-                else if (c is Button)
+                else if (c is Button && c != btnCancelar)
                 {
                     c.Enabled = false;
                 }

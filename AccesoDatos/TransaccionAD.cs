@@ -29,7 +29,6 @@ namespace AccesoDatos
                 cmd.Parameters.AddWithValue("@nombreB", nombre);
                 cmd.Parameters.AddWithValue("@idCiudad", id_ciudad);
                 cmd.ExecuteNonQuery();
-
             }
             catch (Exception e)
             {
@@ -37,8 +36,7 @@ namespace AccesoDatos
             }
             finally
             {
-                if (cn.Conectar().State == ConnectionState.Open)
-                    cn.Desconectar();
+                cn.Desconectar();
             }
         }
 
@@ -75,8 +73,6 @@ namespace AccesoDatos
                     cbo.DataSource = dt;
                     cbo.DropDownStyle = ComboBoxStyle.DropDownList;
                 }
-
-
             }
             catch (Exception e)
             {
@@ -94,13 +90,13 @@ namespace AccesoDatos
             int[] ubicacion = new int[4];
             try
             {
-                string comandoSql = "exec  mostrarUbicacion @idBarrio = " + idBarrio + "";
-                cmd.CommandText = comandoSql;
-                if (cn != null && cn.Conectar().State == ConnectionState.Closed)
-                {
-                    cn.Conectar();
-                }
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "mostrarUbicacion";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@idBarrio", idBarrio);
                 dr = cmd.ExecuteReader();
+
                 while (dr.Read())
                 {
                     ubicacion[0] = dr.GetInt32(0);
@@ -108,6 +104,7 @@ namespace AccesoDatos
                     ubicacion[2] = dr.GetInt32(2);
                     ubicacion[3] = dr.GetInt32(3);
                 }
+                dr.Close();
             }
             catch (Exception e)
             {
@@ -120,6 +117,36 @@ namespace AccesoDatos
             return ubicacion;
         }
 
+        //BUSCAR NOMBRE CIUDAD
+        public string buscarCiudad(int id)
+        {
+            String valor = "";
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "buscarNombreCiudad";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@idBarrio", id);
+
+                cmd.Parameters.Add("@nombreCiudad", SqlDbType.VarChar, 50);
+                cmd.Parameters["@nombreCiudad"].Direction = ParameterDirection.Output;
+
+                int i = cmd.ExecuteNonQuery();
+
+                valor = Convert.ToString(cmd.Parameters["@nombreCiudad"].Value);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+            return valor;
+        }
     }
 }
 

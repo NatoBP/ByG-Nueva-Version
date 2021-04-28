@@ -115,37 +115,56 @@ namespace AccesoDatos
             return ds;
         }
 
-        public void insertarContrato(Persona p)
+        public int buscarIdContrato()
+        {
+            int id = 0;
+
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "Select Max(id_Contrato) from ContratosAlquiler";
+                id = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+
+            return id;
+        }
+
+        public void insertarContrato(Contrato c)
         {
             try
             {
                 cmd.Connection = cn.Conectar();
                 cmd.CommandType = CommandType.StoredProcedure;
+
                 cmd.CommandText = "insertarContrato";
                 cmd.Parameters.Clear();
-                //cmd.Parameters.Add();
+                cmd.Parameters.AddWithValue("@idPropiedad", c.IdPropiedad);
+                cmd.Parameters.AddWithValue("@dniInquilino", c.DniInquilino);
+                cmd.Parameters.AddWithValue("@tipoDni", c.TipoDniInquilino);
+                cmd.Parameters.AddWithValue("@duracion", c.Duracion);
+                cmd.Parameters.AddWithValue("@precio",c.PrecioAlquiler);
+                cmd.Parameters.AddWithValue("@interesDiario", c.InteresDiario);
+                cmd.Parameters.AddWithValue("@deposito", c.Deposito);
+                cmd.Parameters.AddWithValue("@usoPropiedad", c.UsoPropiedad);
+                cmd.Parameters.AddWithValue("@vigencia", c.Vigencia);
+                cmd.Parameters.AddWithValue("@1raFecha", c.Fecha1raActualizacion);
+                cmd.Parameters.AddWithValue("@1erAumento", c.Aumento1raActualizacion);
+                cmd.Parameters.AddWithValue("@2daFecha", c.Fecha2daActualizacion);
+                cmd.Parameters.AddWithValue("@2doAumento", c.Aumento2daActualizacion);
+                cmd.Parameters.AddWithValue("@bajalogica", 1);
+                cmd.Parameters.AddWithValue("@fechaBaja", c.Vigencia);
+                cmd.Parameters.AddWithValue("@fechaInicio", c.FechaInicioContrato);
 
-
-                //var param = new SqlParameter[] { new SqlParameter("@idPropiedad", c.IdPropiedad),
-                //                 new SqlParameter("@dniInquilino", c.DniInquilino),
-                //                 new SqlParameter("@tipoDni", c.TipoDniInquilino),
-                //                 new SqlParameter("@duracion", c.Duracion),
-                //                 new SqlParameter("@precio", c.PrecioAlquiler),
-                //                 new SqlParameter("@interesDiario", c.InteresDiario),
-                //                 new SqlParameter("@deposito", c.Deposito),
-                //                 new SqlParameter("@usoPropiedad", c.UsoPropiedad),
-                //                 new SqlParameter("@vigencia", c.Vigencia),
-                //                 new SqlParameter("@1raFecha", c.Fecha1raActualizacion),
-                //                 new SqlParameter("@1erAumento", c.Aumento1raActualizacion),
-                //                 new SqlParameter("@2daFecha", c.Fecha2daActualizacion),
-                //                 new SqlParameter("@2doAumento", c.Aumento2daActualizacion),
-                //                 new SqlParameter("@bajalogica", 1),
-                //                 new SqlParameter("@fechaBaja", c.Vigencia),
-                //                 new SqlParameter("@fechaInicio", c.FechaInicioContrato)};
-
-                //ad.ExecProcedure("insertarContrato", param, ref data);
-
-
+                cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
@@ -178,6 +197,31 @@ namespace AccesoDatos
                 cn.Desconectar();
             }
 
+        }
+
+        public void InsertarGarante(Persona g, int idContrato)
+        {
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "insertarGarante";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@dni", g.pDNI);
+                cmd.Parameters.AddWithValue("@tipoDNI", g.pTipoDNI);
+                cmd.Parameters.AddWithValue("@sugerencias", "");
+                cmd.Parameters.AddWithValue("@idContrato", idContrato);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
         }
     }
 }

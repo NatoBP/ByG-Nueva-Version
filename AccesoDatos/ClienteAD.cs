@@ -20,7 +20,7 @@ namespace AccesoDatos
 
         Persona p;
 
-        //VERIFICAR EXISTENCIA EN BD
+        //Verficicar Existencia en BD
         public int VerificarPersona(Int32 tipoDNI, Int32 dni)
         {
             int i = 0;
@@ -50,11 +50,10 @@ namespace AccesoDatos
             return i;
         }
 
-        //BUSCA UNA PERSONA Y LA CARGA EN UN DATATABLE
+        //Buscar Persona por DNI
         public Persona BuscarPersona(Int32 tipoDNI, Int32 dni )
         {
             p = new Persona();
-
             try
             {
                 cmd.Connection = cn.Conectar();
@@ -81,6 +80,7 @@ namespace AccesoDatos
                     p.pdepartamento = Convert.ToInt32(dr.GetValue(11));
                     p.pProvincia = Convert.ToInt32(dr.GetValue(12));
                 }
+                dr.Close();
             }
             catch (Exception ex)
             {
@@ -93,6 +93,7 @@ namespace AccesoDatos
             return p;
         }
 
+        //Buscar Persona por Apellido
         public Persona BuscarPersonaPorApellido(string apellido)
         {
             p = new Persona();
@@ -122,6 +123,7 @@ namespace AccesoDatos
                     p.pdepartamento = Convert.ToInt32(dr.GetValue(11));
                     p.pProvincia = Convert.ToInt32(dr.GetValue(12));
                 }
+                dr.Close();
             }
             catch (Exception e)
             {
@@ -131,11 +133,10 @@ namespace AccesoDatos
             {
                 cn.Desconectar();
             }
-
             return p;
         }
         
-        //INSERTAR PERSONA
+        //Insertar Persona
         public void InsertarPersona(Persona p)
         {
             try
@@ -177,7 +178,7 @@ namespace AccesoDatos
             
         }
 
-        //MODIFICAR PERSONA
+        //Modificar Persona
         public void modificarPersona(Persona p)
         {
             try
@@ -211,6 +212,7 @@ namespace AccesoDatos
             
         }
 
+        //Borrar Persona
         public void borrarPersona(Persona p)
         {
             try
@@ -233,7 +235,7 @@ namespace AccesoDatos
             }
         }
 
-        //BUSCAR TELEFONO
+        //Buscar Teléfono
         public List<Telefono> buscarTelefonos(int tipoDNI, int dni) 
         {
             Persona p = new Persona();
@@ -259,6 +261,7 @@ namespace AccesoDatos
                     t.pcodigoArea = Convert.ToString(dr.GetValue(4));
                     p.agregarTelefono(t);
                 }
+                dr.Close();
             }
             catch (Exception e)
             {
@@ -271,7 +274,7 @@ namespace AccesoDatos
             return p.pTelefono;
         }
 
-        //INSERTAR/MODIFICAR TELEFONO
+        //Insertar / Modificar Teléfono
         public void InsertarTelefono(List<Telefono> telefono)
         {
             try
@@ -301,7 +304,7 @@ namespace AccesoDatos
             }
         }
 
-        //BORRAR TELEFONO
+        //Borrar Teléfono
         public void BorrarTelefono(Int32 id)
         {
             try

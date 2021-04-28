@@ -81,9 +81,9 @@ namespace AccesoDatos.Clases
             listaGarante.Add(g);
         }
 
-        public List<Persona> devolverGarante()
+        public List<Persona> listarGarantes
         {
-            return listaGarante;
+            get { return listaGarante; }
         }
 
         public int IdPropiedad { get => idPropiedad; set => idPropiedad = value; }
