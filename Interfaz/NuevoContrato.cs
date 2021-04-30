@@ -324,19 +324,18 @@ namespace Interfaz
 
                     //Insertar Contrato en BD
                     alq.insertarContrato(ct);
-                    int idContrato = alq.buscarIdContrato(); //Busca el Id del último contrato creado
+                    ct.IdContrato = alq.buscarIdContrato(); //Busca el Id del último contrato creado
 
                     //Insertar Garantes
                     foreach (var item in ct.listarGarantes)
                     {
                         if (cl.VerificarPersona(item.pTipoDNI, item.pDNI) > 0)
                         {
-                            alq.InsertarGarante(item, idContrato);
+                            alq.InsertarGarante(item, ct.IdContrato);
                         }
                     }
 
-                    //Generar Contrato
-                    GenerarContrato(ct.IdPropiedad, idContrato);
+                    GenerarContrato(ct);
 
                     limpiarCamposLocador();
                     limpiarCamposLocatario();
@@ -352,7 +351,6 @@ namespace Interfaz
             {
                 MessageBox.Show("Debe ingresar todos los campos");
             }
-
         }
 
         private string establecerTipoDNI(int i)
@@ -364,6 +362,22 @@ namespace Interfaz
                 tipo = "D.U.";
             else if (i == 3)
                 tipo = "Pasaporte";
+
+            return tipo;
+        }
+
+        private string establecerUsoPropiedad(int i)
+        {
+            string tipo = "";
+
+            if (i == 1)
+                tipo = "Vivienda";
+            else if (i == 2)
+                tipo = "Comercio";
+            else if (i == 3)
+                tipo = "Depósito";
+            else
+                tipo = "Sin especificar";
 
             return tipo;
         }
@@ -460,328 +474,308 @@ namespace Interfaz
             return Num2Text;
         }
 
-        private void GenerarContrato(int idPropiedad, int idContrato)
+        private void GenerarContrato(Contrato c)
         {
-            DTOPropiedad tempo = p.buscarDTOPropiedad(idPropiedad);
-            String direccion = tempo.Calle + " N°" + tempo.NumeroCalle;
-
-            //int indice = dgvPropiedades.CurrentRow.Index; //NO SE USA
-
-            String ciudadLocador = tc.buscarCiudad(locador.pBarrio);
-            String ciudadPropiedad = tempo.Ciudad;
-            String pciaPropiedad = tempo.Provincia;
-
-            object ObjMiss = System.Reflection.Missing.Value;
-            Word.Application ObjWord = new Word.Application();
-
-            //Ruta del contrato base
-            string ruta = @"C:\Users\Nato\Documents\GitHub\Contratos\CONTRATO DE LOCACION.docx";
-
-            string directorio = @"C:\Users\Nato\Documents\GitHub\Contratos\" + @"\" +
-               locador.pApellido.ToUpper() + " " + locador.pNombre + " - " + direccion.ToUpper();
-
-            //Se crea una carpeta para guardar el Contrato
-            if (!Directory.Exists(directorio))
+            try
             {
-                DirectoryInfo di = Directory.CreateDirectory(directorio);
+                DTOPropiedad tempo = p.buscarDTOPropiedad(ct.IdPropiedad);
+                string direccion = tempo.Calle + " N°" + tempo.NumeroCalle;
+
+                string ciudadLocador = tc.buscarCiudad(locador.pBarrio);
+                string ciudadPropiedad = tempo.Ciudad;
+                string pciaPropiedad = tempo.Provincia;
+
+                object ObjMiss = System.Reflection.Missing.Value;
+                Word.Application ObjWord = new Word.Application();
+
+                //Ruta del contrato base
+                string ruta = @"C:\Users\Nato\Documents\GitHub\Contratos\CONTRATO BASE.docx";
+
+                string directorio = @"C:\Users\Nato\Documents\GitHub\Contratos\" + @"\" +
+                   locador.pApellido.ToUpper() + " " + locador.pNombre + " - " + direccion.ToUpper();
+
+                //Se crea una carpeta para guardar el Contrato
+                if (!Directory.Exists(directorio))
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(directorio);
+                }
+
+                //Ruta destino del archivo a crearse (datos locador, datos locatario)
+                string destFile = directorio + @"\" + ct.IdContrato + " - " + locador.pApellido + " " + locador.pNombre + " - " + locatario.pApellido + " " + locatario.pNombre + ".docx";
+
+                //Genera una copia del archivo con los datos del locador y locatario
+                System.IO.File.Copy(ruta, destFile, true);
+
+                object parametro = destFile;
+
+                Word.Document ObjDoc = ObjWord.Documents.Open(parametro, ObjMiss); //Abrimos el archivo creado
+
+
+                object apelLoc = "ApellidoLocador";
+                Word.Range ape = ObjDoc.Bookmarks.get_Item(ref apelLoc).Range;
+                ape.Text = " " + locador.pApellido + ", " + locador.pNombre + ", " + establecerTipoDNI(locador.pTipoDNI) + " Nº" + locador.pDNI + ", con nacionalidad Argentina, " +
+                           "mayor de edad, con domicilio real en " + ciudadLocador + ", " + locador.pDireccion + " N°" + locador.pAltura + ", por una parte y en adelante el LOCADOR, " +
+                           "y por la otra, el/la Sr/a. " + locatario.pApellido + ", " + locatario.pNombre + ", " + establecerTipoDNI(locatario.pTipoDNI) + " N°" + locatario.pDNI + ", " +
+                           "domicilio real en el inmueble locado, de Nacionalidad Argentina, mayor de edad, siendo empleada en relación de dependencia de EMPLEADOR, " +
+                           "que presenta su recibo de haberes como demostración de sus ingresos, en adelante la LOCATARIA, convienen en celebrar el presente contrato " +
+                           "de locación que se regirá por las siguientes cláusulas y condiciones que a continuación se detallan:";
+                ObjDoc.Bookmarks.Add(apelLoc.ToString(), ape);
+
+
+                object domProp = "DomicilioPropiedad";
+                Word.Range domP = ObjDoc.Bookmarks.get_Item(ref domProp).Range;
+                domP.Text = " " + direccion + ", de la ciudad de " + ciudadPropiedad + ", Provincia de " + pciaPropiedad + ", que se describe como: " +
+                            "" + establecerUsoPropiedad(ct.UsoPropiedad) + ", de __ metros de frente por __ metros de fondo, haciendo una superficie total de " + tempo.Superficie + " " +
+                            "metros cuadrados. El mismo, posee un " + tempo.Observaciones + ". La propiedad se entrega con un certificado APTO ELECTRICO de fecha __/__/__, " +
+                            "de acuerdo a lo establecido en la Ley Provincial N° 10281 “Ley de Seguridad Eléctrica” debiendo la locataria al finalizar " +
+                            "el contrato reintegrar la propiedad con dicho certificado actualizado. ";
+                ObjDoc.Bookmarks.Add(domProp.ToString(), domP);
+
+
+                object fechaInicio = "fechaInicioAlquiler";
+                Word.Range fInicio = ObjDoc.Bookmarks.get_Item(ref fechaInicio).Range;
+                fInicio.Text = "" + dtpFechaInicio.Value.ToShortDateString() + ", venciendo en consecuencia, de pleno derecho y sin necesidad de interpelación judicial o extrajudicial previa, " +
+                               "el día " + dtpFechaFin.Value.ToShortDateString() + "";
+                ObjDoc.Bookmarks.Add(fechaInicio.ToString(), fInicio);
+
+                object usoProp = "usoQueLeDaran";
+                Word.Range usoP = ObjDoc.Bookmarks.get_Item(ref usoProp).Range;
+                usoP.Text = establecerUsoPropiedad(ct.UsoPropiedad);
+                ObjDoc.Bookmarks.Add(usoProp.ToString(), usoP);
+
+                object moraLetras = "moraLetra";
+                Word.Range moraD = ObjDoc.Bookmarks.get_Item(ref moraLetras).Range;
+                moraD.Text = enLetras(txtIntereses.Text);
+                ObjDoc.Bookmarks.Add(moraLetras.ToString(), moraD);
+
+                object multaDiaria = "MoraDiaria";
+                Word.Range multaD = ObjDoc.Bookmarks.get_Item(ref multaDiaria).Range;
+                multaD.Text = txtIntereses.Text;
+                ObjDoc.Bookmarks.Add(multaDiaria.ToString(), multaD);
+
+                object precioAlquiler = "precioAlquilerLetras";
+                Word.Range precioAlq = ObjDoc.Bookmarks.get_Item(ref precioAlquiler).Range;
+                precioAlq.Text = enLetras(txtPrecioAlquiler.Text);
+                ObjDoc.Bookmarks.Add(precioAlquiler.ToString(), precioAlq);
+
+                object precioAlquilerN = "precioAlquilerNros";
+                Word.Range precioAlqN = ObjDoc.Bookmarks.get_Item(ref precioAlquilerN).Range;
+                precioAlqN.Text = txtPrecioAlquiler.Text;
+                ObjDoc.Bookmarks.Add(precioAlquilerN.ToString(), precioAlqN);
+
+                object diaDePago = "diaDePago";
+                Word.Range diaPago = ObjDoc.Bookmarks.get_Item(ref diaDePago).Range;
+                diaPago.Text = txtDiaVencimiento.Text;
+                ObjDoc.Bookmarks.Add(diaDePago.ToString(), diaPago);
+
+                object diaDePagoL = "diaDePagoLetras";
+                Word.Range diaPagoL = ObjDoc.Bookmarks.get_Item(ref diaDePagoL).Range;
+                diaPagoL.Text = enLetras(txtDiaVencimiento.Text);
+                ObjDoc.Bookmarks.Add(diaDePagoL.ToString(), diaPagoL);
+
+                object apelG1 = "ApellidoGarante";
+                Word.Range apeG1 = ObjDoc.Bookmarks.get_Item(ref apelG1).Range;
+
+                string[] NombreGarante = new string[5]; //El número máximo de garantes es 5
+                string[] DniGarante = new string[5]; //Estos campos se necesitan para el final del contrato
+
+                for (int i = 0; i < ct.listarGarantes.Count; i++)
+                {
+                    NombreGarante[i] = ct.listarGarantes[i].pApellido + " " + ct.listarGarantes[i].pNombre; //Se usa el nombre para la firma al final del documento
+                    DniGarante[i] = Convert.ToString(establecerTipoDNI(ct.listarGarantes[i].pTipoDNI) + " " + ct.listarGarantes[i].pDNI);
+
+                    string provincia = tc.buscarNombre("nombre", "Provincias", "id_Provincia = " + ct.listarGarantes[i].pProvincia + "");
+                    string direccionG = Convert.ToString(ct.listarGarantes[i].pDireccion + " N°" + ct.listarGarantes[i].pAltura);
+
+                    string telefono = "";
+
+                    if (ct.listarGarantes[i].pTelefono.Count > 0)
+                    {
+                        foreach (var item in ct.listarGarantes[i].pTelefono)
+                        {
+                            telefono = item.pcodigoArea + " " + item.pnumero;
+                            break;
+                        }
+                    }
+                    if (i == 0)
+                        apeG1.Text = "" + ct.listarGarantes[i].pApellido + ", " + ct.listarGarantes[i].pNombre + ", " + establecerTipoDNI(ct.listarGarantes[i].pTipoDNI) + " " + ct.listarGarantes[i].pDNI + ", " +
+                                     "Argentina, mayor de edad, domiciliado en " + direccionG + ", de la Ciudad de " + tc.buscarCiudad(ct.listarGarantes[i].pBarrio) + ", Provincia de " + provincia + ", " +
+                                     "teléfono de contacto " + telefono + ", siendo empleado en relación de dependencia de ______________ . \n";
+                    else
+                        apeG1.Text += "" + ct.listarGarantes[i].pApellido + ", " + ct.listarGarantes[i].pNombre + ", " + establecerTipoDNI(ct.listarGarantes[i].pTipoDNI) + " " + ct.listarGarantes[i].pDNI + ", " +
+                                 "Argentina, mayor de edad, domiciliado en " + direccionG + ", de la Ciudad de " + tc.buscarCiudad(ct.listarGarantes[i].pBarrio) + ", Provincia de " + provincia + ", " +
+                                 "teléfono de contacto " + telefono + ", siendo empleado en relación de dependencia de ______________ . \n";
+                }
+
+                ObjDoc.Bookmarks.Add(apelG1.ToString(), apeG1);
+
+                object deposLetras = "depositoLetras";
+                Word.Range depL = ObjDoc.Bookmarks.get_Item(ref deposLetras).Range;
+                depL.Text = enLetras(txtDeposito.Text);
+                ObjDoc.Bookmarks.Add(deposLetras.ToString(), depL);
+
+                object deposito = "DepositoNro";
+                Word.Range depo = ObjDoc.Bookmarks.get_Item(ref deposito).Range;
+                depo.Text = txtDeposito.Text;
+                ObjDoc.Bookmarks.Add(deposito.ToString(), depo);
+
+                object mailLoc = "mailLocataria";
+                Word.Range mailL = ObjDoc.Bookmarks.get_Item(ref mailLoc).Range;
+                mailL.Text = locatario.pMail;
+                ObjDoc.Bookmarks.Add(mailLoc.ToString(), mailL);
+
+                object diaCont = "diaContrato";
+                Word.Range diaC = ObjDoc.Bookmarks.get_Item(ref diaCont).Range;
+                diaC.Text = dtpFechaInicio.Value.Day.ToString();
+                ObjDoc.Bookmarks.Add(diaCont.ToString(), diaC);
+
+                object mesCont = "mesContrato";
+                Word.Range mesC = ObjDoc.Bookmarks.get_Item(ref mesCont).Range;
+                mesC.Text = dtpFechaInicio.Value.Month.ToString();
+                ObjDoc.Bookmarks.Add(mesCont.ToString(), mesC);
+
+                object anCont = "añoContrato";
+                Word.Range anC = ObjDoc.Bookmarks.get_Item(ref anCont).Range;
+                anC.Text = dtpFechaInicio.Value.Year.ToString();
+                ObjDoc.Bookmarks.Add(anCont.ToString(), anC);
+
+                object loca = "Locador";
+                Word.Range loc = ObjDoc.Bookmarks.get_Item(ref loca).Range;
+                loc.Text = locador.pApellido + ", " + locador.pNombre;
+                ObjDoc.Bookmarks.Add(loca.ToString(), loc);
+
+                object locat = "Locatario";
+                Word.Range loct = ObjDoc.Bookmarks.get_Item(ref locat).Range;
+                loct.Text = locatario.pApellido + ", " + locatario.pNombre;
+                ObjDoc.Bookmarks.Add(locat.ToString(), loct);
+
+                object dniloca = "DniLocador";
+                Word.Range dnil = ObjDoc.Bookmarks.get_Item(ref dniloca).Range;
+                dnil.Text = establecerTipoDNI(locador.pTipoDNI) + " Nº" + Convert.ToString(locador.pDNI);
+                ObjDoc.Bookmarks.Add(dniloca.ToString(), dnil);
+
+                object dnilocat = "DniLocatario";
+                Word.Range dnilt = ObjDoc.Bookmarks.get_Item(ref dnilocat).Range;
+                dnilt.Text = establecerTipoDNI(locatario.pTipoDNI) + " Nº" + Convert.ToString(locatario.pDNI);
+                ObjDoc.Bookmarks.Add(dnilocat.ToString(), dnilt);
+
+                //Datos en firmas del Contrato
+                for (int i = 0; i < NombreGarante.Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        object Garan1 = "Garante1";
+                        Word.Range Gar1 = ObjDoc.Bookmarks.get_Item(ref Garan1).Range;
+                        if (NombreGarante[i] != null)
+                            Gar1.Text = NombreGarante[i];
+                        else
+                            Gar1.Text = "";
+                        ObjDoc.Bookmarks.Add(Garan1.ToString(), Gar1);
+                    }
+                    else if (i == 1)
+                    {
+                        object Garan2 = "Garante2";
+                        Word.Range Gar2 = ObjDoc.Bookmarks.get_Item(ref Garan2).Range;
+                        if (NombreGarante[i] != null)
+                            Gar2.Text = NombreGarante[i];
+                        else
+                            Gar2.Text = "";
+                        ObjDoc.Bookmarks.Add(Garan2.ToString(), Gar2);
+                    }
+                    else if (i == 2)
+                    {
+                        object Garan3 = "Garante3";
+                        Word.Range Gar3 = ObjDoc.Bookmarks.get_Item(ref Garan3).Range;
+                        if (NombreGarante[i] != null)
+                            Gar3.Text = NombreGarante[i];
+                        else
+                            Gar3.Text = "";
+                        ObjDoc.Bookmarks.Add(Garan3.ToString(), Gar3);
+                    }
+                    else if (i == 3)
+                    {
+                        object Garan4 = "Garante4";
+                        Word.Range Gar4 = ObjDoc.Bookmarks.get_Item(ref Garan4).Range;
+                        if (NombreGarante[i] != null)
+                            Gar4.Text = NombreGarante[i];
+                        else
+                            Gar4.Text = "";
+                        ObjDoc.Bookmarks.Add(Garan4.ToString(), Gar4);
+
+                    }
+                    else if (i == 4)
+                    {
+                        object Garan5 = "Garante5";
+                        Word.Range Gar5 = ObjDoc.Bookmarks.get_Item(ref Garan5).Range;
+                        if (NombreGarante[i] != null)
+                            Gar5.Text = NombreGarante[i];
+                        else
+                            Gar5.Text = "";
+                        ObjDoc.Bookmarks.Add(Garan5.ToString(), Gar5);
+                    }
+                }
+
+                for (int i = 0; i < DniGarante.Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        object dniGa1 = "DniGarante1";
+                        Word.Range dniG1 = ObjDoc.Bookmarks.get_Item(ref dniGa1).Range;
+                        if (DniGarante[i] != null)
+                            dniG1.Text = DniGarante[i];
+                        else
+                            dniG1.Text = "";
+                        ObjDoc.Bookmarks.Add(dniGa1.ToString(), dniG1);
+                    }
+                    else if (i == 1)
+                    {
+                        object dniGa2 = "DniGarante2";
+                        Word.Range dniG2 = ObjDoc.Bookmarks.get_Item(ref dniGa2).Range;
+                        if (DniGarante[i] != null)
+                            dniG2.Text = DniGarante[i];
+                        else
+                            dniG2.Text = "";
+                        ObjDoc.Bookmarks.Add(dniGa2.ToString(), dniG2);
+                    }
+                    else if (i == 2)
+                    {
+                        object dniGa3 = "DniGarante3";
+                        Word.Range dniG3 = ObjDoc.Bookmarks.get_Item(ref dniGa3).Range;
+                        if (DniGarante[i] != null)
+                            dniG3.Text = DniGarante[i];
+                        else
+                            dniG3.Text = "";
+                        ObjDoc.Bookmarks.Add(dniGa3.ToString(), dniG3);
+                    }
+                    else if (i == 3)
+                    {
+                        object dniGa4 = "DniGarante4";
+                        Word.Range dniG4 = ObjDoc.Bookmarks.get_Item(ref dniGa4).Range;
+                        if (DniGarante[i] != null)
+                            dniG4.Text = DniGarante[i];
+                        else
+                            dniG4.Text = "";
+                        ObjDoc.Bookmarks.Add(dniGa4.ToString(), dniG4);
+                    }
+                    else if (i == 4)
+                    {
+                        object dniGa5 = "DniGarante5";
+                        Word.Range dniG5 = ObjDoc.Bookmarks.get_Item(ref dniGa5).Range;
+                        if (DniGarante[i] != null)
+                            dniG5.Text = DniGarante[i];
+                        else
+                            dniG5.Text = "";
+                        ObjDoc.Bookmarks.Add(dniGa5.ToString(), dniG5);
+                    }
+                }
+
+                ObjWord.Visible = true;
             }
-
-            //Ruta destino del archivo a crearse (datos locador, datos locatario)
-            string destFile = directorio + @"\" + idContrato + " - " + locador.pApellido + " " + locador.pNombre + " - " + locatario.pApellido + " " + locatario.pNombre + ".docx";
-
-            //Genera una copia del archivo con los datos del locador y locatario
-            System.IO.File.Copy(ruta, destFile, true);
-
-            //Marcadores en Contrato Base
-            object parametro = destFile;
-            object apelLoc = "ApellidoLocador";
-            object nomLoc = "NombreLocador";
-            object tipoLoc = "TipoDocLocador";
-            object docLoc = "DocLocador";
-            object ciuLoc = "CiudadLocador";
-            object domLoc = "CalleLocador";
-
-            object apelLocat = "ApellidoLocatario";
-            object nomLocat = "NombreLocatario";
-            object tipoLocat = "TipoDocLocatario";
-            object docLocat = "DocLocatario";
-
-            object domProp = "DomicilioPropiedad";
-            object ciuProp = "CiudadPropiedad";
-            object pciaProp = "ProvinciaPropiedad";
-            object tipoProp = "TipoPropiedad";
-            object supTerreno = "SuperficieTerreno";
-
-            Word.Document ObjDoc = ObjWord.Documents.Open(parametro, ObjMiss);
-
-            //Locador
-            Word.Range ape = ObjDoc.Bookmarks.get_Item(ref apelLoc).Range;
-            ape.Text = locador.pApellido.ToUpper(); //Apellido
-            ObjDoc.Bookmarks.Add(apelLoc.ToString(), ape);
-
-            Word.Range nom = ObjDoc.Bookmarks.get_Item(ref nomLoc).Range;
-            nom.Text = locador.pNombre; //Nombre
-            ObjDoc.Bookmarks.Add(nomLoc.ToString(), nom);
-
-            Word.Range tipo = ObjDoc.Bookmarks.get_Item(ref tipoLoc).Range;
-            tipo.Text = establecerTipoDNI(locador.pTipoDNI); //Tipo DNI
-            ObjDoc.Bookmarks.Add(tipoLoc.ToString(), tipo);
-
-            Word.Range doc = ObjDoc.Bookmarks.get_Item(ref docLoc).Range;
-            doc.Text = Convert.ToString(locador.pDNI); //DNI
-            ObjDoc.Bookmarks.Add(docLoc.ToString(), doc);
-
-            Word.Range ciu = ObjDoc.Bookmarks.get_Item(ref ciuLoc).Range;
-            ciu.Text = ciudadLocador.ToUpper(); //Ciudad
-            ObjDoc.Bookmarks.Add(ciuLoc.ToString(), ciu);
-
-            Word.Range calle = ObjDoc.Bookmarks.get_Item(ref domLoc).Range;
-            calle.Text = locador.pDireccion + " " + Convert.ToString(locador.pAltura); //Dirección
-            ObjDoc.Bookmarks.Add(domLoc.ToString(), calle);
-
-            //Locatario
-            Word.Range apeI = ObjDoc.Bookmarks.get_Item(ref apelLocat).Range;
-            apeI.Text = locatario.pApellido.ToUpper(); //Apellido
-            ObjDoc.Bookmarks.Add(apelLocat.ToString(), apeI);
-
-            Word.Range nomI = ObjDoc.Bookmarks.get_Item(ref nomLocat).Range;
-            nomI.Text = locatario.pNombre; //Nombre
-            ObjDoc.Bookmarks.Add(nomLocat.ToString(), nomI);
-
-            Word.Range tipoI = ObjDoc.Bookmarks.get_Item(ref tipoLocat).Range;
-            tipoI.Text = establecerTipoDNI(locatario.pTipoDNI); //Tipo DNI
-            ObjDoc.Bookmarks.Add(tipoLocat.ToString(), tipoI);
-
-            Word.Range docI = ObjDoc.Bookmarks.get_Item(ref docLocat).Range;
-            docI.Text = Convert.ToString(locatario.pDNI); //DNI
-            ObjDoc.Bookmarks.Add(docLocat.ToString(), docI);
-
-            Word.Range domP = ObjDoc.Bookmarks.get_Item(ref domProp).Range;
-            domP.Text = direccion; //Dirección
-            ObjDoc.Bookmarks.Add(domProp.ToString(), domP);
-
-            Word.Range ciuP = ObjDoc.Bookmarks.get_Item(ref ciuProp).Range;
-            ciuP.Text = ciudadPropiedad.ToUpper(); //Ciudad
-            ObjDoc.Bookmarks.Add(ciuProp.ToString(), ciuP);
-
-            Word.Range pciaP = ObjDoc.Bookmarks.get_Item(ref pciaProp).Range;
-            pciaP.Text = pciaPropiedad; //Provincia
-            ObjDoc.Bookmarks.Add(pciaProp.ToString(), pciaP);
-
-            Word.Range tipoP = ObjDoc.Bookmarks.get_Item(ref tipoProp).Range;
-            tipoP.Text = tempo.TipoPropiedad; //Tipo Propiedad
-            ObjDoc.Bookmarks.Add(tipoProp.ToString(), tipoP);
-
-            Word.Range supP = ObjDoc.Bookmarks.get_Item(ref supTerreno).Range;
-            supP.Text = Convert.ToString(tempo.Superficie); //Superficie
-            ObjDoc.Bookmarks.Add(supTerreno.ToString(), supP);
-
-            object Observ = "Observaciones";
-            Word.Range Obs = ObjDoc.Bookmarks.get_Item(ref Observ).Range;
-            Obs.Text = Convert.ToString(tempo.Observaciones); //Observaciones
-            ObjDoc.Bookmarks.Add(Observ.ToString(), Obs);
-
-            object fechaInicio = "fechaInicioAlquiler";
-            Word.Range fInicio = ObjDoc.Bookmarks.get_Item(ref fechaInicio).Range;
-            fInicio.Text = dtpFechaInicio.Text;
-            ObjDoc.Bookmarks.Add(fechaInicio.ToString(), fInicio);
-
-            object fechaFin = "fechaFinAlquiler";
-            Word.Range fFin = ObjDoc.Bookmarks.get_Item(ref fechaFin).Range;
-            fFin.Text = dtpFechaFin.Text;
-            ObjDoc.Bookmarks.Add(fechaFin.ToString(), fFin);
-
-            object moraLetras = "moraLetra";
-            Word.Range moraD = ObjDoc.Bookmarks.get_Item(ref moraLetras).Range;
-            moraD.Text = enLetras(txtIntereses.Text);
-            ObjDoc.Bookmarks.Add(moraLetras.ToString(), moraD);
-
-            object multaDiaria = "MoraDiaria";
-            Word.Range multaD = ObjDoc.Bookmarks.get_Item(ref multaDiaria).Range;
-            multaD.Text = txtIntereses.Text;
-            ObjDoc.Bookmarks.Add(multaDiaria.ToString(), multaD);
-
-            object usoProp = "usoQueLeDaran";
-            Word.Range usoP = ObjDoc.Bookmarks.get_Item(ref usoProp).Range;
-            usoP.Text = cboUsoPropiedad.Text;
-            ObjDoc.Bookmarks.Add(usoProp.ToString(), usoP);
-
-            object precioAlquiler = "precioAlquilerLetras";
-            Word.Range precioAlq = ObjDoc.Bookmarks.get_Item(ref precioAlquiler).Range;
-            precioAlq.Text = enLetras(txtPrecioAlquiler.Text);
-            ObjDoc.Bookmarks.Add(precioAlquiler.ToString(), precioAlq);
-
-            object precioAlquilerN = "precioAlquilerNros";
-            Word.Range precioAlqN = ObjDoc.Bookmarks.get_Item(ref precioAlquilerN).Range;
-            precioAlqN.Text = txtPrecioAlquiler.Text;
-            ObjDoc.Bookmarks.Add(precioAlquilerN.ToString(), precioAlqN);
-
-            object diaDePago = "diaDePago";
-            Word.Range diaPago = ObjDoc.Bookmarks.get_Item(ref diaDePago).Range;
-            diaPago.Text = txtDiaVencimiento.Text;
-            ObjDoc.Bookmarks.Add(diaDePago.ToString(), diaPago);
-
-            object diaDePagoL = "diaDePagoLetras";
-            Word.Range diaPagoL = ObjDoc.Bookmarks.get_Item(ref diaDePagoL).Range;
-            diaPagoL.Text = enLetras(txtDiaVencimiento.Text);
-            ObjDoc.Bookmarks.Add(diaDePagoL.ToString(), diaPagoL);
-
-            object apelG1 = "ApellidoGarante";
-            Word.Range apeG1 = ObjDoc.Bookmarks.get_Item(ref apelG1).Range;
-            apeG1.Text = dgvGarantes.Rows[0].Cells[2].Value.ToString();
-            ObjDoc.Bookmarks.Add(apelG1.ToString(), apeG1);
-
-            object nombreG1 = "NombreGarante";
-            Word.Range nomG1 = ObjDoc.Bookmarks.get_Item(ref nombreG1).Range;
-            nomG1.Text = dgvGarantes.Rows[0].Cells[3].Value.ToString();
-            ObjDoc.Bookmarks.Add(nombreG1.ToString(), nomG1);
-
-            object tipoG1 = "TipoDocGarante";
-            Word.Range tipG1 = ObjDoc.Bookmarks.get_Item(ref tipoG1).Range;
-            tipG1.Text = ad.buscarValor(Convert.ToInt32(dgvGarantes.Rows[0].Cells[1].Value), "id_DNI", "tipoDNI", "TiposDNI");
-            ObjDoc.Bookmarks.Add(tipoG1.ToString(), tipG1);
-
-            object docuG1 = "DocumGarante";
-            Word.Range docG1 = ObjDoc.Bookmarks.get_Item(ref docuG1).Range;
-            docG1.Text = dgvGarantes.Rows[0].Cells[0].Value.ToString();
-            ObjDoc.Bookmarks.Add(docuG1.ToString(), docG1);
-
-            object calleG1 = "calleGarante";
-            Word.Range calG1 = ObjDoc.Bookmarks.get_Item(ref calleG1).Range;
-            calG1.Text = dgvGarantes.Rows[0].Cells[6].Value.ToString() + " Nº" + dgvGarantes.Rows[0].Cells[7].Value.ToString();
-            ObjDoc.Bookmarks.Add(calleG1.ToString(), calG1);
-
-            object telefG1 = "TelGarante";
-            Word.Range telG1 = ObjDoc.Bookmarks.get_Item(ref telefG1).Range;
-            telG1.Text = dgvGarantes.Rows[0].Cells[4].Value.ToString() + dgvGarantes.Rows[0].Cells[5].Value.ToString(); ;
-            ObjDoc.Bookmarks.Add(telefG1.ToString(), telG1);
-
-
-            object pciaG1 = "PciaGarante";
-            Word.Range provG1 = ObjDoc.Bookmarks.get_Item(ref pciaG1).Range;
-            provG1.Text = ad.buscarValor(Convert.ToInt32(dgvGarantes.Rows[0].Cells[9].Value), "id_provincia", "nombre", "Provincias");
-            ObjDoc.Bookmarks.Add(pciaG1.ToString(), provG1);
-
-            object ciudadG1 = "CiudadGarante";
-            Word.Range ciuG1 = ObjDoc.Bookmarks.get_Item(ref ciudadG1).Range;
-            ciuG1.Text = ad.buscarValor(Convert.ToInt32(dgvGarantes.Rows[0].Cells[8].Value), "id_ciudad", "nombreCiu", "Ciudades");
-            ObjDoc.Bookmarks.Add(ciudadG1.ToString(), ciuG1);
-
-
-            //if (dgvGarantes.RowCount.ToString().Equals("2"))
-            //{
-
-            object apelG2 = "ApellidoGarante2";
-            Word.Range apeG2 = ObjDoc.Bookmarks.get_Item(ref apelG2).Range;
-            apeG2.Text = dgvGarantes.Rows[1].Cells[2].Value.ToString();
-            ObjDoc.Bookmarks.Add(apelG2.ToString(), apeG2);
-
-            object nombreG2 = "NombreGarante2";
-            Word.Range nomG2 = ObjDoc.Bookmarks.get_Item(ref nombreG2).Range;
-            nomG2.Text = dgvGarantes.Rows[1].Cells[3].Value.ToString();
-            ObjDoc.Bookmarks.Add(nombreG2.ToString(), nomG2);
-
-            object tipoG2 = "TipoDocGarante2";
-            Word.Range tipG2 = ObjDoc.Bookmarks.get_Item(ref tipoG2).Range;
-            tipG2.Text = ad.buscarValor(Convert.ToInt32(dgvGarantes.Rows[1].Cells[1].Value), "id_DNI", "tipoDNI", "TiposDNI");
-            ObjDoc.Bookmarks.Add(tipoG2.ToString(), tipG2);
-
-            object docuG2 = "DocumGarante2";
-            Word.Range docG2 = ObjDoc.Bookmarks.get_Item(ref docuG2).Range;
-            docG2.Text = dgvGarantes.Rows[1].Cells[0].Value.ToString();
-            ObjDoc.Bookmarks.Add(docuG2.ToString(), docG2);
-
-            object calleG2 = "calleGarante2";
-            Word.Range calG2 = ObjDoc.Bookmarks.get_Item(ref calleG2).Range;
-            calG2.Text = dgvGarantes.Rows[1].Cells[6].Value.ToString() + " Nº" + dgvGarantes.Rows[1].Cells[7].Value.ToString();
-            ObjDoc.Bookmarks.Add(calleG2.ToString(), calG2);
-
-            object telefG2 = "TelGarante2";
-            Word.Range telG2 = ObjDoc.Bookmarks.get_Item(ref telefG2).Range;
-            telG2.Text = dgvGarantes.Rows[1].Cells[4].Value.ToString() + dgvGarantes.Rows[1].Cells[5].Value.ToString();
-            ObjDoc.Bookmarks.Add(telefG2.ToString(), telG2);
-
-            object pciaG2 = "PciaGarante2";
-            Word.Range provG2 = ObjDoc.Bookmarks.get_Item(ref pciaG2).Range;
-            provG2.Text = ad.buscarValor(Convert.ToInt32(dgvGarantes.Rows[1].Cells[9].Value), "id_provincia", "nombre", "Provincias");
-            ObjDoc.Bookmarks.Add(pciaG2.ToString(), provG2);
-
-            object ciudadG2 = "CiudadGarante2";
-            Word.Range ciuG2 = ObjDoc.Bookmarks.get_Item(ref ciudadG2).Range;
-            ciuG2.Text = ad.buscarValor(Convert.ToInt32(dgvGarantes.Rows[1].Cells[8].Value), "id_ciudad", "nombreCiu", "Ciudades");
-            ObjDoc.Bookmarks.Add(ciudadG2.ToString(), ciuG2);
-
-            object deposLetras = "depositoLetras";
-            Word.Range depL = ObjDoc.Bookmarks.get_Item(ref deposLetras).Range;
-            depL.Text = enLetras(txtDeposito.Text);
-            ObjDoc.Bookmarks.Add(deposLetras.ToString(), depL);
-
-            object deposito = "DepositoNro";
-            Word.Range depo = ObjDoc.Bookmarks.get_Item(ref deposito).Range;
-            depo.Text = txtDeposito.Text;
-            ObjDoc.Bookmarks.Add(deposito.ToString(), depo);
-
-            object mailLoc = "mailLocataria";
-            Word.Range mailL = ObjDoc.Bookmarks.get_Item(ref mailLoc).Range;
-            mailL.Text = txtMail.Text;
-            ObjDoc.Bookmarks.Add(mailLoc.ToString(), mailL);
-
-            object diaCont = "diaContrato";
-            Word.Range diaC = ObjDoc.Bookmarks.get_Item(ref diaCont).Range;
-            diaC.Text = dtpFechaInicio.Value.Day.ToString();
-            ObjDoc.Bookmarks.Add(diaCont.ToString(), diaC);
-
-            object mesCont = "mesContrato";
-            Word.Range mesC = ObjDoc.Bookmarks.get_Item(ref mesCont).Range;
-            mesC.Text = dtpFechaInicio.Value.Month.ToString();
-            ObjDoc.Bookmarks.Add(mesCont.ToString(), mesC);
-
-            object anCont = "añoContrato";
-            Word.Range anC = ObjDoc.Bookmarks.get_Item(ref anCont).Range;
-            anC.Text = dtpFechaInicio.Value.Year.ToString();
-            ObjDoc.Bookmarks.Add(anCont.ToString(), anC);
-
-            object loca = "Locador";
-            Word.Range loc = ObjDoc.Bookmarks.get_Item(ref loca).Range;
-            loc.Text = ape.Text + ", " + nom.Text;
-            ObjDoc.Bookmarks.Add(loca.ToString(), loc);
-
-            object locat = "Locatario";
-            Word.Range loct = ObjDoc.Bookmarks.get_Item(ref locat).Range;
-            loct.Text = apeI.Text + ", " + nomI.Text;
-            ObjDoc.Bookmarks.Add(locat.ToString(), loct);
-
-            object dniloca = "DniLocador";
-            Word.Range dnil = ObjDoc.Bookmarks.get_Item(ref dniloca).Range;
-            dnil.Text = tipo.Text + " Nº" + doc.Text;
-            ObjDoc.Bookmarks.Add(dniloca.ToString(), dnil);
-
-            object dnilocat = "DniLocatario";
-            Word.Range dnilt = ObjDoc.Bookmarks.get_Item(ref dnilocat).Range;
-            dnilt.Text = tipoI.Text + " Nº" + docI.Text;
-            ObjDoc.Bookmarks.Add(dnilocat.ToString(), dnilt);
-
-            object Garan1 = "Garante1";
-            Word.Range Gar1 = ObjDoc.Bookmarks.get_Item(ref Garan1).Range;
-            Gar1.Text = apeG1.Text + ", " + nomG1.Text;
-            ObjDoc.Bookmarks.Add(Garan1.ToString(), Gar1);
-
-            object Garan2 = "Garante2";
-            Word.Range Gar2 = ObjDoc.Bookmarks.get_Item(ref Garan2).Range;
-            Gar2.Text = apeG2.Text + ", " + nomG2.Text;
-            ObjDoc.Bookmarks.Add(Garan2.ToString(), Gar2);
-
-            object dniGa1 = "DniGarante1";
-            Word.Range dniG1 = ObjDoc.Bookmarks.get_Item(ref dniGa1).Range;
-            dniG1.Text = tipG1.Text + " Nº" + docG1.Text;
-            ObjDoc.Bookmarks.Add(dniGa1.ToString(), dniG1);
-
-            object dniGa2 = "DniGarante2";
-            Word.Range dniG2 = ObjDoc.Bookmarks.get_Item(ref dniGa2).Range;
-            dniG2.Text = tipG2.Text + " Nº" + docG2.Text;
-            ObjDoc.Bookmarks.Add(dniGa2.ToString(), dniG2);
-
-            ObjWord.Visible = true;
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            
         }
 
         //ENVÍO Y RECEPCIÓN DE DATOS A OTRAS VENTANAS
@@ -1039,7 +1033,16 @@ namespace Interfaz
 
         private bool ValidarPestanaContrato()
         {
-            throw new NotImplementedException();
+            bool Validar = false;
+            if (txtDNILocador.Text != "" && cboTipo.SelectedIndex != -1 && dgvPropiedades.SelectedRows.Count > 0
+                && txtDNILocatario.Text != "" && cboTipoLocatario.SelectedIndex != -1 && lblApeLocatario.Text != ""
+                && lblNomLocatario.Text != "" && dgvGarantes.SelectedRows.Count > 0 && txtDuracion.Text != "" && txtPrecioAlquiler.Text != ""
+                && txtDiaVencimiento.Text != "" && txtDeposito.Text != "" && txtIntereses.Text != "" && dtpFechaFin.Value != DateTime.Now.Date
+                && txt1erAumento.Text != "" && txt2doAumento.Text != "")
+            {
+                Validar = true;
+            }
+            return Validar;
         }
 
         private void limpiarCamposLocador()

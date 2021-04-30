@@ -147,6 +147,34 @@ namespace AccesoDatos
             }
             return valor;
         }
+
+        //BUSCAR NOMBRE
+        public string buscarNombre(string campos, string tablas, string condicion)
+        {
+            string valor = "";
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "Select " + campos + " From " + tablas + " Where " + condicion + "";
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    valor = dr.GetString(0);
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+            return valor;
+        }
     }
 }
 
