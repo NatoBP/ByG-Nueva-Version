@@ -114,10 +114,10 @@
             // 
             // pnlBase
             // 
+            this.pnlBase.Controls.Add(this.grpBuscar);
             this.pnlBase.Controls.Add(this.grpCaracteristicas);
             this.pnlBase.Controls.Add(this.pnlNuevaProp);
             this.pnlBase.Controls.Add(this.grpPropiedad);
-            this.pnlBase.Controls.Add(this.grpBuscar);
             this.pnlBase.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBase.Location = new System.Drawing.Point(0, 0);
             this.pnlBase.Name = "pnlBase";

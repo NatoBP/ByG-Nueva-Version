@@ -38,21 +38,19 @@
             this.btnRestaurar = new System.Windows.Forms.PictureBox();
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.pnlMenu = new System.Windows.Forms.Panel();
+            this.btnClientes = new System.Windows.Forms.Button();
+            this.pnlSubProp = new System.Windows.Forms.Panel();
+            this.btnPropiedades = new System.Windows.Forms.Button();
+            this.btnLocadores = new System.Windows.Forms.Button();
+            this.btnAdminProp = new System.Windows.Forms.Button();
+            this.pnlSubAdmin = new System.Windows.Forms.Panel();
+            this.btnEstadoCuentas = new System.Windows.Forms.Button();
+            this.btnAlqNoVigentes = new System.Windows.Forms.Button();
+            this.btnAlqVigentes = new System.Windows.Forms.Button();
+            this.btnNuevoContrato = new System.Windows.Forms.Button();
+            this.btnAlquileres = new System.Windows.Forms.Button();
+            this.btnVentas = new System.Windows.Forms.Button();
             this.Logo = new System.Windows.Forms.PictureBox();
-            this.rbtAlqVigentes = new System.Windows.Forms.RadioButton();
-            this.rbtAlquileres = new System.Windows.Forms.RadioButton();
-            this.rbtLocadores = new System.Windows.Forms.RadioButton();
-            this.rbtVerProp = new System.Windows.Forms.RadioButton();
-            this.rbtNuevaProp = new System.Windows.Forms.RadioButton();
-            this.rbtEstadoCuentas = new System.Windows.Forms.RadioButton();
-            this.rbtVentas = new System.Windows.Forms.RadioButton();
-            this.rbtRegistrarPagos = new System.Windows.Forms.RadioButton();
-            this.rbtAlqNoVigentes = new System.Windows.Forms.RadioButton();
-            this.rbtAdminProp = new System.Windows.Forms.RadioButton();
-            this.rbtNuevoContrato = new System.Windows.Forms.RadioButton();
-            this.rbtAlqDisponibles = new System.Windows.Forms.RadioButton();
-            this.rbtAdminAlq = new System.Windows.Forms.RadioButton();
-            this.rbtClientes = new System.Windows.Forms.RadioButton();
             this.pnlPrincipal.SuspendLayout();
             this.pnlContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -62,6 +60,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnRestaurar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
             this.pnlMenu.SuspendLayout();
+            this.pnlSubProp.SuspendLayout();
+            this.pnlSubAdmin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -166,274 +166,207 @@
             // 
             // pnlMenu
             // 
+            this.pnlMenu.AutoScroll = true;
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(103)))), ((int)(((byte)(125)))));
+            this.pnlMenu.Controls.Add(this.btnClientes);
+            this.pnlMenu.Controls.Add(this.pnlSubProp);
+            this.pnlMenu.Controls.Add(this.btnAdminProp);
+            this.pnlMenu.Controls.Add(this.pnlSubAdmin);
+            this.pnlMenu.Controls.Add(this.btnAlquileres);
+            this.pnlMenu.Controls.Add(this.btnVentas);
             this.pnlMenu.Controls.Add(this.Logo);
-            this.pnlMenu.Controls.Add(this.rbtAlqVigentes);
-            this.pnlMenu.Controls.Add(this.rbtAlquileres);
-            this.pnlMenu.Controls.Add(this.rbtLocadores);
-            this.pnlMenu.Controls.Add(this.rbtVerProp);
-            this.pnlMenu.Controls.Add(this.rbtNuevaProp);
-            this.pnlMenu.Controls.Add(this.rbtEstadoCuentas);
-            this.pnlMenu.Controls.Add(this.rbtVentas);
-            this.pnlMenu.Controls.Add(this.rbtRegistrarPagos);
-            this.pnlMenu.Controls.Add(this.rbtAlqNoVigentes);
-            this.pnlMenu.Controls.Add(this.rbtAdminProp);
-            this.pnlMenu.Controls.Add(this.rbtNuevoContrato);
-            this.pnlMenu.Controls.Add(this.rbtAlqDisponibles);
-            this.pnlMenu.Controls.Add(this.rbtAdminAlq);
-            this.pnlMenu.Controls.Add(this.rbtClientes);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlMenu.Location = new System.Drawing.Point(0, 0);
             this.pnlMenu.Name = "pnlMenu";
             this.pnlMenu.Size = new System.Drawing.Size(250, 730);
-            this.pnlMenu.TabIndex = 0;
+            this.pnlMenu.TabIndex = 1;
+            // 
+            // btnClientes
+            // 
+            this.btnClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(204)))), ((int)(((byte)(211)))));
+            this.btnClientes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnClientes.FlatAppearance.BorderSize = 0;
+            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
+            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClientes.Location = new System.Drawing.Point(0, 485);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(250, 45);
+            this.btnClientes.TabIndex = 39;
+            this.btnClientes.Text = "Clientes";
+            this.btnClientes.UseVisualStyleBackColor = false;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
+            // 
+            // pnlSubProp
+            // 
+            this.pnlSubProp.Controls.Add(this.btnPropiedades);
+            this.pnlSubProp.Controls.Add(this.btnLocadores);
+            this.pnlSubProp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlSubProp.Location = new System.Drawing.Point(0, 395);
+            this.pnlSubProp.Name = "pnlSubProp";
+            this.pnlSubProp.Size = new System.Drawing.Size(250, 90);
+            this.pnlSubProp.TabIndex = 38;
+            // 
+            // btnPropiedades
+            // 
+            this.btnPropiedades.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(153)))), ((int)(((byte)(168)))));
+            this.btnPropiedades.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPropiedades.FlatAppearance.BorderSize = 0;
+            this.btnPropiedades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPropiedades.Location = new System.Drawing.Point(0, 45);
+            this.btnPropiedades.Name = "btnPropiedades";
+            this.btnPropiedades.Size = new System.Drawing.Size(250, 45);
+            this.btnPropiedades.TabIndex = 1;
+            this.btnPropiedades.Text = "Propiedades";
+            this.btnPropiedades.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPropiedades.UseVisualStyleBackColor = false;
+            this.btnPropiedades.Click += new System.EventHandler(this.btnPropiedades_Click);
+            // 
+            // btnLocadores
+            // 
+            this.btnLocadores.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(153)))), ((int)(((byte)(168)))));
+            this.btnLocadores.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnLocadores.Enabled = false;
+            this.btnLocadores.FlatAppearance.BorderSize = 0;
+            this.btnLocadores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLocadores.Location = new System.Drawing.Point(0, 0);
+            this.btnLocadores.Name = "btnLocadores";
+            this.btnLocadores.Size = new System.Drawing.Size(250, 45);
+            this.btnLocadores.TabIndex = 0;
+            this.btnLocadores.Text = "Locadores";
+            this.btnLocadores.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLocadores.UseVisualStyleBackColor = false;
+            this.btnLocadores.Click += new System.EventHandler(this.btnLocadores_Click);
+            // 
+            // btnAdminProp
+            // 
+            this.btnAdminProp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(204)))), ((int)(((byte)(211)))));
+            this.btnAdminProp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAdminProp.FlatAppearance.BorderSize = 0;
+            this.btnAdminProp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdminProp.Image = ((System.Drawing.Image)(resources.GetObject("btnAdminProp.Image")));
+            this.btnAdminProp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdminProp.Location = new System.Drawing.Point(0, 350);
+            this.btnAdminProp.Name = "btnAdminProp";
+            this.btnAdminProp.Size = new System.Drawing.Size(250, 45);
+            this.btnAdminProp.TabIndex = 37;
+            this.btnAdminProp.Text = "Admin. de Propiedades";
+            this.btnAdminProp.UseVisualStyleBackColor = false;
+            this.btnAdminProp.Click += new System.EventHandler(this.btnAdminProp_Click);
+            // 
+            // pnlSubAdmin
+            // 
+            this.pnlSubAdmin.Controls.Add(this.btnEstadoCuentas);
+            this.pnlSubAdmin.Controls.Add(this.btnAlqNoVigentes);
+            this.pnlSubAdmin.Controls.Add(this.btnAlqVigentes);
+            this.pnlSubAdmin.Controls.Add(this.btnNuevoContrato);
+            this.pnlSubAdmin.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlSubAdmin.Location = new System.Drawing.Point(0, 170);
+            this.pnlSubAdmin.Name = "pnlSubAdmin";
+            this.pnlSubAdmin.Size = new System.Drawing.Size(250, 180);
+            this.pnlSubAdmin.TabIndex = 35;
+            // 
+            // btnEstadoCuentas
+            // 
+            this.btnEstadoCuentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(153)))), ((int)(((byte)(168)))));
+            this.btnEstadoCuentas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnEstadoCuentas.FlatAppearance.BorderSize = 0;
+            this.btnEstadoCuentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEstadoCuentas.Location = new System.Drawing.Point(0, 135);
+            this.btnEstadoCuentas.Name = "btnEstadoCuentas";
+            this.btnEstadoCuentas.Size = new System.Drawing.Size(250, 45);
+            this.btnEstadoCuentas.TabIndex = 3;
+            this.btnEstadoCuentas.Text = "Est. de Cuentas / Comprobantes";
+            this.btnEstadoCuentas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEstadoCuentas.UseVisualStyleBackColor = false;
+            this.btnEstadoCuentas.Click += new System.EventHandler(this.btnEstadoCuentas_Click);
+            // 
+            // btnAlqNoVigentes
+            // 
+            this.btnAlqNoVigentes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(153)))), ((int)(((byte)(168)))));
+            this.btnAlqNoVigentes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAlqNoVigentes.FlatAppearance.BorderSize = 0;
+            this.btnAlqNoVigentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAlqNoVigentes.Location = new System.Drawing.Point(0, 90);
+            this.btnAlqNoVigentes.Name = "btnAlqNoVigentes";
+            this.btnAlqNoVigentes.Size = new System.Drawing.Size(250, 45);
+            this.btnAlqNoVigentes.TabIndex = 2;
+            this.btnAlqNoVigentes.Text = "Alquileres No Vigentes";
+            this.btnAlqNoVigentes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAlqNoVigentes.UseVisualStyleBackColor = false;
+            this.btnAlqNoVigentes.Click += new System.EventHandler(this.btnAlqNoVigentes_Click);
+            // 
+            // btnAlqVigentes
+            // 
+            this.btnAlqVigentes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(153)))), ((int)(((byte)(168)))));
+            this.btnAlqVigentes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAlqVigentes.FlatAppearance.BorderSize = 0;
+            this.btnAlqVigentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAlqVigentes.Location = new System.Drawing.Point(0, 45);
+            this.btnAlqVigentes.Name = "btnAlqVigentes";
+            this.btnAlqVigentes.Size = new System.Drawing.Size(250, 45);
+            this.btnAlqVigentes.TabIndex = 1;
+            this.btnAlqVigentes.Text = "Alquileres Vigentes";
+            this.btnAlqVigentes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAlqVigentes.UseVisualStyleBackColor = false;
+            this.btnAlqVigentes.Click += new System.EventHandler(this.btnAlqVigentes_Click);
+            // 
+            // btnNuevoContrato
+            // 
+            this.btnNuevoContrato.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(153)))), ((int)(((byte)(168)))));
+            this.btnNuevoContrato.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnNuevoContrato.FlatAppearance.BorderSize = 0;
+            this.btnNuevoContrato.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNuevoContrato.Location = new System.Drawing.Point(0, 0);
+            this.btnNuevoContrato.Name = "btnNuevoContrato";
+            this.btnNuevoContrato.Size = new System.Drawing.Size(250, 45);
+            this.btnNuevoContrato.TabIndex = 0;
+            this.btnNuevoContrato.Text = "NuevoContrato";
+            this.btnNuevoContrato.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNuevoContrato.UseVisualStyleBackColor = false;
+            this.btnNuevoContrato.Click += new System.EventHandler(this.btnNuevoContrato_Click);
+            // 
+            // btnAlquileres
+            // 
+            this.btnAlquileres.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(204)))), ((int)(((byte)(211)))));
+            this.btnAlquileres.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAlquileres.FlatAppearance.BorderSize = 0;
+            this.btnAlquileres.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAlquileres.Image = ((System.Drawing.Image)(resources.GetObject("btnAlquileres.Image")));
+            this.btnAlquileres.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAlquileres.Location = new System.Drawing.Point(0, 125);
+            this.btnAlquileres.Name = "btnAlquileres";
+            this.btnAlquileres.Size = new System.Drawing.Size(250, 45);
+            this.btnAlquileres.TabIndex = 33;
+            this.btnAlquileres.Text = "Alquileres";
+            this.btnAlquileres.UseVisualStyleBackColor = false;
+            this.btnAlquileres.Click += new System.EventHandler(this.btnAlquileres_Click_1);
+            // 
+            // btnVentas
+            // 
+            this.btnVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(204)))), ((int)(((byte)(211)))));
+            this.btnVentas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnVentas.FlatAppearance.BorderSize = 0;
+            this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnVentas.Image")));
+            this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVentas.Location = new System.Drawing.Point(0, 80);
+            this.btnVentas.Name = "btnVentas";
+            this.btnVentas.Size = new System.Drawing.Size(250, 45);
+            this.btnVentas.TabIndex = 32;
+            this.btnVentas.Text = "Ventas";
+            this.btnVentas.UseVisualStyleBackColor = false;
             // 
             // Logo
             // 
+            this.Logo.Dock = System.Windows.Forms.DockStyle.Top;
             this.Logo.Image = ((System.Drawing.Image)(resources.GetObject("Logo.Image")));
-            this.Logo.Location = new System.Drawing.Point(1, 1);
+            this.Logo.Location = new System.Drawing.Point(0, 0);
             this.Logo.Name = "Logo";
             this.Logo.Size = new System.Drawing.Size(250, 80);
             this.Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Logo.TabIndex = 31;
             this.Logo.TabStop = false;
-            // 
-            // rbtAlqVigentes
-            // 
-            this.rbtAlqVigentes.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtAlqVigentes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.rbtAlqVigentes.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtAlqVigentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtAlqVigentes.Location = new System.Drawing.Point(0, 280);
-            this.rbtAlqVigentes.Name = "rbtAlqVigentes";
-            this.rbtAlqVigentes.Size = new System.Drawing.Size(250, 45);
-            this.rbtAlqVigentes.TabIndex = 39;
-            this.rbtAlqVigentes.Text = "Alquileres Vigentes";
-            this.rbtAlqVigentes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtAlqVigentes.UseVisualStyleBackColor = false;
-            this.rbtAlqVigentes.Visible = false;
-            this.rbtAlqVigentes.CheckedChanged += new System.EventHandler(this.rbtAlqVigentes_CheckedChanged);
-            this.rbtAlqVigentes.Click += new System.EventHandler(this.rbtAlqVigentes_Click);
-            // 
-            // rbtAlquileres
-            // 
-            this.rbtAlquileres.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtAlquileres.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(204)))), ((int)(((byte)(211)))));
-            this.rbtAlquileres.Checked = true;
-            this.rbtAlquileres.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtAlquileres.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtAlquileres.Image = ((System.Drawing.Image)(resources.GetObject("rbtAlquileres.Image")));
-            this.rbtAlquileres.Location = new System.Drawing.Point(0, 145);
-            this.rbtAlquileres.Name = "rbtAlquileres";
-            this.rbtAlquileres.Size = new System.Drawing.Size(250, 45);
-            this.rbtAlquileres.TabIndex = 45;
-            this.rbtAlquileres.TabStop = true;
-            this.rbtAlquileres.Text = "Alquileres";
-            this.rbtAlquileres.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtAlquileres.UseVisualStyleBackColor = false;
-            this.rbtAlquileres.Click += new System.EventHandler(this.btnAlquileres_Click);
-            // 
-            // rbtLocadores
-            // 
-            this.rbtLocadores.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtLocadores.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.rbtLocadores.Enabled = false;
-            this.rbtLocadores.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtLocadores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtLocadores.Location = new System.Drawing.Point(0, 460);
-            this.rbtLocadores.Name = "rbtLocadores";
-            this.rbtLocadores.Size = new System.Drawing.Size(250, 45);
-            this.rbtLocadores.TabIndex = 33;
-            this.rbtLocadores.Text = "Locadores";
-            this.rbtLocadores.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtLocadores.UseVisualStyleBackColor = false;
-            this.rbtLocadores.Visible = false;
-            // 
-            // rbtVerProp
-            // 
-            this.rbtVerProp.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtVerProp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.rbtVerProp.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtVerProp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtVerProp.Location = new System.Drawing.Point(0, 505);
-            this.rbtVerProp.Name = "rbtVerProp";
-            this.rbtVerProp.Size = new System.Drawing.Size(250, 45);
-            this.rbtVerProp.TabIndex = 34;
-            this.rbtVerProp.Text = "Ver Propiedades";
-            this.rbtVerProp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtVerProp.UseVisualStyleBackColor = false;
-            this.rbtVerProp.Visible = false;
-            this.rbtVerProp.Click += new System.EventHandler(this.rbtVerProp_Click);
-            // 
-            // rbtNuevaProp
-            // 
-            this.rbtNuevaProp.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtNuevaProp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.rbtNuevaProp.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtNuevaProp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtNuevaProp.Location = new System.Drawing.Point(0, 550);
-            this.rbtNuevaProp.Name = "rbtNuevaProp";
-            this.rbtNuevaProp.Size = new System.Drawing.Size(250, 45);
-            this.rbtNuevaProp.TabIndex = 35;
-            this.rbtNuevaProp.Text = "Nueva Propiedad";
-            this.rbtNuevaProp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtNuevaProp.UseVisualStyleBackColor = false;
-            this.rbtNuevaProp.Visible = false;
-            this.rbtNuevaProp.CheckedChanged += new System.EventHandler(this.rbtNuevaProp_CheckedChanged);
-            this.rbtNuevaProp.Click += new System.EventHandler(this.rbtNuevaProp_Click);
-            // 
-            // rbtEstadoCuentas
-            // 
-            this.rbtEstadoCuentas.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtEstadoCuentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.rbtEstadoCuentas.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtEstadoCuentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtEstadoCuentas.Location = new System.Drawing.Point(0, 415);
-            this.rbtEstadoCuentas.Name = "rbtEstadoCuentas";
-            this.rbtEstadoCuentas.Size = new System.Drawing.Size(250, 45);
-            this.rbtEstadoCuentas.TabIndex = 36;
-            this.rbtEstadoCuentas.Text = "Estado de Cuentas";
-            this.rbtEstadoCuentas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtEstadoCuentas.UseVisualStyleBackColor = false;
-            this.rbtEstadoCuentas.Visible = false;
-            this.rbtEstadoCuentas.CheckedChanged += new System.EventHandler(this.rbtEstadoCuentas_CheckedChanged);
-            this.rbtEstadoCuentas.Click += new System.EventHandler(this.rbtEstadoCuentas_Click);
-            // 
-            // rbtVentas
-            // 
-            this.rbtVentas.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(204)))), ((int)(((byte)(211)))));
-            this.rbtVentas.Enabled = false;
-            this.rbtVentas.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtVentas.Image = ((System.Drawing.Image)(resources.GetObject("rbtVentas.Image")));
-            this.rbtVentas.Location = new System.Drawing.Point(0, 100);
-            this.rbtVentas.Name = "rbtVentas";
-            this.rbtVentas.Size = new System.Drawing.Size(250, 45);
-            this.rbtVentas.TabIndex = 32;
-            this.rbtVentas.Text = "Ventas";
-            this.rbtVentas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtVentas.UseVisualStyleBackColor = false;
-            // 
-            // rbtRegistrarPagos
-            // 
-            this.rbtRegistrarPagos.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtRegistrarPagos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.rbtRegistrarPagos.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtRegistrarPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtRegistrarPagos.Location = new System.Drawing.Point(0, 370);
-            this.rbtRegistrarPagos.Name = "rbtRegistrarPagos";
-            this.rbtRegistrarPagos.Size = new System.Drawing.Size(250, 45);
-            this.rbtRegistrarPagos.TabIndex = 37;
-            this.rbtRegistrarPagos.Text = "Registrar Pagos";
-            this.rbtRegistrarPagos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtRegistrarPagos.UseVisualStyleBackColor = false;
-            this.rbtRegistrarPagos.Visible = false;
-            this.rbtRegistrarPagos.Click += new System.EventHandler(this.rbtRegistrarPagos_Click);
-            // 
-            // rbtAlqNoVigentes
-            // 
-            this.rbtAlqNoVigentes.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtAlqNoVigentes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.rbtAlqNoVigentes.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtAlqNoVigentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtAlqNoVigentes.Location = new System.Drawing.Point(0, 325);
-            this.rbtAlqNoVigentes.Name = "rbtAlqNoVigentes";
-            this.rbtAlqNoVigentes.Size = new System.Drawing.Size(250, 45);
-            this.rbtAlqNoVigentes.TabIndex = 38;
-            this.rbtAlqNoVigentes.Text = "Alquileres No Vigentes";
-            this.rbtAlqNoVigentes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtAlqNoVigentes.UseVisualStyleBackColor = false;
-            this.rbtAlqNoVigentes.Visible = false;
-            this.rbtAlqNoVigentes.CheckedChanged += new System.EventHandler(this.rbtAlqNoVigentes_CheckedChanged);
-            this.rbtAlqNoVigentes.Click += new System.EventHandler(this.rbtAlqNoVigentes_Click);
-            // 
-            // rbtAdminProp
-            // 
-            this.rbtAdminProp.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtAdminProp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(204)))), ((int)(((byte)(211)))));
-            this.rbtAdminProp.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtAdminProp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtAdminProp.Image = ((System.Drawing.Image)(resources.GetObject("rbtAdminProp.Image")));
-            this.rbtAdminProp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.rbtAdminProp.Location = new System.Drawing.Point(0, 190);
-            this.rbtAdminProp.Name = "rbtAdminProp";
-            this.rbtAdminProp.Size = new System.Drawing.Size(250, 45);
-            this.rbtAdminProp.TabIndex = 44;
-            this.rbtAdminProp.Text = "Admin. de Propiedades";
-            this.rbtAdminProp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtAdminProp.UseVisualStyleBackColor = false;
-            this.rbtAdminProp.Click += new System.EventHandler(this.rbtAdminProp_Click);
-            // 
-            // rbtNuevoContrato
-            // 
-            this.rbtNuevoContrato.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtNuevoContrato.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.rbtNuevoContrato.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtNuevoContrato.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtNuevoContrato.Location = new System.Drawing.Point(0, 235);
-            this.rbtNuevoContrato.Name = "rbtNuevoContrato";
-            this.rbtNuevoContrato.Size = new System.Drawing.Size(250, 45);
-            this.rbtNuevoContrato.TabIndex = 40;
-            this.rbtNuevoContrato.Text = "Nuevo Contrato";
-            this.rbtNuevoContrato.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtNuevoContrato.UseVisualStyleBackColor = false;
-            this.rbtNuevoContrato.Visible = false;
-            this.rbtNuevoContrato.CheckedChanged += new System.EventHandler(this.rbtNuevoContrato_CheckedChanged);
-            this.rbtNuevoContrato.Click += new System.EventHandler(this.rbtNuevoContrato_Click);
-            // 
-            // rbtAlqDisponibles
-            // 
-            this.rbtAlqDisponibles.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtAlqDisponibles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(153)))), ((int)(((byte)(168)))));
-            this.rbtAlqDisponibles.Enabled = false;
-            this.rbtAlqDisponibles.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtAlqDisponibles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtAlqDisponibles.Image = ((System.Drawing.Image)(resources.GetObject("rbtAlqDisponibles.Image")));
-            this.rbtAlqDisponibles.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtAlqDisponibles.Location = new System.Drawing.Point(0, 235);
-            this.rbtAlqDisponibles.Name = "rbtAlqDisponibles";
-            this.rbtAlqDisponibles.Size = new System.Drawing.Size(250, 45);
-            this.rbtAlqDisponibles.TabIndex = 41;
-            this.rbtAlqDisponibles.Text = "Alquileres Disponibles";
-            this.rbtAlqDisponibles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtAlqDisponibles.UseVisualStyleBackColor = false;
-            this.rbtAlqDisponibles.Visible = false;
-            // 
-            // rbtAdminAlq
-            // 
-            this.rbtAdminAlq.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtAdminAlq.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(153)))), ((int)(((byte)(168)))));
-            this.rbtAdminAlq.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtAdminAlq.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtAdminAlq.Image = ((System.Drawing.Image)(resources.GetObject("rbtAdminAlq.Image")));
-            this.rbtAdminAlq.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtAdminAlq.Location = new System.Drawing.Point(0, 190);
-            this.rbtAdminAlq.Name = "rbtAdminAlq";
-            this.rbtAdminAlq.Size = new System.Drawing.Size(250, 45);
-            this.rbtAdminAlq.TabIndex = 42;
-            this.rbtAdminAlq.Text = "Admin. de Alquileres";
-            this.rbtAdminAlq.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtAdminAlq.UseVisualStyleBackColor = false;
-            this.rbtAdminAlq.Visible = false;
-            this.rbtAdminAlq.Click += new System.EventHandler(this.rbtAdminAlq_Click);
-            // 
-            // rbtClientes
-            // 
-            this.rbtClientes.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(204)))), ((int)(((byte)(211)))));
-            this.rbtClientes.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.rbtClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtClientes.Image = ((System.Drawing.Image)(resources.GetObject("rbtClientes.Image")));
-            this.rbtClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.rbtClientes.Location = new System.Drawing.Point(0, 235);
-            this.rbtClientes.Name = "rbtClientes";
-            this.rbtClientes.Size = new System.Drawing.Size(250, 45);
-            this.rbtClientes.TabIndex = 43;
-            this.rbtClientes.Text = "Clientes";
-            this.rbtClientes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtClientes.UseVisualStyleBackColor = false;
-            this.rbtClientes.CheckedChanged += new System.EventHandler(this.rbtClientes_CheckedChanged);
             // 
             // Principal_1
             // 
@@ -456,6 +389,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnRestaurar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
             this.pnlMenu.ResumeLayout(false);
+            this.pnlSubProp.ResumeLayout(false);
+            this.pnlSubAdmin.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             this.ResumeLayout(false);
 
@@ -468,24 +403,22 @@
         private System.Windows.Forms.Panel pnlCabecera;
         private System.Windows.Forms.Panel pnlMenu;
         private System.Windows.Forms.PictureBox Logo;
-        private System.Windows.Forms.RadioButton rbtAlqVigentes;
-        private System.Windows.Forms.RadioButton rbtAlquileres;
-        private System.Windows.Forms.RadioButton rbtLocadores;
-        private System.Windows.Forms.RadioButton rbtVerProp;
-        private System.Windows.Forms.RadioButton rbtClientes;
-        private System.Windows.Forms.RadioButton rbtNuevaProp;
-        private System.Windows.Forms.RadioButton rbtAdminProp;
-        private System.Windows.Forms.RadioButton rbtEstadoCuentas;
-        private System.Windows.Forms.RadioButton rbtAdminAlq;
-        private System.Windows.Forms.RadioButton rbtVentas;
-        private System.Windows.Forms.RadioButton rbtRegistrarPagos;
-        private System.Windows.Forms.RadioButton rbtNuevoContrato;
-        private System.Windows.Forms.RadioButton rbtAlqDisponibles;
-        private System.Windows.Forms.RadioButton rbtAlqNoVigentes;
         private System.Windows.Forms.PictureBox btnCerrar;
         private System.Windows.Forms.PictureBox btnMinimizar;
         private System.Windows.Forms.PictureBox btnRestaurar;
         private System.Windows.Forms.PictureBox btnMaximizar;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnClientes;
+        private System.Windows.Forms.Panel pnlSubProp;
+        private System.Windows.Forms.Button btnPropiedades;
+        private System.Windows.Forms.Button btnLocadores;
+        private System.Windows.Forms.Button btnAdminProp;
+        private System.Windows.Forms.Panel pnlSubAdmin;
+        private System.Windows.Forms.Button btnEstadoCuentas;
+        private System.Windows.Forms.Button btnAlqNoVigentes;
+        private System.Windows.Forms.Button btnAlqVigentes;
+        private System.Windows.Forms.Button btnNuevoContrato;
+        private System.Windows.Forms.Button btnAlquileres;
+        private System.Windows.Forms.Button btnVentas;
     }
 }

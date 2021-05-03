@@ -510,7 +510,7 @@ namespace Interfaz
         private bool validarCamposCliente()
         {
             bool validar = false;
-            if (cboTipoDNI.SelectedIndex == -1 && cboBarrio.SelectedIndex == -1)
+            if (cboTipoDNI.SelectedIndex == -1 || cboBarrio.SelectedIndex == -1 || txtDNI.Text == "")
             {
                 validar = false;
                 MessageBox.Show("Debe ingresar todos los campos");

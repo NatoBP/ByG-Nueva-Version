@@ -25,240 +25,67 @@ namespace Interfaz
 
         #region //Botones del Menú
 
-        //Botón Alquileres
-        private void btnAlquileres_Click(object sender, EventArgs e)
+        private void btnAlquileres_Click_1(object sender, EventArgs e)
         {
-            if (rbtAdminAlq.Visible == false && rbtLocadores.Visible == false)
+            if(pnlSubAdmin.Visible == false)
             {
-                rbtAdminAlq.Visible = true;
-                rbtAlqDisponibles.Visible = true;
-                rbtAdminAlq.Location = new Point(0, 190);
-                rbtAlqDisponibles.Location = new Point(0, 235);
-                rbtAdminProp.Location = new Point(0, 280);
-                rbtClientes.Location = new Point(0, 325);
+                pnlSubAdmin.Visible = true;
             }
-
-            else if (rbtAdminAlq.Visible == false && rbtLocadores.Visible == true)
+            else
             {
-                rbtAdminAlq.Visible = true;
-                rbtAlqDisponibles.Visible = true;
-                rbtAlqDisponibles.Location = new Point(0, 235);
-                rbtAdminProp.Location = new Point(0, 280);
-                rbtLocadores.Location = new Point(0, 325);
-                rbtVerProp.Location = new Point(0, 370);
-                rbtNuevaProp.Location = new Point(0, 415);
-
-                rbtClientes.Location = new Point(0, 460);
-
-            }
-
-            else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == true && rbtLocadores.Visible == true)
-            {
-                rbtAdminProp.Location = new Point(0, 190);
-                rbtLocadores.Location = new Point(0, 235);
-                rbtVerProp.Location = new Point(0, 280);
-                rbtNuevaProp.Location = new Point(0, 325);
-                rbtClientes.Location = new Point(0, 370);
-                rbtAdminAlq.Visible = false;
-                rbtAlqDisponibles.Visible = false;
-                rbtNuevoContrato.Visible = false;
-                rbtAlqVigentes.Visible = false;
-                rbtAlqNoVigentes.Visible = false;
-                rbtRegistrarPagos.Visible = false;
-                rbtEstadoCuentas.Visible = false;
-                rbtAlqDisponibles.Visible = false;
-
-            }
-
-            else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == true && rbtLocadores.Visible == false)
-            {
-                rbtAdminProp.Location = new Point(0, 190);
-                rbtClientes.Location = new Point(0, 235);
-                rbtNuevoContrato.Visible = false;
-                rbtAlqVigentes.Visible = false;
-                rbtAlqNoVigentes.Visible = false;
-                rbtRegistrarPagos.Visible = false;
-                rbtEstadoCuentas.Visible = false;
-                rbtAdminAlq.Visible = false;
-                rbtAlqDisponibles.Visible = false;
-            }
-            else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == false && rbtLocadores.Visible == true)
-            {
-                rbtAdminAlq.Visible = false;
-                rbtAlqDisponibles.Visible = false;
-                rbtAdminProp.Location = new Point(0, 190);
-                rbtLocadores.Location = new Point(0, 235);
-                rbtVerProp.Location = new Point(0, 280);
-                rbtNuevaProp.Location = new Point(0, 325);
-                rbtClientes.Location = new Point(0, 370);
-            }
-
-            else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == false && rbtLocadores.Visible == false)
-            {
-                rbtAdminProp.Location = new Point(0, 190);
-                rbtClientes.Location = new Point(0, 235);
-                rbtAdminAlq.Visible = false;
-                rbtAlqDisponibles.Visible = false;
+                pnlSubAdmin.Visible = false;
             }
         }
 
-        //Botón Administración de Alquileres
-        private void rbtAdminAlq_Click(object sender, EventArgs e)
+        private void btnAdminAlq_Click(object sender, EventArgs e)
         {
-            if (rbtNuevoContrato.Visible == false && rbtLocadores.Visible == false)
-            {
-                rbtAlqDisponibles.Location = new Point(0, 460);
-                rbtAdminProp.Location = new Point(0, 505);
-                rbtClientes.Location = new Point(0, 550);
-                rbtNuevoContrato.Location = new Point(0, 235);
-                rbtNuevoContrato.Visible = true;
-                rbtAlqVigentes.Visible = true;
-                rbtAlqNoVigentes.Visible = true;
-                rbtRegistrarPagos.Visible = true;
-                rbtEstadoCuentas.Visible = true;
-            }
-            else if (rbtNuevoContrato.Visible == true && rbtLocadores.Visible == false)
-            {
-                rbtAdminProp.Location = new Point(0, 280);
-                rbtClientes.Location = new Point(0, 325);
-                rbtAlqDisponibles.Location = new Point(0, 235);
-                rbtNuevoContrato.Visible = false;
-                rbtAlqVigentes.Visible = false;
-                rbtAlqNoVigentes.Visible = false;
-                rbtRegistrarPagos.Visible = false;
-                rbtEstadoCuentas.Visible = false;
-            }
-            else if (rbtNuevoContrato.Visible == false && rbtLocadores.Visible == true)
-            {
-                rbtNuevoContrato.Visible = true;
-                rbtAlqVigentes.Visible = true;
-                rbtAlqNoVigentes.Visible = true;
-                rbtRegistrarPagos.Visible = true;
-                rbtEstadoCuentas.Visible = true;
-                rbtAlqDisponibles.Location = new Point(0, 460);
-                rbtAdminProp.Location = new Point(0, 505);
-                rbtLocadores.Location = new Point(0, 550);
-                rbtVerProp.Location = new Point(0, 595);
-                rbtNuevaProp.Location = new Point(0, 640);
-                rbtClientes.Location = new Point(0, 685);
-
-            }
-            else if (rbtNuevoContrato.Visible == true && rbtLocadores.Visible == true)
-            {
-                rbtNuevoContrato.Visible = false;
-                rbtAlqVigentes.Visible = false;
-                rbtAlqNoVigentes.Visible = false;
-                rbtRegistrarPagos.Visible = false;
-                rbtEstadoCuentas.Visible = false;
-                rbtAlqDisponibles.Location = new Point(0, 235);
-                rbtAdminProp.Location = new Point(0, 280);
-                rbtLocadores.Location = new Point(0, 325);
-                rbtVerProp.Location = new Point(0, 370);
-                rbtNuevaProp.Location = new Point(0, 415);
-                rbtClientes.Location = new Point(0, 460);
-            }
+            if (pnlSubAdmin.Visible == false)
+                pnlSubAdmin.Visible = true;
+            else
+                pnlSubAdmin.Visible = false;
         }
 
-        //Botón Administración de Propiedades
-        private void rbtAdminProp_Click(object sender, EventArgs e)
+        private void btnNuevoContrato_Click(object sender, EventArgs e)
         {
-            if (rbtLocadores.Visible == false && rbtAdminAlq.Visible == false)
-            {
-                rbtLocadores.Visible = true;
-                rbtVerProp.Visible = true;
-                rbtNuevaProp.Visible = true;
-                rbtLocadores.Location = new Point(0, 235);
-                rbtVerProp.Location = new Point(0, 280);
-                rbtNuevaProp.Location = new Point(0, 325);
-                rbtClientes.Location = new Point(0, 370);
-            }
-            else if (rbtLocadores.Visible == true && rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == true)
-            {
-                rbtLocadores.Visible = false;
-                rbtVerProp.Visible = false;
-                rbtNuevaProp.Visible = false;
-                rbtClientes.Location = new Point(0, 550);
-            }
-
-            else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == false && rbtLocadores.Visible == true)
-            {
-                rbtLocadores.Visible = false;
-                rbtVerProp.Visible = false;
-                rbtNuevaProp.Visible = false;
-                rbtClientes.Location = new Point(0, 325);
-            }
-            else if (rbtAdminAlq.Visible == false && rbtLocadores.Visible == true)
-            {
-                rbtLocadores.Visible = false;
-                rbtVerProp.Visible = false;
-                rbtNuevaProp.Visible = false;
-                rbtClientes.Location = new Point(0, 235);
-
-            }
-
-            else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == true && rbtLocadores.Visible == false)
-            {
-                rbtLocadores.Visible = true;
-                rbtVerProp.Visible = true;
-                rbtNuevaProp.Visible = true;
-                rbtLocadores.Location = new Point(0, 550);
-                rbtVerProp.Location = new Point(0, 595);
-                rbtNuevaProp.Location = new Point(0, 640);
-                rbtClientes.Location = new Point(0, 685);
-            }
-            else if (rbtAdminAlq.Visible == true && rbtNuevoContrato.Visible == false && rbtLocadores.Visible == false)
-            {
-                rbtLocadores.Visible = true;
-                rbtVerProp.Visible = true;
-                rbtNuevaProp.Visible = true;
-                rbtLocadores.Location = new Point(0, 325);
-                rbtVerProp.Location = new Point(0, 370);
-                rbtNuevaProp.Location = new Point(0, 415);
-                rbtClientes.Location = new Point(0, 460);
-            }
+            abrirVentanaPanel(new NuevoContrato());
         }
 
-        //Botón Nuevo Contrato
-        private void rbtNuevoContrato_Click(object sender, EventArgs e)
+        private void btnAlqVigentes_Click(object sender, EventArgs e)
         {
-            //abrirVentanaPanel(new IngresarPropietario());
+            abrirVentanaPanel(new AlquileresVigentes());
         }
 
-        //Botón Alquileres Vigentes
-        private void rbtAlqVigentes_Click(object sender, EventArgs e)
+        private void btnAlqNoVigentes_Click(object sender, EventArgs e)
         {
-            //abrirVentanaPanel(new AlquileresVigentes());
+            abrirVentanaPanel(new AlquileresNoVigentes());
         }
 
-        //Botón Alquileres No Vigentes
-        private void rbtAlqNoVigentes_Click(object sender, EventArgs e)
+        private void btnEstadoCuentas_Click(object sender, EventArgs e)
         {
-            //abrirVentanaPanel(new AlquileresNoVigentes());
+            abrirVentanaPanel(new EstadoDeCuentas());
         }
 
-        //Botón Registrar Pagos
-        private void rbtRegistrarPagos_Click(object sender, EventArgs e)
+        private void btnAdminProp_Click(object sender, EventArgs e)
         {
-            //abrirVentanaPanel(new Comprobantes());
+            if (pnlSubProp.Visible == false)
+                pnlSubProp.Visible = true;
+            else
+                pnlSubProp.Visible = false;
+        }
+
+        private void btnLocadores_Click(object sender, EventArgs e)
+        {
 
         }
 
-        //Botón Estado de Cuentas
-        private void rbtEstadoCuentas_Click(object sender, EventArgs e)
+        private void btnPropiedades_Click(object sender, EventArgs e)
         {
-            //abrirVentanaPanel(new CARGAR_ITEMS_A_PAGAR());
+            abrirVentanaPanel(new Propiedades());
         }
 
-        //Botón Ver Propiedades
-        private void rbtVerProp_Click(object sender, EventArgs e)
+        private void btnClientes_Click(object sender, EventArgs e)
         {
-            //abrirVentanaPanel(new PropiedadesABM());
-        }
-
-        //Botón Nueva Propiedad
-        private void rbtNuevaProp_Click(object sender, EventArgs e)
-        {
-            //abrirVentanaPanel(new PropiedadesAlta());
+            abrirVentanaPanel(new Clientes());
         }
 
         //Diseño botones Menú
@@ -266,12 +93,30 @@ namespace Interfaz
         {
             foreach (Control c in pnlMenu.Controls)
             {
-                if (c is RadioButton)
+                if (c is Button)
                 {
                     c.Font = new Font("Oxygen", 12);
                 }
             }
+            foreach(Control c in pnlSubAdmin.Controls)
+            {
+                if (c is Button)
+                {
+                    c.Font = new Font("Oxygen", 12);
+                }
+            }
+            foreach(Control c in pnlSubProp.Controls)
+            {
+                if (c is Button)
+                {
+                    c.Font = new Font("Oxygen", 12);
+                }
+            }
+            pnlSubAdmin.Visible = false;
+            pnlSubProp.Visible = false;
         }
+
+        
 
         #endregion
 
@@ -307,16 +152,6 @@ namespace Interfaz
             DialogResult opcion = MessageBox.Show("¿Está segura que desea cerrar la aplicación?", "¿Cerrar aplicación?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (opcion == DialogResult.Yes)
                 Application.Exit();
-        }
-
-        private void rbtClientes_CheckedChanged(object sender, EventArgs e)
-        {
-            abrirVentanaPanel(new Clientes());
-        }
-
-        private void rbtNuevoContrato_CheckedChanged(object sender, EventArgs e)
-        {
-            abrirVentanaPanel(new NuevoContrato());
         }
 
         //METODO PARA REDIMENCIONAR/CAMBIAR TAMAÑO A FORMULARIO  TIEMPO DE EJECUCION ----------------------------------------------------------
@@ -380,27 +215,6 @@ namespace Interfaz
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
-
-        private void rbtNuevaProp_CheckedChanged(object sender, EventArgs e)
-        {
-            abrirVentanaPanel(new Propiedades());
-        }
-
-        private void rbtAlqVigentes_CheckedChanged(object sender, EventArgs e)
-        {
-            abrirVentanaPanel(new AlquileresVigentes());
-        }
-
-        private void rbtAlqNoVigentes_CheckedChanged(object sender, EventArgs e)
-        {
-            abrirVentanaPanel(new AlquileresNoVigentes());
-        }
-
-        private void rbtEstadoCuentas_CheckedChanged(object sender, EventArgs e)
-        {
-            abrirVentanaPanel(new EstadoDeCuentas());
-        }
-
 
         //----------------COLOR Y GRIP DE RECTANGULO INFERIOR
         protected override void OnPaint(PaintEventArgs e)

@@ -332,7 +332,6 @@ namespace Interfaz
         {
             var dgv = dgvPropiedades;
 
-
             if (validarCamposPropiedad())
             {
                 //Datos Propiedad
@@ -441,8 +440,6 @@ namespace Interfaz
                     registroGuardado();
                 }
 
-                cargarPropiedades();
-
                 if (NuevoContrato == true)
                 {
                     NuevoContrato nc = new NuevoContrato();
@@ -452,6 +449,10 @@ namespace Interfaz
                     abrirVentana<NuevoContrato>(nc);
                 }
             }
+            limpiarCampos();
+            limpiarCamposNuevaProp();
+            limpiarCuadros();
+            cargarPropiedades();
         }
 
         private void btnCancelarProp_Click(object sender, EventArgs e)

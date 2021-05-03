@@ -120,6 +120,7 @@ namespace Interfaz
             }
         }
 
+                //Doble click en DGV Propiedades
         private void dgvPropiedades_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if(dgvPropiedades.CurrentRow != null && dgvPropiedades.SelectedRows.Count > 0)
@@ -357,7 +358,6 @@ namespace Interfaz
                     limpiarCamposLocador();
                     limpiarCamposLocatario();
                     limpiarCamposGarante();
-
                 }
                 catch (Exception ex)
                 {

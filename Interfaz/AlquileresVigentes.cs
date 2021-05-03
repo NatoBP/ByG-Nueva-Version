@@ -21,33 +21,47 @@ namespace Interfaz
         public AlquileresVigentes()
         {
             InitializeComponent();
-            ConfiguracionDGV();
             buscarVigentes();
-            //invisibilizarColumnas();
-
+            ConfiguracionDGV();
+            invisibilizarColumnas();
             deshabilitarCampos();
         }
 
         private void buscarVigentes()
         {
-            dgvAlquileresV.DataSource = alq.buscarContratoVigente("", "");
+            dgvAlquileresV.Columns.Clear();
+            dgvAlquileresV.DataSource = alq.buscarContratoVigente("", "").Tables[0];
         }
 
         //BOTONES
 
         private void bntBuscarAlquiler_Click(object sender, EventArgs e)
         {
-            if (txtApellido.Text != "" && txtNombre.Text == "")
-                dgvAlquileresV.DataSource = alq.buscarContratoVigente(txtApellido.Text, "");
+            if (txtApellidoV.Text != "" && txtNombreV.Text == "")
+            {
+                dgvAlquileresV.Columns.Clear();
+                dgvAlquileresV.DataSource = alq.buscarContratoVigente(txtApellidoV.Text, "").Tables[0];
+                invisibilizarColumnas();
+                txtApellidoV.Clear();
+            }
 
-            else if (txtApellido.Text == "" && txtNombre.Text != "")
-                dgvAlquileresV.DataSource = alq.buscarContratoVigente("", txtNombre.Text);
+            else if (txtApellidoV.Text == "" && txtNombreV.Text != "")
+            {
+                dgvAlquileresV.Columns.Clear();
+                dgvAlquileresV.DataSource = alq.buscarContratoVigente("", txtNombreV.Text).Tables[0];
+                invisibilizarColumnas();
+                txtNombreV.Clear();
+            }
 
-            else if (txtApellido.Text != "" && txtNombre.Text != "")
+            else if (txtApellidoV.Text != "" && txtNombreV.Text != "")
                 MessageBox.Show("Solo se puede buscar por nombre o por apellido");
 
             else
-                dgvAlquileresV.DataSource = alq.buscarContratoVigente("", "");
+            {
+                dgvAlquileresV.Columns.Clear();
+                dgvAlquileresV.DataSource = alq.buscarContratoVigente("", "").Tables[0];
+                invisibilizarColumnas();
+            }
         }
 
         private void btnBajaContrato_Click(object sender, EventArgs e)
@@ -196,13 +210,23 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.Orange;
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv.AutoGenerateColumns = false;
-            dgv.Columns.Add("Apellido Locatario", "Apellido Locatario/a:");
-            dgv.Columns.Add("Nombre Locatario", "Nombre Locatario/a:");
-            dgv.Columns.Add("Apellido Locador", "Apellido Locador/a:");
-            dgv.Columns.Add("Nombre Locador", "Nombre Locador/a:");
-            dgv.Columns.Add("Direccion", "Dirección:");
-            dgv.Columns.Add("Numero", "Número:");
+            //dgv.AutoGenerateColumns = false;
+            //dgv.Columns.Add("Apellido Locatario", "Apellido Locatario/a:");
+            //dgv.Columns.Add("Nombre Locatario", "Nombre Locatario/a:");
+            //dgv.Columns.Add("Apellido Locador", "Apellido Locador/a:");
+            //dgv.Columns.Add("Nombre Locador", "Nombre Locador/a:");
+            //dgv.Columns.Add("Direccion", "Dirección:");
+            //dgv.Columns.Add("Numero", "Número:");
+            dgv.Columns[0].Visible = false;
+            dgv.Columns[1].Visible = false;
+            dgv.Columns[8].Visible = false;
+            dgv.Columns[9].Visible = false;
+            dgv.Columns[10].Visible = false;
+            dgv.Columns[11].Visible = false;
+            dgv.Columns[12].Visible = false;
+            dgv.Columns[13].Visible = false;
+            dgv.Columns[14].Visible = false;
+            dgv.Columns[15].Visible = false;
 
             //FUENTE
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font(dgv.Font, FontStyle.Bold);

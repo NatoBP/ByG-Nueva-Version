@@ -34,9 +34,9 @@ namespace AccesoDatos
                     da = new SqlDataAdapter(cmd);
                     da.Fill(ds);
                 }
-                else if (apellido == "" && nombre != "")
+                else if (nombre != "" && apellido == "")
                 {
-                    ds = new DataSet(); ;
+                    ds = new DataSet(); 
                     cmd.Connection = cn.Conectar();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "BuscarPorNombre";
@@ -50,7 +50,8 @@ namespace AccesoDatos
                     ds = new DataSet();
                     cmd.Connection = cn.Conectar();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "buscarAlquileresV";
+                    cmd.CommandText = "BuscarAlquileresV";
+                    cmd.Parameters.Clear();
                     da = new SqlDataAdapter(cmd);
                     da.Fill(ds);
                 }
@@ -82,7 +83,7 @@ namespace AccesoDatos
                     da = new SqlDataAdapter(cmd);
                     da.Fill(ds);
                 }
-                else if (apellido == "" && nombre != "")
+                else if (nombre != "" && apellido == "")
                 {
                     ds = new DataSet(); ;
                     cmd.Connection = cn.Conectar();
@@ -99,6 +100,7 @@ namespace AccesoDatos
                     cmd.Connection = cn.Conectar();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "buscarAlquileresV";
+                    cmd.Parameters.Clear();
                     da = new SqlDataAdapter(cmd);
                     da.Fill(ds);
                 }
