@@ -120,7 +120,24 @@ namespace Interfaz
             }
         }
 
-               //Locatario
+        private void dgvPropiedades_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(dgvPropiedades.CurrentRow != null && dgvPropiedades.SelectedRows.Count > 0)
+            {
+                foreach (var item in listaProp)
+                {
+                    if (item.pId_propiedad == Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value))
+                    {
+                        Propiedades prop = new Propiedades();
+                        
+                        abrirVentana<Propiedades>(prop);
+                        prop.cargarPropiedad(item);
+                    }
+                }
+            }
+        }
+
+        //Locatario
         private void cboTipoLocatario_SelectedIndexChanged(object sender, EventArgs e)
         {
             limpiarCamposLocatario();
@@ -775,7 +792,6 @@ namespace Interfaz
             {
                 MessageBox.Show("Error: " + e.ToString());
             }
-            
         }
 
         //ENVÍO Y RECEPCIÓN DE DATOS A OTRAS VENTANAS
@@ -826,7 +842,10 @@ namespace Interfaz
 
             lblDirLocatario.Text = Convert.ToString(locatario.pDireccion);
             lblNumLocatario.Text = Convert.ToString(locatario.pAltura);
-            lblPisoLocatario.Text = Convert.ToString(locatario.pPiso);
+            if (locatario.pPiso == 0)
+                lblPisoLocatario.Text = "";
+            else
+                lblPisoLocatario.Text = Convert.ToString(locatario.pPiso);
             lblDepartLocatario.Text = locatario.pDepto;
             lblMailLocatario.Text = locatario.pMail;
 
@@ -864,7 +883,10 @@ namespace Interfaz
                 }
             lblDirGarante.Text = p.pDireccion;
             lblNumGarante.Text = Convert.ToString(p.pAltura);
-            lblPisoGarante.Text = Convert.ToString(p.pPiso);
+            if (garante.pPiso == 0)
+                lblPisoGarante.Text = "";
+            else
+                lblPisoGarante.Text = Convert.ToString(p.pPiso);
             lblDeptoGarante.Text = p.pDepto;
             lblMailGarante.Text = p.pMail;
 
@@ -1252,5 +1274,7 @@ namespace Interfaz
         }
 
         #endregion
+
+        
     }
 }

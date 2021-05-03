@@ -90,7 +90,7 @@
             this.cboDepto = new System.Windows.Forms.ComboBox();
             this.cboProvincia = new System.Windows.Forms.ComboBox();
             this.label44 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpBuscar = new System.Windows.Forms.GroupBox();
             this.btnNuevaProp = new System.Windows.Forms.Button();
             this.btnVerFotos = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -108,7 +108,7 @@
             this.pnlNuevaProp.SuspendLayout();
             this.grpNuevaProp.SuspendLayout();
             this.grpPropiedad.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grpBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPropiedades)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,7 +117,7 @@
             this.pnlBase.Controls.Add(this.grpCaracteristicas);
             this.pnlBase.Controls.Add(this.pnlNuevaProp);
             this.pnlBase.Controls.Add(this.grpPropiedad);
-            this.pnlBase.Controls.Add(this.groupBox1);
+            this.pnlBase.Controls.Add(this.grpBuscar);
             this.pnlBase.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBase.Location = new System.Drawing.Point(0, 0);
             this.pnlBase.Name = "pnlBase";
@@ -786,25 +786,25 @@
             this.label44.TabIndex = 74;
             this.label44.Text = "Provincia:";
             // 
-            // groupBox1
+            // grpBuscar
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.btnNuevaProp);
-            this.groupBox1.Controls.Add(this.btnVerFotos);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.btnEditar);
-            this.groupBox1.Controls.Add(this.dgvPropiedades);
-            this.groupBox1.Controls.Add(this.btnBuscar);
-            this.groupBox1.Controls.Add(this.txtDireccion);
-            this.groupBox1.Controls.Add(this.txtApellido);
-            this.groupBox1.Controls.Add(this.lblDireccion);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(9, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1033, 195);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Búsqueda de Propiedades";
+            this.grpBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBuscar.Controls.Add(this.btnNuevaProp);
+            this.grpBuscar.Controls.Add(this.btnVerFotos);
+            this.grpBuscar.Controls.Add(this.label2);
+            this.grpBuscar.Controls.Add(this.btnEditar);
+            this.grpBuscar.Controls.Add(this.dgvPropiedades);
+            this.grpBuscar.Controls.Add(this.btnBuscar);
+            this.grpBuscar.Controls.Add(this.txtDireccion);
+            this.grpBuscar.Controls.Add(this.txtApellido);
+            this.grpBuscar.Controls.Add(this.lblDireccion);
+            this.grpBuscar.Controls.Add(this.label1);
+            this.grpBuscar.Location = new System.Drawing.Point(9, 3);
+            this.grpBuscar.Name = "grpBuscar";
+            this.grpBuscar.Size = new System.Drawing.Size(1033, 195);
+            this.grpBuscar.TabIndex = 9;
+            this.grpBuscar.TabStop = false;
+            this.grpBuscar.Text = "Búsqueda de Propiedades";
             // 
             // btnNuevaProp
             // 
@@ -951,8 +951,8 @@
             this.grpNuevaProp.PerformLayout();
             this.grpPropiedad.ResumeLayout(false);
             this.grpPropiedad.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpBuscar.ResumeLayout(false);
+            this.grpBuscar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPropiedades)).EndInit();
             this.ResumeLayout(false);
 
@@ -1006,7 +1006,7 @@
         private System.Windows.Forms.Label label43;
         public System.Windows.Forms.ComboBox cboDepto;
         public System.Windows.Forms.ComboBox cboProvincia;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpBuscar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvPropiedades;
         private System.Windows.Forms.Button btnBuscar;

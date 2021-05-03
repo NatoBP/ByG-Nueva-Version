@@ -55,12 +55,12 @@ namespace Interfaz
             dgvPropiedades.Rows.Clear();
             foreach (var item in lista)
             {
-                dgvPropiedades.Rows.Add(item.Id, item.Dni, item.TipoDni, item.Apellido, item.Nombre, item.Calle, item.Nro, item.Piso, 
+                dgvPropiedades.Rows.Add(item.Id, item.Dni, item.TipoDni, item.Apellido, item.Nombre, item.Calle, item.Nro, item.Piso,
                                         item.Depto, item.Descripcion, item.TipoPropiedad, item.IdBarrio, item.Barrio, item.Ciudad, item.Departamento, item.Provincia);
             }
         }
 
-                //Nueva Propiedad
+        //Nueva Propiedad
         private void btnNuevaProp_Click(object sender, EventArgs e)
         {
             pnlNuevaProp.Visible = true;
@@ -69,7 +69,7 @@ namespace Interfaz
             dgvPropiedades.Enabled = false;
         }
 
-                //Buscar locador por apellido
+        //Buscar locador por apellido
         private void btnBuscarApellido_Click(object sender, EventArgs e)
         {
             lista = null;
@@ -96,14 +96,14 @@ namespace Interfaz
                 cboProvincia.SelectedValue = 14;
                 cboDepto.SelectedValue = 14021;
             }
-            
+
             //Si no hay propiedades, se busca el registro de la persona
             else
             {
                 per = new Persona();
                 per = cl.BuscarPersonaPorApellido(txtApellidoBuscar.Text);
 
-                if(per.pDNI != 0) //Si la persona existe
+                if (per.pDNI != 0) //Si la persona existe
                 {
                     txtApellidoBuscar.Text = per.pApellido;
                     txtNombreBuscar.Text = per.pNombre;
@@ -112,26 +112,26 @@ namespace Interfaz
                     limpiarCuadros();
                     limpiarCampos();
                     habilitarCampos();
-                    
+
                     cboProvincia.SelectedValue = 14;
                     cboDepto.SelectedValue = 14021;
                 }
                 else            //Si la persona no existe
                 {
                     DialogResult opcion = MessageBox.Show("La persona no está registrada, ¿desea ingresarla?", "¿Ingresar nueva persona?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if(opcion == DialogResult.Yes)
+                    if (opcion == DialogResult.Yes)
                     {
                         Clientes c = new Clientes();
                         c.nuevaPropiedad = true;
-                        c.nuevoCliente(-1, "",txtApellidoBuscar.Text);
+                        c.nuevoCliente(-1, "", txtApellidoBuscar.Text);
 
-                        abrirVentana(c);
+                        abrirVentana<Clientes>(c);
                     }
                 }
             }
         }
 
-                //Cancelar
+        //Cancelar
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             limpiarCamposNuevaProp();
@@ -141,33 +141,43 @@ namespace Interfaz
             limpiarCampos();
         }
 
-                //Editar
+        //Editar
         private void Editar_Click(object sender, EventArgs e)
         {
             habilitarCampos();
             modificar = true;
         }
 
-                //Ver Fotos
+        //Ver Fotos
         private void btnVerFotos_Click(object sender, EventArgs e)
         {
-            VisorDeFotos vf = new VisorDeFotos(Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value));
-            if (vf.noHayFotos() == 0)
-                return;
-            else
+            if(dgvPropiedades.CurrentRow != null && dgvPropiedades.SelectedRows.Count > 0)
             {
-                abrirVentana(vf);
+                VisorDeFotos vf = new VisorDeFotos(Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value));
+                if (vf.noHayFotos() == 0)
+                    return;
+                else
+                {
+                    AddOwnedForm(vf);
+                    vf.TopLevel = false;
+                    vf.Dock = DockStyle.Fill;
+                    this.Controls.Add(vf);
+                    this.Tag = vf;
+
+                    vf.BringToFront();
+                    vf.Show();
+                }
             }
         }
 
-                //Agregar Característica
+        //Agregar Característica
         private void btnAgregarCaracteristica_Click(object sender, EventArgs e)
         {
             if (txtOtros.Text != "" && txtOtros.Text != "0")
             {
                 if (!existeEnDGV(Convert.ToInt32(cboCaracteristicas.SelectedValue)))
                 {
-                    CaracteristicaPropiedad cP = new CaracteristicaPropiedad(Convert.ToInt32(cboCaracteristicas.SelectedValue), 
+                    CaracteristicaPropiedad cP = new CaracteristicaPropiedad(Convert.ToInt32(cboCaracteristicas.SelectedValue),
                                                                                cboCaracteristicas.Text, Convert.ToInt32(txtOtros.Text));
 
                     p.agregarCaracteristica(cP);
@@ -183,10 +193,10 @@ namespace Interfaz
                 MessageBox.Show("Verifique los datos ingresados");
         }
 
-                //Quitar Característica
+        //Quitar Característica
         private void btnQuitarCaracteristica_Click(object sender, EventArgs e)
         {
-            if(p.Caracteristicas.Count >= 1)
+            if (p.Caracteristicas.Count >= 1)
             {
                 int a = dgvCaracteristicas.CurrentRow.Index;
                 p.Caracteristicas.RemoveAt(Convert.ToInt32(a));
@@ -196,7 +206,7 @@ namespace Interfaz
             cboCaracteristicas.Focus();
         }
 
-                //Ingresar Barrio
+        //Ingresar Barrio
         private void btnIngresarBarrio_Click(object sender, EventArgs e)
         {
             IngresarBarrio ib = new IngresarBarrio();
@@ -206,7 +216,7 @@ namespace Interfaz
             ib.ShowDialog();
         }
 
-                //Cargar Imagen
+        //Cargar Imagen
         private void btnCargarImagen_Click(object sender, EventArgs e)
         {
             try
@@ -265,8 +275,8 @@ namespace Interfaz
                 MessageBox.Show("El archivo seleccionado no es un tipo de imagen válido: \n" + ex.Message);
             }
         }
-                
-                //Borrar Imagen
+
+        //Borrar Imagen
         private void btnBorrarImagen_Click(object sender, EventArgs e)
         {
             if (lstNombreImagen.SelectedIndex >= 0)
@@ -285,12 +295,12 @@ namespace Interfaz
             }
         }
 
-                //Muestra las fotos al seleccionar
+        //Muestra las fotos al seleccionar
         private void lstNombreImagen_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lstNombreImagen.SelectedIndex >= 0)
             {
-                if(p.ListaFotos.Count > 0) //Si están en la lista de nuevas fotos cargadas
+                if (p.ListaFotos.Count > 0) //Si están en la lista de nuevas fotos cargadas
                 {
                     foreach (var item in p.ListaFotos)
                     {
@@ -302,7 +312,7 @@ namespace Interfaz
                         }
                     }
                 }
-                if(listaFoto.Count > 0) //Si están en la lista de fotos guardadas
+                if (listaFoto.Count > 0) //Si están en la lista de fotos guardadas
                 {
                     foreach (var item in listaFoto)
                     {
@@ -317,16 +327,16 @@ namespace Interfaz
             }
         }
 
-                //Guardar
+        //Guardar
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             var dgv = dgvPropiedades;
-            
+
 
             if (validarCamposPropiedad())
             {
                 //Datos Propiedad
-                if(modificar == false) //Si es una propiedad nueva
+                if (modificar == false) //Si es una propiedad nueva
                 {
                     p.pDni = Convert.ToInt32(txtDniBuscar.Text);
                     p.pTipoDNI = Convert.ToInt32(cboTipoBuscar.SelectedValue);
@@ -350,7 +360,7 @@ namespace Interfaz
                     p.pPiso = 0;
                 else
                     p.pPiso = Convert.ToInt32(txtPiso.Text);
-                
+
 
                 if (txtDpto.Text == "")
                     p.pDpto = "";
@@ -373,13 +383,13 @@ namespace Interfaz
 
 
                 //Si guardamos una propiedad nueva
-                if (modificar == false && pAd.VerificarPropiedad(p.pCalle, p.pNumeroCalle, p.pPiso, p.pDpto, p.pCiudad) == false) 
+                if (modificar == false && pAd.VerificarPropiedad(p.pCalle, p.pNumeroCalle, p.pPiso, p.pDpto, p.pCiudad) == false)
                 {
                     pAd.InsertarPropiedad(p);
 
                     int idProp = pAd.BuscarIdPropiedad(); //Busca el ID de la última Propiedad Registrada
 
-                    foreach (var item in p.Caracteristicas) 
+                    foreach (var item in p.Caracteristicas)
                     {
                         pAd.InsertarCaracteristicas(item, idProp);
                     }
@@ -439,7 +449,7 @@ namespace Interfaz
                     nc.cargarCamposLocador(per);
                     nc.cargarPropiedad(per);
                     NuevoContrato = false;
-                    abrirVentana(nc);
+                    abrirVentana<NuevoContrato>(nc);
                 }
             }
         }
@@ -473,21 +483,28 @@ namespace Interfaz
             MessageBox.Show("Registro guardado");
         }
 
-        private void abrirVentana(object formHijo)
+        private void abrirVentana<MiForm>(Form formHijo) where MiForm : Form, new()
         {
-            Form fh = formHijo as Form;
-            AddOwnedForm(fh);
-            fh.TopLevel = false;
-            fh.Dock = DockStyle.Fill;
-            this.Controls.Add(fh);
-            this.Tag = fh;
+            Form fh;
+            fh = pnlBase.Controls.OfType<MiForm>().FirstOrDefault();
 
-            fh.BringToFront();
-            fh.Show();
+            if (fh == null)
+            {
+                fh = formHijo as Form;
+                AddOwnedForm(fh);
+                fh.TopLevel = false;
+                fh.Dock = DockStyle.Fill;
+                this.Controls.Add(fh);
+                this.Tag = fh;
+
+                fh.BringToFront();
+                fh.Show();
+            }
         }
 
         //MÉTODOS DE CARGA DE DATOS
-                //Carga datos del locador desde Nuevo Contrato
+
+        //Carga datos del locador desde Nuevo Contrato
         public void nuevaPropiedad(Persona p)
         {
             per = null;
@@ -509,15 +526,25 @@ namespace Interfaz
             cboDepto.SelectedValue = 14021;
         }
 
+        public void cargarPropiedad(Propiedad prop) //Carga y muestra los datos de una propiedad que viene de Nuevo Contrato
+        {
+            if (prop != null)
+            {
+                dgvPropiedades.Rows.Clear();
+                deshabilitarBuscar();
+                mostrarPropiedad(prop);
+            }
+        }
+
         private void cargarPropiedades()
         {
             lista = null;
-            lista = pAd.BuscarPropiedadPorNombreDireccion("","");
+            lista = pAd.BuscarPropiedadPorNombreDireccion("", "");
             dgvPropiedades.Rows.Clear();
             foreach (var item in lista)
             {
-                dgvPropiedades.Rows.Add(item.Id, item.Dni, item.TipoDni, item.Apellido, item.Nombre, item.Calle, item.Nro, item.Piso, 
-                                        item.Depto, item.Descripcion, item.TipoPropiedad, item.IdBarrio , item.Barrio, item.Ciudad, item.Departamento, item.Provincia);
+                dgvPropiedades.Rows.Add(item.Id, item.Dni, item.TipoDni, item.Apellido, item.Nombre, item.Calle, item.Nro, item.Piso,
+                                        item.Depto, item.Descripcion, item.TipoPropiedad, item.IdBarrio, item.Barrio, item.Ciudad, item.Departamento, item.Provincia);
             }
         }
 
@@ -539,7 +566,7 @@ namespace Interfaz
             lstNombreImagen.Items.Clear();
 
             listaFoto = pAd.buscarFoto(id);
-            if(listaFoto.Count > 0)
+            if (listaFoto.Count > 0)
             {
                 int i = 1;
 
@@ -639,6 +666,73 @@ namespace Interfaz
                 btnVerFotos.Enabled = true;
                 mostrarFotosGuardadas(Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value));
             }
+        }
+
+        private void mostrarPropiedad(Propiedad prop)
+        {
+            modificar = false; 
+            pctImagen.Image = null;
+
+            txtDireccionProp.Text = prop.pCalle;
+            txtNro.Text = prop.pNumeroCalle.ToString();
+            txtDpto.Text = prop.pDpto.ToString();
+
+            if (prop.pPiso == 0)
+                txtPiso.Text = "";
+            else
+                txtPiso.Text = prop.pPiso.ToString();
+
+            cboTipoProp.SelectedValue = prop.TipoPropiedad;
+
+            ubicacion = tc.buscarUbicacion(prop.pBarrio);
+
+            for (int i = 0; i < ubicacion.Length; i++)
+            {
+                if (i == 0)
+                    cboProvincia.SelectedValue = ubicacion[3];
+                else if (i == 1)
+                    cboDepto.SelectedValue = ubicacion[2];
+                else if (i == 2)
+                    cboCiudad.SelectedValue = ubicacion[1];
+                else if (i == 3)
+                    cboBarrio.SelectedValue = ubicacion[0];
+            }
+
+            rtxtObservaciones.Text = prop.pDescripcion;
+
+            caracteristicasP = pAd.CargarCaracteristicas(prop.pId_propiedad);
+
+            dgvCaracteristicas.Rows.Clear();
+            foreach (var i in caracteristicasP)
+            {
+                switch (i.pId)
+                {
+                    case 1:
+                        txtSupCub.Text = Convert.ToString(i.pValor);
+                        break;
+                    case 2:
+                        txtHabitaciones.Text = Convert.ToString(i.pValor);
+                        break;
+                    case 3:
+                        txtLivingComedor.Text = Convert.ToString(i.pValor);
+                        break;
+                    case 4:
+                        txtCocina.Text = Convert.ToString(i.pValor);
+                        break;
+                    case 5:
+                        txtBaño.Text = Convert.ToString(i.pValor);
+                        break;
+                    case 6:
+                        txtPatio.Text = Convert.ToString(i.pValor);
+                        break;
+                    default:
+                        dgvCaracteristicas.Rows.Add(i.pId, i.pCaracteristica, i.pValor);
+                        break;
+                }
+            }
+            btnVerFotos.Enabled = true;
+            mostrarFotosGuardadas(prop.pId_propiedad);
+
         }
 
         private void ConfiguracionDgvPropiedades()
@@ -865,12 +959,21 @@ namespace Interfaz
                 else if (c is ComboBox)
                     c.Enabled = false;
 
-                else if (c is Button)
+                else if (c is Button && c.Text != btnCancelar.Text)
                     c.Enabled = false;
             }
             rtxtObservaciones.Enabled = false;
             lstNombreImagen.Enabled = false;
             dgvCaracteristicas.Enabled = false;
+        }
+
+        private void deshabilitarBuscar()
+        {
+            foreach (Control c in grpBuscar.Controls)
+            {
+                    c.Enabled = false;
+            }
+            btnVerFotos.Enabled = true;
         }
 
         private void habilitarCampos()

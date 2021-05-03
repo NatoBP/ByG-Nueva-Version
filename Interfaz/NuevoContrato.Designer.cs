@@ -322,6 +322,7 @@
             this.dgvPropiedades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPropiedades.Size = new System.Drawing.Size(180, 104);
             this.dgvPropiedades.TabIndex = 0;
+            this.dgvPropiedades.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPropiedades_CellDoubleClick);
             // 
             // btnIngresarPropiedad
             // 
