@@ -19,14 +19,18 @@ namespace Interfaz
         public AlquileresNoVigentes()
         {
             InitializeComponent();
-            deshabilitarCampos();
             buscarNoVigentes();
             ConfiguracionDGV();
+            invisibilizarColumnas();
+            deshabilitarCampos();
         }
 
         private void buscarNoVigentes()
         {
-            dgvAlquileresNoV.DataSource = alq.buscarContratoNoVigente("", "");
+            dgvAlquileresNoV.Columns.Clear();
+            dgvAlquileresNoV.DataSource = alq.buscarContratoNoVigente("", "").Tables[0];
+            if (dgvAlquileresNoV.DataSource != null)
+                invisibilizarColumnas();
         }
 
 
@@ -34,37 +38,31 @@ namespace Interfaz
 
         private void bntBuscarAlquiler_Click(object sender, EventArgs e)
         {
-            if (txtApellido.Text != "" && txtNombre.Text == "")
-                dgvAlquileresNoV.DataSource = alq.buscarContratoNoVigente(txtApellido.Text, "");
+            if (txtApellidoNoV.Text != "" && txtNombreNoV.Text == "")
+                dgvAlquileresNoV.DataSource = alq.buscarContratoNoVigente(txtApellidoNoV.Text, "").Tables[0];
 
-            else if (txtApellido.Text == "" && txtNombre.Text != "")
-                dgvAlquileresNoV.DataSource = alq.buscarContratoNoVigente("", txtNombre.Text);
+            else if (txtApellidoNoV.Text == "" && txtNombreNoV.Text != "")
+                dgvAlquileresNoV.DataSource = alq.buscarContratoNoVigente("", txtNombreNoV.Text).Tables[0];
 
-            else if (txtApellido.Text != "" && txtNombre.Text != "")
+            else if (txtApellidoNoV.Text != "" && txtNombreNoV.Text != "")
                 MessageBox.Show("Solo se puede buscar por nombre o por apellido");
 
             else
-                dgvAlquileresNoV.DataSource = alq.buscarContratoNoVigente("", "");
+                dgvAlquileresNoV.DataSource = alq.buscarContratoNoVigente("", "").Tables[0];
         }
 
         private void btnEstadoCuenta_Click(object sender, EventArgs e)
         {
-            //Comprobantes c = new Comprobantes();
-            //AddOwnedForm(c);
-            //c.TopLevel = false;
-            //c.Dock = DockStyle.Fill;
-            //this.Controls.Add(c);
-            //this.Tag = c;
+            int dni = Convert.ToInt32(dgvAlquileresNoV.CurrentRow.Cells[0].Value);
+            int tipo = Convert.ToInt32(dgvAlquileresNoV.CurrentRow.Cells[1].Value);
 
-            //c.txtApellido.Text = dgvAlquileresV.CurrentRow.Cells[2].Value.ToString();
-            //c.txtNombre.Text = dgvAlquileresV.CurrentRow.Cells[3].Value.ToString();
-            //c.txtDni.Text = dgvAlquileresV.CurrentRow.Cells[0].Value.ToString();
-            //c.cboTipoDNI.SelectedValue = Convert.ToInt32(dgvAlquileresV.CurrentRow.Cells[1].Value);
-            //c.rtbNot.Text = this.rtbNotas.Text;
-            //c.txtIdContrato.Text = dgvAlquileresV.CurrentRow.Cells[12].Value.ToString();
-            //c.BringToFront();
-            //c.Show();
-            //FALTAN INSTRUCCIONES PARA TRAER LOS DATOS DEL LOCATARIO
+            if (dgvAlquileresNoV.SelectedRows.Count > 0 && dgvAlquileresNoV.CurrentRow != null)
+            {
+                EstadoDeCuentas ec = new EstadoDeCuentas();
+                abrirVentana<EstadoDeCuentas>(ec);
+                ec.AlquileresNoV = true;
+                ec.CargarPersona(tipo, dni);
+            }
         }
 
 
@@ -73,7 +71,7 @@ namespace Interfaz
         //Selección
         private void dgvAlquileresNoV_SelectionChanged(object sender, EventArgs e)
         {
-            cargarCampos();
+            cargarDatosACampos();
         }
 
         //Click
@@ -81,7 +79,7 @@ namespace Interfaz
         {
             if (dgvAlquileresNoV.Rows.Count > 0)
             {
-                cargarCampos();
+                cargarDatosACampos();
             }
         }
 
@@ -99,42 +97,61 @@ namespace Interfaz
         }
 
         //Cargar Campos
-        private void cargarCampos()
+        private void cargarDatosACampos()
         {
             if (dgvAlquileresNoV.CurrentRow != null)
             {
-                //txtApellido.Text = Convert.ToString(dgvAlquileresV.CurrentRow.Cells[2].Value);
-                //txtNombre.Text = Convert.ToString(dgvAlquileresV.CurrentRow.Cells[3].Value);
-                //txtAlquilerV.Text = Math.Round((Convert.ToDouble(dgvAlquileresV.CurrentRow.Cells[8].Value)), 2).ToString();
+                txtApellido.Text = Convert.ToString(dgvAlquileresNoV.CurrentRow.Cells[2].Value);
+                txtNombre.Text = Convert.ToString(dgvAlquileresNoV.CurrentRow.Cells[3].Value);
+                txtAlquilerNoV.Text = Math.Round((Convert.ToDouble(dgvAlquileresNoV.CurrentRow.Cells[8].Value)), 2).ToString();
 
-                //if (dgvAlquileresV.CurrentRow.Cells[14].Value.ToString() != "")
-                //{
-                //    dtpUltimoPago.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[13].Value);
-                //}
+                DateTime Vigencia = DateTime.Today;
 
-                //if (Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[9].Value) >= DateTime.Now && banderaUltimoAño == 0)
-                //{
-                //    dtp1raRenovacion.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[9].Value);
-                //}
-                //else if (Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[10].Value) >= DateTime.Now && banderaUltimoAño == 0)
-                //{
-                //    dtp1raRenovacion.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[10].Value);
-                //}
-                //else if (banderaUltimoAño == 0)
-                //{
-                //    MessageBox.Show("está transcurriendo el último año de contrato");
-                //    dtp1raRenovacion.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[11].Value);
-                //    banderaUltimoAño = 1;
-                //}
+                if (dgvAlquileresNoV.CurrentRow.Cells[11].Value.ToString() != "")
+                {
+                    Vigencia = Convert.ToDateTime(dgvAlquileresNoV.CurrentRow.Cells[11].Value);
+                }
 
+                if (dgvAlquileresNoV.CurrentRow.Cells[13].Value.ToString() != "")
+                {
+                    dtpUltimoPago.Value = Convert.ToDateTime(dgvAlquileresNoV.CurrentRow.Cells[13].Value);
+                }
+                else
+                {
+                    dtpUltimoPago.Text = "01/01/1990";
+                }
 
-                //dtpFinContrato.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[11].Value);
-                //rtbNotas.Text = Convert.ToString(dgvAlquileresV.CurrentRow.Cells[15].Value);
+                dtpFinContrato.Value = Vigencia;
+                rtbNotas.Text = Convert.ToString(dgvAlquileresNoV.CurrentRow.Cells[15].Value);
             }
-
-
         }
 
+        private void abrirVentana<MiForm>(Form formHijo) where MiForm : Form, new()
+        {
+            Form fh;
+            fh = pnlBase.Controls.OfType<MiForm>().FirstOrDefault();
+
+            if (fh == null)
+            {
+                fh = formHijo as Form;
+                AddOwnedForm(fh);
+                fh.TopLevel = false;
+                fh.Dock = DockStyle.Fill;
+                this.Controls.Add(fh);
+                this.Tag = fh;
+
+                fh.BringToFront();
+                fh.Show();
+            }
+        }
+
+        public void Recargar(string apellido) //Hace refresh cuando vuelve de otras ventanas
+        {
+            dgvAlquileresNoV.Columns.Clear();
+            dgvAlquileresNoV.DataSource = alq.buscarContratoNoVigente(apellido, "").Tables[0];
+            if (dgvAlquileresNoV.DataSource != null)
+                invisibilizarColumnas();
+        }
 
         //CONFIGURACIÓN DATAGRIDVIEW
         private void ConfiguracionDGV()
@@ -153,14 +170,7 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dgv.AutoGenerateColumns = false;
-            dgv.Columns.Add("Apellido Locatario", "Apellido Locatario/a:");
-            dgv.Columns.Add("Nombre Locatario", "Nombre Locatario/a:");
-            dgv.Columns.Add("Apellido Locador", "Apellido Locador/a:");
-            dgv.Columns.Add("Nombre Locador", "Nombre Locador/a:");
-            dgv.Columns.Add("Direccion", "Dirección:");
-            dgv.Columns.Add("Numero", "Número:");
-            dgv.Columns.Add("Precio alquiler", "Precio Alquiler:");
+            invisibilizarColumnas();
 
             //FUENTE
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font(dgv.Font, FontStyle.Bold);
@@ -185,6 +195,21 @@ namespace Interfaz
 
         }
 
+        private void invisibilizarColumnas()
+        {
+            var dgv = dgvAlquileresNoV;
+
+            dgv.Columns[0].Visible = false;
+            dgv.Columns[1].Visible = false;
+            dgv.Columns[8].Visible = false;
+            dgv.Columns[9].Visible = false;
+            dgv.Columns[10].Visible = false;
+            dgv.Columns[11].Visible = false;
+            dgv.Columns[12].Visible = false;
+            dgv.Columns[13].Visible = false;
+            dgv.Columns[14].Visible = false;
+            dgv.Columns[15].Visible = false;
+        }
 
         //VALIDACIONES Y LIMPIEZAS
 

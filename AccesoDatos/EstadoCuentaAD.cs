@@ -18,7 +18,6 @@ namespace AccesoDatos
         SqlDataAdapter da;
         SqlDataReader dr;
 
-
         public DataSet buscarEstadoCuenta(int dni, int tipoDNI)
         {
             try
@@ -41,7 +40,6 @@ namespace AccesoDatos
             {
                 cn.Desconectar();
             }
-
             return ds;
         }
 

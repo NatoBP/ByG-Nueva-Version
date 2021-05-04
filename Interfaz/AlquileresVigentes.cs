@@ -23,7 +23,7 @@ namespace Interfaz
             InitializeComponent();
             buscarVigentes();
             ConfiguracionDGV();
-            invisibilizarColumnas();
+            
             deshabilitarCampos();
         }
 
@@ -31,6 +31,8 @@ namespace Interfaz
         {
             dgvAlquileresV.Columns.Clear();
             dgvAlquileresV.DataSource = alq.buscarContratoVigente("", "").Tables[0];
+            if (dgvAlquileresV.DataSource != null)
+                invisibilizarColumnas();
         }
 
         //BOTONES
@@ -62,6 +64,7 @@ namespace Interfaz
                 dgvAlquileresV.DataSource = alq.buscarContratoVigente("", "").Tables[0];
                 invisibilizarColumnas();
             }
+            txtApellidoV.Focus();
         }
 
         private void btnBajaContrato_Click(object sender, EventArgs e)
@@ -74,26 +77,21 @@ namespace Interfaz
                     alq.bajaContrato(DateTime.Today, Convert.ToInt32(dgvAlquileresV.CurrentRow.Cells[12].Value));
                 }
             }
+            buscarVigentes();
         }
 
         private void btnEstadoCuenta_Click(object sender, EventArgs e)
         {
-            //Comprobantes c = new Comprobantes();
-            //AddOwnedForm(c);
-            //c.TopLevel = false;
-            //c.Dock = DockStyle.Fill;
-            //this.Controls.Add(c);
-            //this.Tag = c;
+            int dni = Convert.ToInt32(dgvAlquileresV.CurrentRow.Cells[0].Value);
+            int tipo = Convert.ToInt32(dgvAlquileresV.CurrentRow.Cells[1].Value);
 
-            //c.txtApellido.Text = dgvAlquileresV.CurrentRow.Cells[2].Value.ToString();
-            //c.txtNombre.Text = dgvAlquileresV.CurrentRow.Cells[3].Value.ToString();
-            //c.txtDni.Text = dgvAlquileresV.CurrentRow.Cells[0].Value.ToString();
-            //c.cboTipoDNI.SelectedValue = Convert.ToInt32(dgvAlquileresV.CurrentRow.Cells[1].Value);
-            //c.rtbNot.Text = this.rtbNotas.Text;
-            //c.txtIdContrato.Text = dgvAlquileresV.CurrentRow.Cells[12].Value.ToString();
-            //c.BringToFront();
-            //c.Show();
-            //FALTAN INSTRUCCIONES PARA TRAER LOS DATOS DEL LOCATARIO
+            if (dgvAlquileresV.SelectedRows.Count > 0 && dgvAlquileresV.CurrentRow != null)
+            {
+                EstadoDeCuentas ec = new EstadoDeCuentas();
+                abrirVentana<EstadoDeCuentas>(ec);
+                ec.AlquileresV = true;
+                ec.CargarPersona(tipo, dni);
+            }
         }
 
 
@@ -128,50 +126,68 @@ namespace Interfaz
         }
 
         //Cargar Campos
+
         private void cargarDatosACampos()
         {
             if (dgvAlquileresV.CurrentRow != null)
             {
-                //txtApellido.Text = Convert.ToString(dgvAlquileresV.CurrentRow.Cells[2].Value);
-                //txtNombre.Text = Convert.ToString(dgvAlquileresV.CurrentRow.Cells[3].Value);
-                //txtAlquilerV.Text = Math.Round((Convert.ToDouble(dgvAlquileresV.CurrentRow.Cells[8].Value)), 2).ToString();
+                txtApellido.Text = Convert.ToString(dgvAlquileresV.CurrentRow.Cells[2].Value);
+                txtNombre.Text = Convert.ToString(dgvAlquileresV.CurrentRow.Cells[3].Value);
+                txtAlquilerV.Text = Math.Round((Convert.ToDouble(dgvAlquileresV.CurrentRow.Cells[8].Value)), 2).ToString();
 
-                //if (dgvAlquileresV.CurrentRow.Cells[14].Value.ToString() != "")
-                //{
-                //    dtpUltimoPago.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[13].Value);
-                //}
+                DateTime PrimeraRenovacion = DateTime.Today;
+                DateTime SegundaRenovacion = DateTime.Today;
+                DateTime Vigencia = DateTime.Today;
 
-                //if (Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[9].Value) >= DateTime.Now && banderaUltimoAño == 0)
-                //{
-                //    dtp1raRenovacion.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[9].Value);
-                //}
-                //else if (Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[10].Value) >= DateTime.Now && banderaUltimoAño == 0)
-                //{
-                //    dtp1raRenovacion.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[10].Value);
-                //}
-                //else if (banderaUltimoAño == 0)
-                //{
-                //    MessageBox.Show("está transcurriendo el último año de contrato");
-                //    dtp1raRenovacion.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[11].Value);
-                //    banderaUltimoAño = 1;
-                //}
+                if (dgvAlquileresV.CurrentRow.Cells[9].Value.ToString() != "")
+                {
+                    PrimeraRenovacion = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[9].Value);
+                }
+                if (dgvAlquileresV.CurrentRow.Cells[10].Value.ToString() != "")
+                {
+                    SegundaRenovacion = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[10].Value);
+                }
+                if (dgvAlquileresV.CurrentRow.Cells[11].Value.ToString() != "")
+                {
+                    Vigencia = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[11].Value);
+                }
 
+                DateTime Hoy = DateTime.Today;
 
-                //dtpFinContrato.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[11].Value);
-                //rtbNotas.Text = Convert.ToString(dgvAlquileresV.CurrentRow.Cells[15].Value);
+                if (dgvAlquileresV.CurrentRow.Cells[13].Value.ToString() != "")
+                {
+                    dtpUltimoPago.Value = Convert.ToDateTime(dgvAlquileresV.CurrentRow.Cells[13].Value);
+                }
+                else
+                {
+                    dtpUltimoPago.Text = "01/01/1990";
+                }
+
+                if ( PrimeraRenovacion >= Hoy) //Primera Actualización
+                {
+                    dtpRenovacion.Value = PrimeraRenovacion;
+                }
+                else if (SegundaRenovacion >= Hoy && PrimeraRenovacion < Hoy)//Segunda Actualización
+                {
+                    dtpRenovacion.Value = SegundaRenovacion;
+                }
+                else if (SegundaRenovacion < Hoy)
+                {
+                    lblAlerta.Text = "Último año de contrato";
+                    dtpRenovacion.Value = Vigencia; //Fin del Contrato
+                }
+
+                dtpFinContrato.Value = Vigencia;
+                rtbNotas.Text = Convert.ToString(dgvAlquileresV.CurrentRow.Cells[15].Value);
             }
-
-
         }
 
-        public void CargarPersona(Persona p)
+        public void Recargar(string apellido) //Hace refresh cuando vuelve de otras ventanas
         {
-            limpiarCampos();
-            pr = null;
-            pr = p;
-            txtApellido.Text = p.pApellido;
-            txtNombre.Text = p.pNombre;
-            //Falta refresh para cargar Estado de Cuenta actualizado del Cliente
+            dgvAlquileresV.Columns.Clear();
+            dgvAlquileresV.DataSource = alq.buscarContratoVigente(apellido, "").Tables[0];
+            if (dgvAlquileresV.DataSource != null)
+                invisibilizarColumnas();
         }
 
         private void abrirVentana<MiForm>(Form formHijo) where MiForm : Form, new()
@@ -210,24 +226,7 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.Orange;
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            //dgv.AutoGenerateColumns = false;
-            //dgv.Columns.Add("Apellido Locatario", "Apellido Locatario/a:");
-            //dgv.Columns.Add("Nombre Locatario", "Nombre Locatario/a:");
-            //dgv.Columns.Add("Apellido Locador", "Apellido Locador/a:");
-            //dgv.Columns.Add("Nombre Locador", "Nombre Locador/a:");
-            //dgv.Columns.Add("Direccion", "Dirección:");
-            //dgv.Columns.Add("Numero", "Número:");
-            dgv.Columns[0].Visible = false;
-            dgv.Columns[1].Visible = false;
-            dgv.Columns[8].Visible = false;
-            dgv.Columns[9].Visible = false;
-            dgv.Columns[10].Visible = false;
-            dgv.Columns[11].Visible = false;
-            dgv.Columns[12].Visible = false;
-            dgv.Columns[13].Visible = false;
-            dgv.Columns[14].Visible = false;
-            dgv.Columns[15].Visible = false;
-
+        
             //FUENTE
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font(dgv.Font, FontStyle.Bold);
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Oxygen", 9);
@@ -266,12 +265,6 @@ namespace Interfaz
             dgv.Columns[15].Visible = false;
         }
 
-
-        //VALIDACIONES Y LIMPIEZAS
-        private void limpiarCampos()
-        {
-            throw new NotImplementedException();
-        }
 
         private void deshabilitarCampos()
         {

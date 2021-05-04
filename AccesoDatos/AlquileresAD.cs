@@ -99,7 +99,7 @@ namespace AccesoDatos
                     ds = new DataSet();
                     cmd.Connection = cn.Conectar();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "buscarAlquileresV";
+                    cmd.CommandText = "buscarAlquileresNoV";
                     cmd.Parameters.Clear();
                     da = new SqlDataAdapter(cmd);
                     da.Fill(ds);

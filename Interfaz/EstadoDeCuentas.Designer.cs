@@ -28,134 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.lblSaldoCuenta = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.rtbNotas = new System.Windows.Forms.RichTextBox();
-            this.lblSumatoria = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.dgvAsientoDelDia = new System.Windows.Forms.DataGridView();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnGrabarRegistro = new System.Windows.Forms.Button();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtImporteItem = new System.Windows.Forms.TextBox();
             this.btnQuitarItem = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
             this.btnAgregarItem = new System.Windows.Forms.Button();
+            this.lblSumatoria = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.rtbNotas = new System.Windows.Forms.RichTextBox();
             this.cboItemsRecibo = new System.Windows.Forms.ComboBox();
-            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.btnGrabarRegistro = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.dgvAsientoDelDia = new System.Windows.Forms.DataGridView();
+            this.grpAsiento = new System.Windows.Forms.GroupBox();
+            this.dgvEstadoDeuda = new System.Windows.Forms.DataGridView();
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.txtNombre = new System.Windows.Forms.TextBox();
             this.cboTipoDNI = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtDni = new System.Windows.Forms.TextBox();
+            this.lblSaldoCuenta = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dgvEstadoDeuda = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
+            this.txtDni = new System.Windows.Forms.TextBox();
             this.grpEstado = new System.Windows.Forms.GroupBox();
-            this.grpAsiento = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsientoDelDia)).BeginInit();
+            this.grpAsiento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstadoDeuda)).BeginInit();
             this.grpEstado.SuspendLayout();
-            this.grpAsiento.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lblSaldoCuenta
-            // 
-            this.lblSaldoCuenta.BackColor = System.Drawing.Color.LightGray;
-            this.lblSaldoCuenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSaldoCuenta.Location = new System.Drawing.Point(913, 207);
-            this.lblSaldoCuenta.Name = "lblSaldoCuenta";
-            this.lblSaldoCuenta.Size = new System.Drawing.Size(80, 20);
-            this.lblSaldoCuenta.TabIndex = 143;
-            this.lblSaldoCuenta.Text = "                             ";
-            this.lblSaldoCuenta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(810, 211);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 13);
-            this.label4.TabIndex = 142;
-            this.label4.Text = "Saldo cuenta: $";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(58, 157);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(38, 13);
-            this.label9.TabIndex = 141;
-            this.label9.Text = "Notas:";
-            // 
-            // rtbNotas
-            // 
-            this.rtbNotas.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbNotas.Location = new System.Drawing.Point(105, 157);
-            this.rtbNotas.Name = "rtbNotas";
-            this.rtbNotas.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.rtbNotas.Size = new System.Drawing.Size(260, 105);
-            this.rtbNotas.TabIndex = 127;
-            this.rtbNotas.Text = "";
-            // 
-            // lblSumatoria
-            // 
-            this.lblSumatoria.BackColor = System.Drawing.Color.LightGray;
-            this.lblSumatoria.Enabled = false;
-            this.lblSumatoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblSumatoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSumatoria.Location = new System.Drawing.Point(911, 242);
-            this.lblSumatoria.Name = "lblSumatoria";
-            this.lblSumatoria.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblSumatoria.Size = new System.Drawing.Size(80, 20);
-            this.lblSumatoria.TabIndex = 140;
-            this.lblSumatoria.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(807, 246);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(98, 13);
-            this.label12.TabIndex = 139;
-            this.label12.Text = "Total a pagar: $";
-            // 
-            // dgvAsientoDelDia
-            // 
-            this.dgvAsientoDelDia.AllowUserToAddRows = false;
-            this.dgvAsientoDelDia.AllowUserToDeleteRows = false;
-            this.dgvAsientoDelDia.AllowUserToResizeColumns = false;
-            this.dgvAsientoDelDia.AllowUserToResizeRows = false;
-            this.dgvAsientoDelDia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvAsientoDelDia.BackgroundColor = System.Drawing.Color.White;
-            this.dgvAsientoDelDia.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAsientoDelDia.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvAsientoDelDia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAsientoDelDia.Location = new System.Drawing.Point(501, 32);
-            this.dgvAsientoDelDia.MultiSelect = false;
-            this.dgvAsientoDelDia.Name = "dgvAsientoDelDia";
-            this.dgvAsientoDelDia.ReadOnly = true;
-            this.dgvAsientoDelDia.RowHeadersVisible = false;
-            this.dgvAsientoDelDia.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAsientoDelDia.Size = new System.Drawing.Size(490, 204);
-            this.dgvAsientoDelDia.TabIndex = 138;
             // 
             // btnCancelar
             // 
@@ -170,19 +80,6 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnGrabarRegistro
-            // 
-            this.btnGrabarRegistro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.btnGrabarRegistro.FlatAppearance.BorderSize = 0;
-            this.btnGrabarRegistro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGrabarRegistro.Location = new System.Drawing.Point(873, 290);
-            this.btnGrabarRegistro.Name = "btnGrabarRegistro";
-            this.btnGrabarRegistro.Size = new System.Drawing.Size(120, 23);
-            this.btnGrabarRegistro.TabIndex = 125;
-            this.btnGrabarRegistro.Text = "Guardar / Imprimir";
-            this.btnGrabarRegistro.UseVisualStyleBackColor = false;
-            this.btnGrabarRegistro.Click += new System.EventHandler(this.btnGrabarRegistro_Click);
             // 
             // lblDescripcion
             // 
@@ -235,6 +132,16 @@
             this.btnQuitarItem.UseVisualStyleBackColor = false;
             this.btnQuitarItem.Click += new System.EventHandler(this.btnQuitarItem_Click);
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(807, 246);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(98, 13);
+            this.label12.TabIndex = 139;
+            this.label12.Text = "Total a pagar: $";
+            // 
             // btnAgregarItem
             // 
             this.btnAgregarItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
@@ -248,6 +155,19 @@
             this.btnAgregarItem.UseVisualStyleBackColor = false;
             this.btnAgregarItem.Click += new System.EventHandler(this.btnAgregarItem_Click);
             // 
+            // lblSumatoria
+            // 
+            this.lblSumatoria.BackColor = System.Drawing.Color.LightGray;
+            this.lblSumatoria.Enabled = false;
+            this.lblSumatoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblSumatoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSumatoria.Location = new System.Drawing.Point(911, 242);
+            this.lblSumatoria.Name = "lblSumatoria";
+            this.lblSumatoria.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblSumatoria.Size = new System.Drawing.Size(80, 20);
+            this.lblSumatoria.TabIndex = 140;
+            this.lblSumatoria.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -256,6 +176,16 @@
             this.label2.Size = new System.Drawing.Size(69, 13);
             this.label2.TabIndex = 135;
             this.label2.Text = "Item a pagar:";
+            // 
+            // rtbNotas
+            // 
+            this.rtbNotas.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbNotas.Location = new System.Drawing.Point(105, 157);
+            this.rtbNotas.Name = "rtbNotas";
+            this.rtbNotas.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.rtbNotas.Size = new System.Drawing.Size(260, 105);
+            this.rtbNotas.TabIndex = 127;
+            this.rtbNotas.Text = "";
             // 
             // cboItemsRecibo
             // 
@@ -267,15 +197,105 @@
             this.cboItemsRecibo.Size = new System.Drawing.Size(90, 21);
             this.cboItemsRecibo.TabIndex = 119;
             // 
-            // txtNombre
+            // btnGrabarRegistro
             // 
-            this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNombre.Location = new System.Drawing.Point(275, 180);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(90, 20);
-            this.txtNombre.TabIndex = 132;
-            this.txtNombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
+            this.btnGrabarRegistro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
+            this.btnGrabarRegistro.FlatAppearance.BorderSize = 0;
+            this.btnGrabarRegistro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGrabarRegistro.Location = new System.Drawing.Point(873, 290);
+            this.btnGrabarRegistro.Name = "btnGrabarRegistro";
+            this.btnGrabarRegistro.Size = new System.Drawing.Size(120, 23);
+            this.btnGrabarRegistro.TabIndex = 125;
+            this.btnGrabarRegistro.Text = "Guardar / Imprimir";
+            this.btnGrabarRegistro.UseVisualStyleBackColor = false;
+            this.btnGrabarRegistro.Click += new System.EventHandler(this.btnGrabarRegistro_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(58, 157);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(38, 13);
+            this.label9.TabIndex = 141;
+            this.label9.Text = "Notas:";
+            // 
+            // dgvAsientoDelDia
+            // 
+            this.dgvAsientoDelDia.AllowUserToAddRows = false;
+            this.dgvAsientoDelDia.AllowUserToDeleteRows = false;
+            this.dgvAsientoDelDia.AllowUserToResizeColumns = false;
+            this.dgvAsientoDelDia.AllowUserToResizeRows = false;
+            this.dgvAsientoDelDia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAsientoDelDia.BackgroundColor = System.Drawing.Color.White;
+            this.dgvAsientoDelDia.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAsientoDelDia.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvAsientoDelDia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAsientoDelDia.Location = new System.Drawing.Point(501, 32);
+            this.dgvAsientoDelDia.MultiSelect = false;
+            this.dgvAsientoDelDia.Name = "dgvAsientoDelDia";
+            this.dgvAsientoDelDia.ReadOnly = true;
+            this.dgvAsientoDelDia.RowHeadersVisible = false;
+            this.dgvAsientoDelDia.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAsientoDelDia.Size = new System.Drawing.Size(490, 204);
+            this.dgvAsientoDelDia.TabIndex = 138;
+            // 
+            // grpAsiento
+            // 
+            this.grpAsiento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpAsiento.Controls.Add(this.dgvAsientoDelDia);
+            this.grpAsiento.Controls.Add(this.label9);
+            this.grpAsiento.Controls.Add(this.btnGrabarRegistro);
+            this.grpAsiento.Controls.Add(this.cboItemsRecibo);
+            this.grpAsiento.Controls.Add(this.rtbNotas);
+            this.grpAsiento.Controls.Add(this.label2);
+            this.grpAsiento.Controls.Add(this.lblSumatoria);
+            this.grpAsiento.Controls.Add(this.btnAgregarItem);
+            this.grpAsiento.Controls.Add(this.label12);
+            this.grpAsiento.Controls.Add(this.btnQuitarItem);
+            this.grpAsiento.Controls.Add(this.txtImporteItem);
+            this.grpAsiento.Controls.Add(this.label10);
+            this.grpAsiento.Controls.Add(this.txtDescripcion);
+            this.grpAsiento.Controls.Add(this.lblDescripcion);
+            this.grpAsiento.Location = new System.Drawing.Point(20, 265);
+            this.grpAsiento.Name = "grpAsiento";
+            this.grpAsiento.Size = new System.Drawing.Size(1010, 330);
+            this.grpAsiento.TabIndex = 146;
+            this.grpAsiento.TabStop = false;
+            this.grpAsiento.Text = "Asiento del día:";
+            // 
+            // dgvEstadoDeuda
+            // 
+            this.dgvEstadoDeuda.AllowUserToAddRows = false;
+            this.dgvEstadoDeuda.AllowUserToDeleteRows = false;
+            this.dgvEstadoDeuda.AllowUserToResizeColumns = false;
+            this.dgvEstadoDeuda.AllowUserToResizeRows = false;
+            this.dgvEstadoDeuda.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEstadoDeuda.BackgroundColor = System.Drawing.Color.White;
+            this.dgvEstadoDeuda.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvEstadoDeuda.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvEstadoDeuda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEstadoDeuda.Location = new System.Drawing.Point(503, 50);
+            this.dgvEstadoDeuda.MultiSelect = false;
+            this.dgvEstadoDeuda.Name = "dgvEstadoDeuda";
+            this.dgvEstadoDeuda.ReadOnly = true;
+            this.dgvEstadoDeuda.RowHeadersVisible = false;
+            this.dgvEstadoDeuda.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEstadoDeuda.Size = new System.Drawing.Size(490, 150);
+            this.dgvEstadoDeuda.TabIndex = 116;
             // 
             // txtApellido
             // 
@@ -305,6 +325,16 @@
             this.label7.TabIndex = 133;
             this.label7.Text = "Nombre:";
             // 
+            // txtNombre
+            // 
+            this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNombre.Location = new System.Drawing.Point(275, 180);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(90, 20);
+            this.txtNombre.TabIndex = 132;
+            this.txtNombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
+            // 
             // cboTipoDNI
             // 
             this.cboTipoDNI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -316,6 +346,16 @@
             this.cboTipoDNI.TabIndex = 118;
             this.cboTipoDNI.SelectedIndexChanged += new System.EventHandler(this.cboTipoDNI_SelectedIndexChanged);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(810, 211);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(97, 13);
+            this.label4.TabIndex = 142;
+            this.label4.Text = "Saldo cuenta: $";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -325,15 +365,16 @@
             this.label1.TabIndex = 130;
             this.label1.Text = "Tipo D.N.I.:";
             // 
-            // txtDni
+            // lblSaldoCuenta
             // 
-            this.txtDni.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDni.Location = new System.Drawing.Point(275, 50);
-            this.txtDni.Name = "txtDni";
-            this.txtDni.Size = new System.Drawing.Size(90, 20);
-            this.txtDni.TabIndex = 117;
-            this.txtDni.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtDni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDni_KeyPress);
+            this.lblSaldoCuenta.BackColor = System.Drawing.Color.LightGray;
+            this.lblSaldoCuenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSaldoCuenta.Location = new System.Drawing.Point(913, 207);
+            this.lblSaldoCuenta.Name = "lblSaldoCuenta";
+            this.lblSaldoCuenta.Size = new System.Drawing.Size(80, 20);
+            this.lblSaldoCuenta.TabIndex = 143;
+            this.lblSaldoCuenta.Text = "                             ";
+            this.lblSaldoCuenta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label16
             // 
@@ -344,14 +385,14 @@
             this.label16.TabIndex = 129;
             this.label16.Text = "Buscar por D.N.I.:";
             // 
-            // dtpFecha
+            // label5
             // 
-            this.dtpFecha.Enabled = false;
-            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFecha.Location = new System.Drawing.Point(893, 21);
-            this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(100, 20);
-            this.dtpFecha.TabIndex = 123;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(501, 25);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(94, 13);
+            this.label5.TabIndex = 144;
+            this.label5.Text = "Estado de cuenta:";
             // 
             // label3
             // 
@@ -362,41 +403,24 @@
             this.label3.TabIndex = 128;
             this.label3.Text = "Fecha:";
             // 
-            // dgvEstadoDeuda
+            // dtpFecha
             // 
-            this.dgvEstadoDeuda.AllowUserToAddRows = false;
-            this.dgvEstadoDeuda.AllowUserToDeleteRows = false;
-            this.dgvEstadoDeuda.AllowUserToResizeColumns = false;
-            this.dgvEstadoDeuda.AllowUserToResizeRows = false;
-            this.dgvEstadoDeuda.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvEstadoDeuda.BackgroundColor = System.Drawing.Color.White;
-            this.dgvEstadoDeuda.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvEstadoDeuda.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvEstadoDeuda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEstadoDeuda.Location = new System.Drawing.Point(503, 50);
-            this.dgvEstadoDeuda.MultiSelect = false;
-            this.dgvEstadoDeuda.Name = "dgvEstadoDeuda";
-            this.dgvEstadoDeuda.ReadOnly = true;
-            this.dgvEstadoDeuda.RowHeadersVisible = false;
-            this.dgvEstadoDeuda.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEstadoDeuda.Size = new System.Drawing.Size(490, 150);
-            this.dgvEstadoDeuda.TabIndex = 116;
+            this.dtpFecha.Enabled = false;
+            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFecha.Location = new System.Drawing.Point(893, 21);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.Size = new System.Drawing.Size(100, 20);
+            this.dtpFecha.TabIndex = 123;
             // 
-            // label5
+            // txtDni
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(501, 25);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(94, 13);
-            this.label5.TabIndex = 144;
-            this.label5.Text = "Estado de cuenta:";
+            this.txtDni.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDni.Location = new System.Drawing.Point(275, 50);
+            this.txtDni.Name = "txtDni";
+            this.txtDni.Size = new System.Drawing.Size(90, 20);
+            this.txtDni.TabIndex = 117;
+            this.txtDni.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDni_KeyPress);
             // 
             // grpEstado
             // 
@@ -422,30 +446,6 @@
             this.grpEstado.TabStop = false;
             this.grpEstado.Text = "Estado de Cuenta:";
             // 
-            // grpAsiento
-            // 
-            this.grpAsiento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpAsiento.Controls.Add(this.dgvAsientoDelDia);
-            this.grpAsiento.Controls.Add(this.label9);
-            this.grpAsiento.Controls.Add(this.btnGrabarRegistro);
-            this.grpAsiento.Controls.Add(this.cboItemsRecibo);
-            this.grpAsiento.Controls.Add(this.rtbNotas);
-            this.grpAsiento.Controls.Add(this.label2);
-            this.grpAsiento.Controls.Add(this.lblSumatoria);
-            this.grpAsiento.Controls.Add(this.btnAgregarItem);
-            this.grpAsiento.Controls.Add(this.label12);
-            this.grpAsiento.Controls.Add(this.btnQuitarItem);
-            this.grpAsiento.Controls.Add(this.txtImporteItem);
-            this.grpAsiento.Controls.Add(this.label10);
-            this.grpAsiento.Controls.Add(this.txtDescripcion);
-            this.grpAsiento.Controls.Add(this.lblDescripcion);
-            this.grpAsiento.Location = new System.Drawing.Point(20, 265);
-            this.grpAsiento.Name = "grpAsiento";
-            this.grpAsiento.Size = new System.Drawing.Size(1010, 330);
-            this.grpAsiento.TabIndex = 146;
-            this.grpAsiento.TabStop = false;
-            this.grpAsiento.Text = "Asiento del día:";
-            // 
             // EstadoDeCuentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -459,47 +459,47 @@
             this.Name = "EstadoDeCuentas";
             this.Text = "EstadoDeCuentas";
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsientoDelDia)).EndInit();
+            this.grpAsiento.ResumeLayout(false);
+            this.grpAsiento.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstadoDeuda)).EndInit();
             this.grpEstado.ResumeLayout(false);
             this.grpEstado.PerformLayout();
-            this.grpAsiento.ResumeLayout(false);
-            this.grpAsiento.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label lblSaldoCuenta;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.RichTextBox rtbNotas;
-        private System.Windows.Forms.Label lblSumatoria;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.DataGridView dgvAsientoDelDia;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Button btnGrabarRegistro;
         private System.Windows.Forms.Label lblDescripcion;
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox txtImporteItem;
         private System.Windows.Forms.Button btnQuitarItem;
+        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnAgregarItem;
+        private System.Windows.Forms.Label lblSumatoria;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox rtbNotas;
         private System.Windows.Forms.ComboBox cboItemsRecibo;
-        public System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.Button btnGrabarRegistro;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DataGridView dgvAsientoDelDia;
+        private System.Windows.Forms.GroupBox grpAsiento;
+        private System.Windows.Forms.DataGridView dgvEstadoDeuda;
         public System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        public System.Windows.Forms.TextBox txtNombre;
         public System.Windows.Forms.ComboBox cboTipoDNI;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox txtDni;
+        private System.Windows.Forms.Label lblSaldoCuenta;
         private System.Windows.Forms.Label label16;
-        public System.Windows.Forms.DateTimePicker dtpFecha;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dgvEstadoDeuda;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.DateTimePicker dtpFecha;
+        public System.Windows.Forms.TextBox txtDni;
         private System.Windows.Forms.GroupBox grpEstado;
-        private System.Windows.Forms.GroupBox grpAsiento;
     }
 }

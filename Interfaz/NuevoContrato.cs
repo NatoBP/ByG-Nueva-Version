@@ -81,8 +81,7 @@ namespace Interfaz
                             c.locador = true;
                             c.habilitarCamposCliente();
                             c.nuevoCliente(Convert.ToInt32(cboTipo.SelectedValue), txtDNILocador.Text, "");
-                            //abrirVentana(c);
-                        }
+                            abrirVentana<Clientes>(c);                        }
                     }
                 }
             }
@@ -168,7 +167,10 @@ namespace Interfaz
                                 break;
                             }
                         }
-                        lblPisoLocatario.Text = Convert.ToString(locatario.pPiso);
+                        if (locatario.pPiso == 0)
+                            lblPisoLocatario.Text = "";
+                        else
+                            lblPisoLocatario.Text = Convert.ToString(locatario.pPiso);
                         lblDepartLocatario.Text = locatario.pDepto;
                         lblMailLocatario.Text = locatario.pMail;
                         cboBarrioLocatario.SelectedValue = locatario.pBarrio;
@@ -186,7 +188,7 @@ namespace Interfaz
                             c.habilitarCamposCliente();
                             c.nuevoCliente(Convert.ToInt32(cboTipoLocatario.SelectedValue), txtDNILocatario.Text,"");
 
-                            //abrirVentana(c);
+                            abrirVentana<Clientes>(c);
                         }
                     }
                 }
@@ -239,7 +241,12 @@ namespace Interfaz
                                 break;
                             }
                         }
-                        lblPisoGarante.Text = Convert.ToString(garante.pPiso);
+
+                        if (garante.pPiso == 0)
+                            lblPisoGarante.Text = "";
+                        else
+                            lblPisoGarante.Text = Convert.ToString(garante.pPiso);
+
                         lblDeptoGarante.Text = garante.pDepto;
                         lblMailGarante.Text = garante.pMail;
                         cboBarrioGarante.SelectedValue = garante.pBarrio;
@@ -257,7 +264,7 @@ namespace Interfaz
                             c.habilitarCamposCliente();
                             c.nuevoCliente(Convert.ToInt32(cboTipoGarante.SelectedValue), txtDNIGarante.Text,"");
 
-                            //abrirVentana(c);
+                            abrirVentana<Clientes>(c);
                         }
                     }
                 }

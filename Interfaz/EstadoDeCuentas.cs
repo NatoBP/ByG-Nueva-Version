@@ -165,6 +165,27 @@ namespace Interfaz
 
                         AbrirVentanaComprobante(pr, c, c.pItem); //Imprimir
                     }
+                    //Si hay que volver a la ventana Alquileres Vigentes
+                    if (AlquileresV == true)
+                    {
+                        AlquileresVigentes aV = (AlquileresVigentes)this.ParentForm;
+                        AlquileresV = false;
+
+                        AbrirVentana<AlquileresVigentes>(aV);
+                        aV.Recargar(pr.pApellido);
+
+                        this.Close();
+                    }
+                    else if (AlquileresNoV == true)
+                    {
+                        AlquileresNoVigentes aNv = (AlquileresNoVigentes)this.ParentForm;
+                        AlquileresNoV = false;
+
+                        AbrirVentana<AlquileresNoVigentes>(aNv);
+                        aNv.Recargar(pr.pApellido);
+
+                        this.Close();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -172,18 +193,6 @@ namespace Interfaz
                 }
             }
             limpiarCampos(1);
-
-            //Si hay que volver a la ventana Alquileres Vigentes
-            if (AlquileresV == true)
-            {
-                AlquileresVigentes aV = (AlquileresVigentes)this.ParentForm;
-                AlquileresV = false;
-
-                AbrirVentana<AlquileresVigentes>(aV);
-                aV.CargarPersona(pr);
-
-                this.Close();
-            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -309,15 +318,11 @@ namespace Interfaz
 
 
         //MÉTODO DE CARGA DE DE DATOS 
-        public void CargarPersona(Persona p)
+        public void CargarPersona(int tipo, int dni) //Datos que vienen de Alquileres Vigentes y Alquileres No Vigentes
         {
             limpiarVentana();
-            pr = null;
-            pr = p;
-            txtDni.Text = Convert.ToString(p.pDNI);
-            cboTipoDNI.SelectedValue = p.pTipoDNI;
-            txtApellido.Text = p.pApellido;
-            txtNombre.Text = p.pNombre;
+            txtDni.Text = Convert.ToString(dni);
+            cboTipoDNI.SelectedValue = tipo;
         }
 
         private void AbrirVentana<MiForm>(Form formHijo) where MiForm : Form, new()
