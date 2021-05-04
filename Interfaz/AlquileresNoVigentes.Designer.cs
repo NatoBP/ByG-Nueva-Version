@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlBase = new System.Windows.Forms.Panel();
             this.pnlDatos = new System.Windows.Forms.Panel();
             this.txtApellido = new System.Windows.Forms.TextBox();
@@ -122,7 +122,7 @@
             this.btnEstadoCuenta.Location = new System.Drawing.Point(107, 487);
             this.btnEstadoCuenta.Name = "btnEstadoCuenta";
             this.btnEstadoCuenta.Size = new System.Drawing.Size(200, 40);
-            this.btnEstadoCuenta.TabIndex = 22;
+            this.btnEstadoCuenta.TabIndex = 0;
             this.btnEstadoCuenta.Text = "Estado de Cuenta / Comprobantes";
             this.btnEstadoCuenta.UseVisualStyleBackColor = false;
             this.btnEstadoCuenta.Click += new System.EventHandler(this.btnEstadoCuenta_Click);
@@ -231,7 +231,7 @@
             this.txtNombreNoV.Location = new System.Drawing.Point(306, 57);
             this.txtNombreNoV.Name = "txtNombreNoV";
             this.txtNombreNoV.Size = new System.Drawing.Size(140, 20);
-            this.txtNombreNoV.TabIndex = 62;
+            this.txtNombreNoV.TabIndex = 1;
             this.txtNombreNoV.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtNombreNoV.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreV_KeyPress);
             // 
@@ -241,7 +241,7 @@
             this.txtApellidoNoV.Location = new System.Drawing.Point(95, 57);
             this.txtApellidoNoV.Name = "txtApellidoNoV";
             this.txtApellidoNoV.Size = new System.Drawing.Size(140, 20);
-            this.txtApellidoNoV.TabIndex = 61;
+            this.txtApellidoNoV.TabIndex = 0;
             this.txtApellidoNoV.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtApellidoNoV.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellidoV_KeyPress);
             // 
@@ -255,25 +255,25 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvAlquileresNoV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAlquileresNoV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAlquileresNoV.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAlquileresNoV.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvAlquileresNoV.Location = new System.Drawing.Point(36, 90);
             this.dgvAlquileresNoV.Name = "dgvAlquileresNoV";
             this.dgvAlquileresNoV.ReadOnly = true;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAlquileresNoV.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAlquileresNoV.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvAlquileresNoV.RowHeadersVisible = false;
             this.dgvAlquileresNoV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAlquileresNoV.Size = new System.Drawing.Size(668, 541);
@@ -291,7 +291,7 @@
             this.bntBuscarAlquiler.Location = new System.Drawing.Point(555, 55);
             this.bntBuscarAlquiler.Name = "bntBuscarAlquiler";
             this.bntBuscarAlquiler.Size = new System.Drawing.Size(149, 23);
-            this.bntBuscarAlquiler.TabIndex = 59;
+            this.bntBuscarAlquiler.TabIndex = 2;
             this.bntBuscarAlquiler.Text = "Buscar Alquiler";
             this.bntBuscarAlquiler.UseVisualStyleBackColor = false;
             this.bntBuscarAlquiler.Click += new System.EventHandler(this.bntBuscarAlquiler_Click);

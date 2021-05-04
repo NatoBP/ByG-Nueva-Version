@@ -171,7 +171,7 @@ namespace Interfaz
                         AlquileresVigentes aV = (AlquileresVigentes)this.ParentForm;
                         AlquileresV = false;
 
-                        AbrirVentana<AlquileresVigentes>(aV);
+                        AbrirVentana<AlquileresVigentes>();
                         aV.Recargar(pr.pApellido);
 
                         this.Close();
@@ -181,7 +181,7 @@ namespace Interfaz
                         AlquileresNoVigentes aNv = (AlquileresNoVigentes)this.ParentForm;
                         AlquileresNoV = false;
 
-                        AbrirVentana<AlquileresNoVigentes>(aNv);
+                        AbrirVentana<AlquileresNoVigentes>();
                         aNv.Recargar(pr.pApellido);
 
                         this.Close();
@@ -325,20 +325,25 @@ namespace Interfaz
             cboTipoDNI.SelectedValue = tipo;
         }
 
-        private void AbrirVentana<MiForm>(Form formHijo) where MiForm : Form, new()
+        private void AbrirVentana<MiForm>() where MiForm : Form, new()
         {
             Form fh;
             fh = ActiveForm.Controls.OfType<MiForm>().FirstOrDefault();
 
             if (fh == null)
             {
-                fh = formHijo as Form;
+                fh = new MiForm();
                 fh.TopLevel = false;
                 fh.Dock = DockStyle.Fill;
+                this.Controls.Add(fh);
                 this.Tag = fh;
 
                 fh.BringToFront();
                 fh.Show();
+            }
+            else
+            {
+                fh.BringToFront();
             }
         }
 

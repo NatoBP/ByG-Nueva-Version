@@ -49,6 +49,9 @@ namespace Interfaz
 
             else
                 dgvAlquileresNoV.DataSource = alq.buscarContratoNoVigente("", "").Tables[0];
+
+            txtApellidoNoV.Clear();
+            txtNombreNoV.Clear();
         }
 
         private void btnEstadoCuenta_Click(object sender, EventArgs e)
