@@ -297,6 +297,7 @@ namespace Interfaz
                 dgvGarantes.Rows.Add(garante.pApellido, garante.pNombre);
                 limpiarCamposGarante();
                 txtDNIGarante.Text = "";
+                txtDNIGarante.Focus();
                 cboTipoGarante.SelectedIndex = -1;
             }
             else
@@ -340,8 +341,8 @@ namespace Interfaz
                     ct.Deposito = Convert.ToDouble(txtDeposito.Text);
                     ct.UsoPropiedad = Convert.ToInt32(cboUsoPropiedad.SelectedValue);
                     ct.Vigencia = dtpFechaFin.Value;
-                    ct.DiaDeVencimiento = Convert.ToInt32(txtDiaVencimiento.Text);//Agregar este campo en la tabla ContratosAlquiler de la BD
-                    ct.FechaInicioContrato = dtpFechaInicio.Value; //Agregar este campo en la tabla ContratosAlquiler de la BD
+                    ct.DiaDeVencimiento = Convert.ToInt32(txtDiaVencimiento.Text);
+                    ct.FechaInicioContrato = dtpFechaInicio.Value; 
                     ct.Fecha1raActualizacion = dtpActualizacion1.Value;
                     ct.Aumento1raActualizacion = Convert.ToDouble(txt1erAumento.Text);
                     ct.Fecha2daActualizacion = dtpActualizacion2.Value;

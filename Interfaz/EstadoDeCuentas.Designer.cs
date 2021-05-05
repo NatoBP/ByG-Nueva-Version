@@ -61,6 +61,8 @@
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.txtDni = new System.Windows.Forms.TextBox();
             this.grpEstado = new System.Windows.Forms.GroupBox();
+            this.cboOperacion = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsientoDelDia)).BeginInit();
             this.grpAsiento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstadoDeuda)).BeginInit();
@@ -84,7 +86,7 @@
             // lblDescripcion
             // 
             this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.Location = new System.Drawing.Point(199, 76);
+            this.lblDescripcion.Location = new System.Drawing.Point(199, 118);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(66, 13);
             this.lblDescripcion.TabIndex = 137;
@@ -93,7 +95,7 @@
             // txtDescripcion
             // 
             this.txtDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDescripcion.Location = new System.Drawing.Point(275, 74);
+            this.txtDescripcion.Location = new System.Drawing.Point(275, 116);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(90, 20);
             this.txtDescripcion.TabIndex = 120;
@@ -103,7 +105,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(220, 117);
+            this.label10.Location = new System.Drawing.Point(220, 159);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(45, 13);
             this.label10.TabIndex = 136;
@@ -112,7 +114,8 @@
             // txtImporteItem
             // 
             this.txtImporteItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtImporteItem.Location = new System.Drawing.Point(275, 115);
+            this.txtImporteItem.ForeColor = System.Drawing.Color.Red;
+            this.txtImporteItem.Location = new System.Drawing.Point(275, 157);
             this.txtImporteItem.Name = "txtImporteItem";
             this.txtImporteItem.Size = new System.Drawing.Size(90, 20);
             this.txtImporteItem.TabIndex = 121;
@@ -171,16 +174,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(196, 35);
+            this.label2.Location = new System.Drawing.Point(193, 79);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 13);
+            this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 135;
-            this.label2.Text = "Item a pagar:";
+            this.label2.Text = "Item a cargar:";
             // 
             // rtbNotas
             // 
             this.rtbNotas.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbNotas.Location = new System.Drawing.Point(105, 157);
+            this.rtbNotas.Location = new System.Drawing.Point(105, 208);
             this.rtbNotas.Name = "rtbNotas";
             this.rtbNotas.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.rtbNotas.Size = new System.Drawing.Size(260, 105);
@@ -191,11 +194,12 @@
             // 
             this.cboItemsRecibo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboItemsRecibo.FormattingEnabled = true;
-            this.cboItemsRecibo.Location = new System.Drawing.Point(275, 32);
+            this.cboItemsRecibo.Location = new System.Drawing.Point(275, 74);
             this.cboItemsRecibo.Name = "cboItemsRecibo";
             this.cboItemsRecibo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cboItemsRecibo.Size = new System.Drawing.Size(90, 21);
             this.cboItemsRecibo.TabIndex = 119;
+            this.cboItemsRecibo.SelectedIndexChanged += new System.EventHandler(this.cboItemsRecibo_SelectedIndexChanged);
             // 
             // btnGrabarRegistro
             // 
@@ -213,7 +217,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(58, 157);
+            this.label9.Location = new System.Drawing.Point(58, 208);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(38, 13);
             this.label9.TabIndex = 141;
@@ -249,6 +253,8 @@
             // grpAsiento
             // 
             this.grpAsiento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpAsiento.Controls.Add(this.label6);
+            this.grpAsiento.Controls.Add(this.cboOperacion);
             this.grpAsiento.Controls.Add(this.dgvAsientoDelDia);
             this.grpAsiento.Controls.Add(this.label9);
             this.grpAsiento.Controls.Add(this.btnGrabarRegistro);
@@ -296,6 +302,8 @@
             this.dgvEstadoDeuda.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEstadoDeuda.Size = new System.Drawing.Size(490, 150);
             this.dgvEstadoDeuda.TabIndex = 116;
+            this.dgvEstadoDeuda.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvEstadoDeuda_CellMouseClick);
+            this.dgvEstadoDeuda.SelectionChanged += new System.EventHandler(this.dgvEstadoDeuda_SelectionChanged);
             // 
             // txtApellido
             // 
@@ -446,6 +454,29 @@
             this.grpEstado.TabStop = false;
             this.grpEstado.Text = "Estado de Cuenta:";
             // 
+            // cboOperacion
+            // 
+            this.cboOperacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboOperacion.FormattingEnabled = true;
+            this.cboOperacion.Items.AddRange(new object[] {
+            "Comprobante",
+            "Cargar Deuda"});
+            this.cboOperacion.Location = new System.Drawing.Point(275, 32);
+            this.cboOperacion.Name = "cboOperacion";
+            this.cboOperacion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cboOperacion.Size = new System.Drawing.Size(90, 21);
+            this.cboOperacion.TabIndex = 142;
+            this.cboOperacion.SelectedIndexChanged += new System.EventHandler(this.cboOperacion_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(206, 35);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 13);
+            this.label6.TabIndex = 143;
+            this.label6.Text = "Operación:";
+            // 
             // EstadoDeCuentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -501,5 +532,7 @@
         public System.Windows.Forms.DateTimePicker dtpFecha;
         public System.Windows.Forms.TextBox txtDni;
         private System.Windows.Forms.GroupBox grpEstado;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cboOperacion;
     }
 }

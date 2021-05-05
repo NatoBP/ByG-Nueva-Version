@@ -56,8 +56,7 @@ namespace Interfaz
 
                         RefreshEstadoCuenta(pr.pDNI, pr.pTipoDNI);
                         TotalEstadoCuenta();
-
-                        HabilitarAsientoDia();
+                        cboOperacion.Enabled = true;
                     }
                     else
                     {
@@ -65,7 +64,7 @@ namespace Interfaz
                         if(opcion == DialogResult.Yes)
                         {
                             limpiarVentana();
-                            HabilitarAsientoDia();
+                            cboOperacion.Enabled = true;
                         }
                         else
                         {
@@ -90,7 +89,11 @@ namespace Interfaz
                 cp.pValor = 0;
                 cp.pCaracteristica = cboItemsRecibo.Text;
                 cp.pDescripcion = txtDescripcion.Text;
-                cp.pImporte = Convert.ToDouble(txtImporteItem.Text);
+                if (cboOperacion.SelectedIndex == 1)
+                    cp.pImporte = -Convert.ToDouble(txtImporteItem.Text);
+                else
+                    cp.pImporte = Convert.ToDouble(txtImporteItem.Text);
+
 
                 c.agregarItems(cp); //Solo se cargan los valores del asiento de deuda. Luego se guarda en BD junto con los datos del Comprobante en el botón Guardar
 
@@ -121,9 +124,72 @@ namespace Interfaz
             }
         }
 
+        private void cboOperacion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboItemsRecibo.Enabled == false)
+                HabilitarAsientoDia();
+
+            limpiarCampos(1);
+            ConfiguracionDgvAsientoDelDia();
+
+            if(cboOperacion.SelectedIndex == 1)
+            {
+                txtImporteItem.ForeColor = Color.Red;
+            }
+            else if(cboOperacion.SelectedIndex == 0)
+            {
+                txtImporteItem.ForeColor = Color.Black;
+            }
+        }
+
+        private void dgvEstadoDeuda_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dgvEstadoDeuda.CurrentRow != null && dgvEstadoDeuda.SelectedRows.Count > 0)
+            {
+                limpiarCampos(2); //Limpiar Todo
+                int id = Convert.ToInt32(dgvEstadoDeuda.CurrentRow.Cells[0].Value);
+
+                dgvAsientoDelDia.Columns.Clear();
+                dgvAsientoDelDia.AutoGenerateColumns = true;
+                dgvAsientoDelDia.DataSource = null; //Limpio todo
+
+                if (Convert.ToInt32(dgvEstadoDeuda.CurrentRow.Cells[4].Value) == 0)
+                    dgvAsientoDelDia.DataSource = ec.consultaAsientoDeudaCompleto(id).Tables[0];
+                else
+                    dgvAsientoDelDia.DataSource = ec.consultaComprobanteCompleto(id).Tables[0];
+
+                TotalAsientoDia();
+                rtbNotas.Text = dgvEstadoDeuda.CurrentRow.Cells[5].Value.ToString();
+                
+            }
+        }
+
+        private void dgvEstadoDeuda_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvEstadoDeuda.CurrentRow != null && dgvEstadoDeuda.SelectedRows.Count > 0)
+            {
+                limpiarCampos(2); //Limpiar Todo
+                int id = Convert.ToInt32(dgvEstadoDeuda.CurrentRow.Cells[0].Value);
+
+                if (dgvAsientoDelDia.CurrentRow != null && dgvAsientoDelDia.SelectedRows.Count > 0)
+                {
+                    dgvAsientoDelDia.Columns.Clear();
+                    dgvAsientoDelDia.AutoGenerateColumns = true;
+                    dgvAsientoDelDia.DataSource = null;
+                }
+                
+                if (Convert.ToInt32(dgvEstadoDeuda.CurrentRow.Cells[4].Value) == 0)
+                    dgvAsientoDelDia.DataSource = ec.consultaAsientoDeudaCompleto(id).Tables[0];
+                else
+                    dgvAsientoDelDia.DataSource = ec.consultaComprobanteCompleto(id).Tables[0];
+
+                rtbNotas.Text = dgvEstadoDeuda.CurrentRow.Cells[5].Value.ToString();
+            }
+        }
+
         private void btnGrabarRegistro_Click(object sender, EventArgs e)
         {
-            if (ValidarNumeros() && ValidarTextos() && dgvAsientoDelDia.RowCount > 0)
+            if (ValidarNumeros() && ValidarTextos() && (dgvAsientoDelDia.RowCount > 0) && (cboOperacion.SelectedIndex != -1))
             {
                 try
                 {
@@ -135,13 +201,20 @@ namespace Interfaz
                         c.pfecha = dtpFecha.Value;
                         c.pDescripcion = rtbNotas.Text;
 
-                        ec.insertarAsientoDeuda(c); //Primero ingresa los datos del comprobante
-                        ec.guardarItemAsiento(c.pItem); //Después ingresa los datos de los Items pagados
+                        if(cboOperacion.SelectedIndex == 0)
+                        {
+                            ec.insertarComprobante(c);
+                            ec.guardarItemRecibo(c.pItem);
+                            AbrirVentanaComprobante(pr, c, c.pItem);
+                        }
+                        else if(cboOperacion.SelectedIndex == 1)
+                        {
+                            ec.insertarAsientoDeuda(c); //Primero ingresa los datos del comprobante
+                            ec.guardarItemAsiento(c.pItem); //Después ingresa los datos de los Items pagados
+                        }
 
                         RefreshEstadoCuenta(c.pdni, c.ptipoDNI);
                         TotalEstadoCuenta();
-
-                        AbrirVentanaComprobante(pr, c, c.pItem);
                     }
                     //Si la persona No está registrada en BD
                     else
@@ -212,9 +285,9 @@ namespace Interfaz
             }
         }
 
-
+        
         //CONFIGURACIONES DATAGRIDVIEW
-                //Dgv Asientos del día
+        //Dgv Asientos del día
         private void ConfiguracionDgvAsientoDelDia()
         {
             var dgv = dgvAsientoDelDia;
@@ -237,7 +310,7 @@ namespace Interfaz
             dgv.Columns[1].Visible = false;
             dgv.Columns.Add("Item", "Item:");
             dgv.Columns.Add("Descripción", "Descripción:");
-            dgv.Columns.Add("Importe", "Importe:");
+            dgv.Columns.Add("Importe: ", "Importe: ");
 
             //FUENTE
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font(dgv.Font, FontStyle.Bold);
@@ -368,6 +441,7 @@ namespace Interfaz
         {
             dgvEstadoDeuda.Columns.Clear();
             dgvEstadoDeuda.DataSource = ec.buscarEstadoCuenta(dni, tipo).Tables[0];
+            dgvEstadoDeuda.Columns[5].Visible = false;
         }
 
         private void TotalEstadoCuenta() //Hace las sumas y restas del dgvEstadoCuentas para obtener el total
@@ -376,18 +450,18 @@ namespace Interfaz
 
             foreach (DataGridViewRow row in dgvEstadoDeuda.Rows)
             {
-                if (row.Cells[2].Value != null)
+                if (row.Cells[3].Value != null)
                 {
-                    suma += (double)row.Cells[2].Value;
+                    suma += (double)row.Cells[3].Value;
                 }
             }
             double resta = 0;
 
             foreach (DataGridViewRow row in dgvEstadoDeuda.Rows)
             {
-                if (row.Cells[3].Value != null)
+                if (row.Cells[4].Value != null)
                 {
-                    resta += (double)row.Cells[3].Value;
+                    resta += (double)row.Cells[4].Value;
                 }
             }
             double saldo = suma - resta;
@@ -400,9 +474,9 @@ namespace Interfaz
 
             foreach (DataGridViewRow row in dgvAsientoDelDia.Rows)
             {
-                if (row.Cells["Importe"].Value != null)
+                if (row.Cells["Importe: "].Value != null)
                 {
-                    suma += (double)row.Cells["Importe"].Value;
+                    suma += (double)row.Cells["Importe: "].Value;
                 }
             }
 
@@ -422,14 +496,33 @@ namespace Interfaz
                 txtDescripcion.Clear();
                 txtImporteItem.Clear();
             }
-            else
+            else if(i ==1)
             {
                 cboItemsRecibo.SelectedValue = -1;
                 cboItemsRecibo.Focus();
                 txtDescripcion.Clear();
                 txtImporteItem.Clear();
                 rtbNotas.Clear();
-                dgvAsientoDelDia.Rows.Clear();
+                if (dgvAsientoDelDia.CurrentRow != null && dgvAsientoDelDia.SelectedRows.Count > 0)
+                {
+                    dgvAsientoDelDia.DataSource = null;
+                    dgvAsientoDelDia.Rows.Clear();
+                }
+                    
+                lblSumatoria.Text = "";
+            }
+            else
+            {
+                cboItemsRecibo.SelectedValue = -1;
+                txtDescripcion.Clear();
+                txtImporteItem.Clear();
+                rtbNotas.Clear();
+                if (dgvAsientoDelDia.CurrentRow != null && dgvAsientoDelDia.SelectedRows.Count > 0)
+                {
+                    dgvAsientoDelDia.DataSource = null;
+                    dgvAsientoDelDia.Rows.Clear();
+                }
+
                 lblSumatoria.Text = "";
             }
         }
@@ -491,7 +584,6 @@ namespace Interfaz
                 MessageBox.Show("Debe ingresar el importe");
                 validar = false;
             }
-
             return validar;
         }
 
@@ -501,15 +593,12 @@ namespace Interfaz
             if (txtApellido.Text == "" || txtNombre.Text == "")
             {
                 MessageBox.Show("Debe ingresar el apellido y el nombre");
-
             }
             else
             {
                 validar = true;
             }
-
             return validar;
-
         }
 
         private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
@@ -602,6 +691,11 @@ namespace Interfaz
             {
                 e.Handled = true;
             }
+        }
+
+        private void cboItemsRecibo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtDescripcion.Focus();
         }
     }
 }
