@@ -47,21 +47,29 @@ namespace Interfaz
 
         private void btnNuevoContrato_Click(object sender, EventArgs e)
         {
+            backColorButton();
+            btnNuevoContrato.BackColor = Color.FromArgb(229, 134, 89);
             abrirVentanaPanel(new NuevoContrato());
         }
 
         private void btnAlqVigentes_Click(object sender, EventArgs e)
         {
+            backColorButton();
+            btnAlqVigentes.BackColor = Color.FromArgb(229, 134, 89);
             abrirVentanaPanel(new AlquileresVigentes());
         }
 
         private void btnAlqNoVigentes_Click(object sender, EventArgs e)
         {
+            backColorButton();
+            btnAlqNoVigentes.BackColor = Color.FromArgb(229, 134, 89);
             abrirVentanaPanel(new AlquileresNoVigentes());
         }
 
         private void btnEstadoCuentas_Click(object sender, EventArgs e)
         {
+            backColorButton();
+            btnEstadoCuentas.BackColor = Color.FromArgb(229, 134, 89);
             abrirVentanaPanel(new EstadoDeCuentas());
         }
 
@@ -80,11 +88,15 @@ namespace Interfaz
 
         private void btnPropiedades_Click(object sender, EventArgs e)
         {
+            backColorButton();
+            btnPropiedades.BackColor = Color.FromArgb(229, 134, 89);
             abrirVentanaPanel(new Propiedades());
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
+            backColorButton();
+            btnClientes.BackColor = Color.FromArgb(229, 134, 89);
             abrirVentanaPanel(new Clientes());
         }
 
@@ -116,8 +128,24 @@ namespace Interfaz
             pnlSubProp.Visible = false;
         }
 
-        
-
+        private void backColorButton()
+        {
+            foreach (Control c in pnlSubAdmin.Controls)
+            {
+                if (c is Button && c.BackColor == Color.FromArgb(229, 134, 89))
+                    c.BackColor = Color.FromArgb(151, 153, 168);
+            }
+            foreach(Control c in pnlSubProp.Controls)
+            {
+                if (c is Button && c.BackColor == Color.FromArgb(229, 134, 89))
+                    c.BackColor = Color.FromArgb(151, 153, 168);
+            }
+            foreach(Control c in pnlMenu.Controls)
+            {
+                if(c == btnClientes && btnClientes.BackColor == Color.FromArgb(229, 134, 89))
+                    c.BackColor = Color.FromArgb(203, 204, 211);
+            } 
+        }
         #endregion
 
         #region //ControlDeInterfaz
