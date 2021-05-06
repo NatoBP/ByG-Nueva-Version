@@ -99,7 +99,8 @@ namespace Interfaz
 
                 dgvAsientoDelDia.Rows.Add(cp.pId, cp.pValor, cp.pCaracteristica, cp.pDescripcion, cp.pImporte); //Se agrega al DGV
 
-                TotalAsientoDia();
+                TotalAsientoDia(1);
+
                 btnGrabarRegistro.Enabled = true;
                 limpiarCampos(0);
             }
@@ -149,16 +150,16 @@ namespace Interfaz
                 limpiarCampos(2); //Limpiar Todo
                 int id = Convert.ToInt32(dgvEstadoDeuda.CurrentRow.Cells[0].Value);
 
-                dgvAsientoDelDia.Columns.Clear();
-                dgvAsientoDelDia.AutoGenerateColumns = true;
-                dgvAsientoDelDia.DataSource = null; //Limpio todo
+                LimpiarConfigDGVAsientos();
 
                 if (Convert.ToInt32(dgvEstadoDeuda.CurrentRow.Cells[4].Value) == 0)
                     dgvAsientoDelDia.DataSource = ec.consultaAsientoDeudaCompleto(id).Tables[0];
                 else
                     dgvAsientoDelDia.DataSource = ec.consultaComprobanteCompleto(id).Tables[0];
 
-                TotalAsientoDia();
+                invisibilizarColumnas();
+
+                TotalAsientoDia(0);
                 rtbNotas.Text = dgvEstadoDeuda.CurrentRow.Cells[5].Value.ToString();
                 
             }
@@ -170,6 +171,8 @@ namespace Interfaz
             {
                 limpiarCampos(2); //Limpiar Todo
                 int id = Convert.ToInt32(dgvEstadoDeuda.CurrentRow.Cells[0].Value);
+
+                LimpiarConfigDGVAsientos();
 
                 if (dgvAsientoDelDia.CurrentRow != null && dgvAsientoDelDia.SelectedRows.Count > 0)
                 {
@@ -183,6 +186,9 @@ namespace Interfaz
                 else
                     dgvAsientoDelDia.DataSource = ec.consultaComprobanteCompleto(id).Tables[0];
 
+                invisibilizarColumnas();
+
+                TotalAsientoDia(0);
                 rtbNotas.Text = dgvEstadoDeuda.CurrentRow.Cells[5].Value.ToString();
             }
         }
@@ -304,6 +310,9 @@ namespace Interfaz
             dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv.AutoGenerateColumns = false;
+            dgv.DataSource = null;
+            dgv.Rows.Clear();
+            dgv.Columns.Clear();
             dgv.Columns.Add("Id", "Id");
             dgv.Columns[0].Visible = false;
             dgv.Columns.Add("Valor", "Valor");
@@ -332,6 +341,19 @@ namespace Interfaz
 
             dgv.AllowUserToResizeColumns = false;
             dgv.AllowUserToResizeRows = false;
+        }
+
+        private void LimpiarConfigDGVAsientos()
+        {
+            dgvAsientoDelDia.Columns.Clear();
+            dgvAsientoDelDia.AutoGenerateColumns = true;
+            dgvAsientoDelDia.DataSource = null; //Limpio todo
+        }
+
+        private void invisibilizarColumnas()
+        {
+            dgvAsientoDelDia.Columns[0].Visible = false;
+            dgvAsientoDelDia.Columns[1].Visible = false;
         }
 
                 //Dgv Estado Deuda
@@ -468,7 +490,7 @@ namespace Interfaz
             lblSaldoCuenta.Text = Convert.ToString(saldo);
         }
 
-        private void TotalAsientoDia()
+        private void TotalAsientoDia(int i)
         {
             double suma = 0;
 
@@ -483,6 +505,8 @@ namespace Interfaz
             ValidarNumeros();
             double totalApagar = suma;
             lblSumatoria.Text = Convert.ToString(totalApagar);
+            if (i == 0)
+                lblTotal.Text = "Total comprob. $:";
         }
 
         //VALIDACIONES Y LIMPIEZAS
@@ -491,14 +515,14 @@ namespace Interfaz
         {
             if(i == 0)
             {
-                cboItemsRecibo.SelectedValue = -1;
+                cboItemsRecibo.SelectedIndex = -1;
                 cboItemsRecibo.Focus();
                 txtDescripcion.Clear();
                 txtImporteItem.Clear();
             }
             else if(i ==1)
             {
-                cboItemsRecibo.SelectedValue = -1;
+                cboItemsRecibo.SelectedIndex = -1;
                 cboItemsRecibo.Focus();
                 txtDescripcion.Clear();
                 txtImporteItem.Clear();
@@ -510,10 +534,12 @@ namespace Interfaz
                 }
                     
                 lblSumatoria.Text = "";
+                lblTotal.Text = "Total a pagar: $";
             }
             else
             {
-                cboItemsRecibo.SelectedValue = -1;
+                cboOperacion.SelectedIndex = -1;
+                cboItemsRecibo.SelectedIndex = -1;
                 txtDescripcion.Clear();
                 txtImporteItem.Clear();
                 rtbNotas.Clear();
@@ -565,7 +591,7 @@ namespace Interfaz
             {
                 c.Enabled = true;
             }
-        }
+         }
 
         private void DeshabilitarAsientoDia()
         {

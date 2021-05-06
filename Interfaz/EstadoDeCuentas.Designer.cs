@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtImporteItem = new System.Windows.Forms.TextBox();
             this.btnQuitarItem = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lblTotal = new System.Windows.Forms.Label();
             this.btnAgregarItem = new System.Windows.Forms.Button();
             this.lblSumatoria = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,6 +46,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.dgvAsientoDelDia = new System.Windows.Forms.DataGridView();
             this.grpAsiento = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cboOperacion = new System.Windows.Forms.ComboBox();
             this.dgvEstadoDeuda = new System.Windows.Forms.DataGridView();
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -61,8 +63,6 @@
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.txtDni = new System.Windows.Forms.TextBox();
             this.grpEstado = new System.Windows.Forms.GroupBox();
-            this.cboOperacion = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsientoDelDia)).BeginInit();
             this.grpAsiento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstadoDeuda)).BeginInit();
@@ -85,6 +85,7 @@
             // 
             // lblDescripcion
             // 
+            this.lblDescripcion.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblDescripcion.AutoSize = true;
             this.lblDescripcion.Location = new System.Drawing.Point(199, 118);
             this.lblDescripcion.Name = "lblDescripcion";
@@ -94,6 +95,7 @@
             // 
             // txtDescripcion
             // 
+            this.txtDescripcion.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDescripcion.Location = new System.Drawing.Point(275, 116);
             this.txtDescripcion.Name = "txtDescripcion";
@@ -104,6 +106,7 @@
             // 
             // label10
             // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(220, 159);
             this.label10.Name = "label10";
@@ -113,6 +116,7 @@
             // 
             // txtImporteItem
             // 
+            this.txtImporteItem.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtImporteItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtImporteItem.ForeColor = System.Drawing.Color.Red;
             this.txtImporteItem.Location = new System.Drawing.Point(275, 157);
@@ -124,6 +128,7 @@
             // 
             // btnQuitarItem
             // 
+            this.btnQuitarItem.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnQuitarItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
             this.btnQuitarItem.FlatAppearance.BorderSize = 0;
             this.btnQuitarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -135,18 +140,20 @@
             this.btnQuitarItem.UseVisualStyleBackColor = false;
             this.btnQuitarItem.Click += new System.EventHandler(this.btnQuitarItem_Click);
             // 
-            // label12
+            // lblTotal
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(807, 246);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(98, 13);
-            this.label12.TabIndex = 139;
-            this.label12.Text = "Total a pagar: $";
+            this.lblTotal.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(807, 246);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(98, 13);
+            this.lblTotal.TabIndex = 139;
+            this.lblTotal.Text = "Total a pagar $:";
             // 
             // btnAgregarItem
             // 
+            this.btnAgregarItem.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnAgregarItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
             this.btnAgregarItem.FlatAppearance.BorderSize = 0;
             this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -160,6 +167,7 @@
             // 
             // lblSumatoria
             // 
+            this.lblSumatoria.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSumatoria.BackColor = System.Drawing.Color.LightGray;
             this.lblSumatoria.Enabled = false;
             this.lblSumatoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -173,6 +181,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(193, 79);
             this.label2.Name = "label2";
@@ -182,6 +191,7 @@
             // 
             // rtbNotas
             // 
+            this.rtbNotas.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rtbNotas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbNotas.Location = new System.Drawing.Point(105, 208);
             this.rtbNotas.Name = "rtbNotas";
@@ -192,6 +202,7 @@
             // 
             // cboItemsRecibo
             // 
+            this.cboItemsRecibo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cboItemsRecibo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboItemsRecibo.FormattingEnabled = true;
             this.cboItemsRecibo.Location = new System.Drawing.Point(275, 74);
@@ -203,6 +214,7 @@
             // 
             // btnGrabarRegistro
             // 
+            this.btnGrabarRegistro.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnGrabarRegistro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
             this.btnGrabarRegistro.FlatAppearance.BorderSize = 0;
             this.btnGrabarRegistro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -216,6 +228,7 @@
             // 
             // label9
             // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(58, 208);
             this.label9.Name = "label9";
@@ -229,17 +242,18 @@
             this.dgvAsientoDelDia.AllowUserToDeleteRows = false;
             this.dgvAsientoDelDia.AllowUserToResizeColumns = false;
             this.dgvAsientoDelDia.AllowUserToResizeRows = false;
+            this.dgvAsientoDelDia.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dgvAsientoDelDia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAsientoDelDia.BackgroundColor = System.Drawing.Color.White;
             this.dgvAsientoDelDia.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAsientoDelDia.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAsientoDelDia.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvAsientoDelDia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAsientoDelDia.Location = new System.Drawing.Point(501, 32);
             this.dgvAsientoDelDia.MultiSelect = false;
@@ -252,7 +266,9 @@
             // 
             // grpAsiento
             // 
-            this.grpAsiento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpAsiento.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpAsiento.Controls.Add(this.label6);
             this.grpAsiento.Controls.Add(this.cboOperacion);
             this.grpAsiento.Controls.Add(this.dgvAsientoDelDia);
@@ -263,7 +279,7 @@
             this.grpAsiento.Controls.Add(this.label2);
             this.grpAsiento.Controls.Add(this.lblSumatoria);
             this.grpAsiento.Controls.Add(this.btnAgregarItem);
-            this.grpAsiento.Controls.Add(this.label12);
+            this.grpAsiento.Controls.Add(this.lblTotal);
             this.grpAsiento.Controls.Add(this.btnQuitarItem);
             this.grpAsiento.Controls.Add(this.txtImporteItem);
             this.grpAsiento.Controls.Add(this.label10);
@@ -276,23 +292,49 @@
             this.grpAsiento.TabStop = false;
             this.grpAsiento.Text = "Asiento del día:";
             // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(206, 35);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 13);
+            this.label6.TabIndex = 143;
+            this.label6.Text = "Operación:";
+            // 
+            // cboOperacion
+            // 
+            this.cboOperacion.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cboOperacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboOperacion.FormattingEnabled = true;
+            this.cboOperacion.Items.AddRange(new object[] {
+            "Comprobante",
+            "Cargar Deuda"});
+            this.cboOperacion.Location = new System.Drawing.Point(275, 32);
+            this.cboOperacion.Name = "cboOperacion";
+            this.cboOperacion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cboOperacion.Size = new System.Drawing.Size(90, 21);
+            this.cboOperacion.TabIndex = 142;
+            this.cboOperacion.SelectedIndexChanged += new System.EventHandler(this.cboOperacion_SelectedIndexChanged);
+            // 
             // dgvEstadoDeuda
             // 
             this.dgvEstadoDeuda.AllowUserToAddRows = false;
             this.dgvEstadoDeuda.AllowUserToDeleteRows = false;
             this.dgvEstadoDeuda.AllowUserToResizeColumns = false;
             this.dgvEstadoDeuda.AllowUserToResizeRows = false;
+            this.dgvEstadoDeuda.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dgvEstadoDeuda.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvEstadoDeuda.BackgroundColor = System.Drawing.Color.White;
             this.dgvEstadoDeuda.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvEstadoDeuda.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvEstadoDeuda.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvEstadoDeuda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEstadoDeuda.Location = new System.Drawing.Point(503, 50);
             this.dgvEstadoDeuda.MultiSelect = false;
@@ -307,6 +349,7 @@
             // 
             // txtApellido
             // 
+            this.txtApellido.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtApellido.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtApellido.Location = new System.Drawing.Point(275, 137);
             this.txtApellido.Name = "txtApellido";
@@ -317,6 +360,7 @@
             // 
             // label8
             // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(222, 140);
             this.label8.Name = "label8";
@@ -326,6 +370,7 @@
             // 
             // label7
             // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(222, 183);
             this.label7.Name = "label7";
@@ -335,6 +380,7 @@
             // 
             // txtNombre
             // 
+            this.txtNombre.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNombre.Location = new System.Drawing.Point(275, 180);
             this.txtNombre.Name = "txtNombre";
@@ -345,6 +391,7 @@
             // 
             // cboTipoDNI
             // 
+            this.cboTipoDNI.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cboTipoDNI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboTipoDNI.FormattingEnabled = true;
             this.cboTipoDNI.Location = new System.Drawing.Point(275, 93);
@@ -356,6 +403,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(810, 211);
@@ -366,6 +414,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(207, 97);
             this.label1.Name = "label1";
@@ -375,6 +424,7 @@
             // 
             // lblSaldoCuenta
             // 
+            this.lblSaldoCuenta.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSaldoCuenta.BackColor = System.Drawing.Color.LightGray;
             this.lblSaldoCuenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSaldoCuenta.Location = new System.Drawing.Point(913, 207);
@@ -386,6 +436,7 @@
             // 
             // label16
             // 
+            this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(177, 52);
             this.label16.Name = "label16";
@@ -395,6 +446,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(501, 25);
             this.label5.Name = "label5";
@@ -404,6 +456,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(847, 25);
             this.label3.Name = "label3";
@@ -413,6 +466,7 @@
             // 
             // dtpFecha
             // 
+            this.dtpFecha.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dtpFecha.Enabled = false;
             this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFecha.Location = new System.Drawing.Point(893, 21);
@@ -422,6 +476,7 @@
             // 
             // txtDni
             // 
+            this.txtDni.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtDni.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDni.Location = new System.Drawing.Point(275, 50);
             this.txtDni.Name = "txtDni";
@@ -432,7 +487,8 @@
             // 
             // grpEstado
             // 
-            this.grpEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpEstado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpEstado.Controls.Add(this.txtDni);
             this.grpEstado.Controls.Add(this.dtpFecha);
             this.grpEstado.Controls.Add(this.label3);
@@ -453,29 +509,6 @@
             this.grpEstado.TabIndex = 145;
             this.grpEstado.TabStop = false;
             this.grpEstado.Text = "Estado de Cuenta:";
-            // 
-            // cboOperacion
-            // 
-            this.cboOperacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboOperacion.FormattingEnabled = true;
-            this.cboOperacion.Items.AddRange(new object[] {
-            "Comprobante",
-            "Cargar Deuda"});
-            this.cboOperacion.Location = new System.Drawing.Point(275, 32);
-            this.cboOperacion.Name = "cboOperacion";
-            this.cboOperacion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cboOperacion.Size = new System.Drawing.Size(90, 21);
-            this.cboOperacion.TabIndex = 142;
-            this.cboOperacion.SelectedIndexChanged += new System.EventHandler(this.cboOperacion_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(206, 35);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 13);
-            this.label6.TabIndex = 143;
-            this.label6.Text = "Operación:";
             // 
             // EstadoDeCuentas
             // 
@@ -507,7 +540,7 @@
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox txtImporteItem;
         private System.Windows.Forms.Button btnQuitarItem;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Button btnAgregarItem;
         private System.Windows.Forms.Label lblSumatoria;
         private System.Windows.Forms.Label label2;
