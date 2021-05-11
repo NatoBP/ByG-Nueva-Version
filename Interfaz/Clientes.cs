@@ -184,6 +184,15 @@ namespace Interfaz
 
                         this.Close();
                     }
+                    else if (nuevaPropiedad == true)
+                    {
+                        Propiedades prop = (Propiedades)this.ParentForm;
+                        nuevaPropiedad = false;
+                        abrirVentana<Propiedades>(prop);
+                        prop.nuevoLocador(pr);
+
+                        this.Close();
+                    }
                     else
                     {
                         MessageBox.Show("Se ingresó correctamente el registro");

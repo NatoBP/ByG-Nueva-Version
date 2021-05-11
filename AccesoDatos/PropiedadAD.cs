@@ -38,6 +38,7 @@ namespace AccesoDatos
                 cmd.Parameters.AddWithValue("@fk_tipoPropiedad", p.TipoPropiedad);
                 cmd.Parameters.AddWithValue("@dpto", p.pDpto);
                 cmd.Parameters.AddWithValue("@piso", p.pPiso);
+                cmd.Parameters.AddWithValue("@bajaLogica", 1);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception e)
@@ -70,6 +71,48 @@ namespace AccesoDatos
 
                 cmd.ExecuteNonQuery();
 
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+        }
+
+        public void BajaPropiedad(int id)
+        {
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "Update Propiedades Set bajaLogica = 0 where id_Propiedad = @id";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
+            }
+            finally
+            {
+                cn.Desconectar();
+            }
+        }
+
+        public void AltaPropiedad(int idPropiedad)
+        {
+            try
+            {
+                cmd.Connection = cn.Conectar();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "Update Propiedades Set bajaLogica = 1 where id_Propiedad = @id";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@id", idPropiedad);
+                cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
@@ -178,27 +221,58 @@ namespace AccesoDatos
             return lista;
         }
 
-        public int BuscarIdPropiedad()
+        public int BuscarIdPropiedad(int idContrato)
         {
             int id = 0;
-            try
-            {
-                cmd.Connection = cn.Conectar();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "Select Max(id_Propiedad) from Propiedades";
 
-                id = Convert.ToInt32(cmd.ExecuteScalar());
-            }
-            catch (Exception e)
+            if (idContrato == 0)
             {
-                MessageBox.Show("Error: " + e.ToString());
+                 try
+                {
+                    cmd.Connection = cn.Conectar();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "Select Max(id_Propiedad) from Propiedades"; //Busca el ID de la última propiedad registrada
+
+                    id = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Error: " + e.ToString());
+                }
+                finally
+                {
+                    cn.Desconectar();
+                }
             }
-            finally
+
+            else
             {
-                cn.Desconectar();
+                try
+                {
+                    cmd.Connection = cn.Conectar();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "Select id_propiedad " +
+                                        "from Propiedades p " +
+                                        "join ContratosAlquiler c on c.id_fkpropiedad = p.id_propiedad " +
+                                        "where c.bajaLogica = 1 " +
+                                        "and c.id_contrato = @id";
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@id", idContrato);
+
+                    id = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Error: " + e.ToString());
+                }
+                finally
+                {
+                    cn.Desconectar();
+                }
             }
+            
             return id;
-        } //Busca el ID de la última propiedad registrada
+        }
 
         public DTOPropiedad buscarDTOPropiedad(int id) //Busca la propiedad para armar el Contrato
         {
@@ -299,7 +373,7 @@ namespace AccesoDatos
 
         }
 
-        public List<CaracteristicaPropiedad> CargarCaracteristicas(int id)
+        public List<CaracteristicaPropiedad> MostrarCaracteristicas(int id)
         {
             p = new Propiedad();
             try

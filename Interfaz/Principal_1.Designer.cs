@@ -321,7 +321,7 @@
             this.btnNuevoContrato.Name = "btnNuevoContrato";
             this.btnNuevoContrato.Size = new System.Drawing.Size(250, 45);
             this.btnNuevoContrato.TabIndex = 0;
-            this.btnNuevoContrato.Text = "NuevoContrato";
+            this.btnNuevoContrato.Text = "Nuevo Contrato";
             this.btnNuevoContrato.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNuevoContrato.UseVisualStyleBackColor = false;
             this.btnNuevoContrato.Click += new System.EventHandler(this.btnNuevoContrato_Click);

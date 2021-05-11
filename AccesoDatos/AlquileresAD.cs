@@ -15,7 +15,6 @@ namespace AccesoDatos
 
         private Conexion cn = new Conexion();
         SqlCommand cmd = new SqlCommand();
-        DataTable dt;
         DataSet ds;
         SqlDataAdapter da;
 

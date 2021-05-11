@@ -52,11 +52,19 @@ namespace Interfaz
         {
             lista = null;
             lista = pAd.BuscarPropiedadPorNombreDireccion(txtApellido.Text, txtDireccion.Text);
+
             dgvPropiedades.Rows.Clear();
             foreach (var item in lista)
             {
-                dgvPropiedades.Rows.Add(item.Id, item.Dni, item.TipoDni, item.Apellido, item.Nombre, item.Calle, item.Nro, item.Piso,
-                                        item.Depto, item.Descripcion, item.TipoPropiedad, item.IdBarrio, item.Barrio, item.Ciudad, item.Departamento, item.Provincia);
+                try
+                {
+                    dgvPropiedades.Rows.Add(item.Id, item.Dni, item.TipoDni, item.Apellido, item.Nombre, item.Calle, item.Nro, item.Piso,
+                                       item.Depto, item.Descripcion, item.TipoPropiedad, item.IdBarrio, item.Barrio, item.Ciudad, item.Departamento, item.Provincia);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.ToString());
+                }
             }
         }
 
@@ -67,68 +75,13 @@ namespace Interfaz
             pnlNuevaProp.Show();
             grpPropiedad.SendToBack();
             dgvPropiedades.Enabled = false;
+            ConfiguracionDgvNuevaPropiedad();
         }
 
         //Buscar locador por apellido
         private void btnBuscarApellido_Click(object sender, EventArgs e)
         {
-            lista = null;
-
-            //Si la persona tiene propiedades registradas:
-            if ((lista = pAd.BuscarPropiedadPorNombreDireccion(txtApellidoBuscar.Text, "")).Count != 0)
-            {
-                dgvPropiedades.Rows.Clear();
-                foreach (var item in lista)
-                {
-                    dgvPropiedades.Rows.Add(item.Id, item.Dni, item.TipoDni, item.Apellido, item.Nombre, item.Calle, item.Nro, item.Piso,
-                                            item.Depto, item.Descripcion, item.TipoPropiedad, item.IdBarrio, item.Barrio, item.Ciudad, item.Departamento, item.Provincia);
-                }
-                foreach (var item in lista)
-                {
-                    txtApellidoBuscar.Text = item.Apellido;
-                    txtNombreBuscar.Text = item.Nombre;
-                    txtDniBuscar.Text = Convert.ToString(item.Dni);
-                    cboTipoBuscar.SelectedValue = Convert.ToInt32(item.TipoDni);
-                    break;
-                }
-                habilitarCampos();
-                limpiarCampos();
-                cboProvincia.SelectedValue = 14;
-                cboDepto.SelectedValue = 14021;
-            }
-
-            //Si no hay propiedades, se busca el registro de la persona
-            else
-            {
-                per = new Persona();
-                per = cl.BuscarPersonaPorApellido(txtApellidoBuscar.Text);
-
-                if (per.pDNI != 0) //Si la persona existe
-                {
-                    txtApellidoBuscar.Text = per.pApellido;
-                    txtNombreBuscar.Text = per.pNombre;
-                    txtDniBuscar.Text = Convert.ToString(per.pDNI);
-                    cboTipoBuscar.SelectedValue = Convert.ToInt32(per.pTipoDNI);
-                    limpiarCuadros();
-                    limpiarCampos();
-                    habilitarCampos();
-
-                    cboProvincia.SelectedValue = 14;
-                    cboDepto.SelectedValue = 14021;
-                }
-                else            //Si la persona no existe
-                {
-                    DialogResult opcion = MessageBox.Show("La persona no está registrada, ¿desea ingresarla?", "¿Ingresar nueva persona?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (opcion == DialogResult.Yes)
-                    {
-                        Clientes c = new Clientes();
-                        c.nuevaPropiedad = true;
-                        c.nuevoCliente(-1, "", txtApellidoBuscar.Text);
-
-                        abrirVentana<Clientes>(c);
-                    }
-                }
-            }
+            
         }
 
         //Cancelar
@@ -386,7 +339,7 @@ namespace Interfaz
                 {
                     pAd.InsertarPropiedad(p);
 
-                    int idProp = pAd.BuscarIdPropiedad(); //Busca el ID de la última Propiedad Registrada
+                    int idProp = pAd.BuscarIdPropiedad(0); //Busca el ID de la última Propiedad Registrada
 
                     foreach (var item in p.Caracteristicas)
                     {
@@ -479,6 +432,7 @@ namespace Interfaz
 
         #endregion
 
+
         private void registroGuardado()
         {
             MessageBox.Show("Registro guardado");
@@ -525,6 +479,18 @@ namespace Interfaz
             txtNombreBuscar.Text = p.pNombre;
             cboProvincia.SelectedValue = 14;
             cboDepto.SelectedValue = 14021;
+        }
+
+        public void nuevoLocador(Persona p)
+        {
+            per = null;
+            per = p;
+
+            limpiarCamposNuevaProp();
+            txtDniBuscar.Text = Convert.ToString(p.pDNI);
+            cboTipoBuscar.SelectedValue = p.pTipoDNI;
+            txtApellidoBuscar.Text = p.pApellido;
+            txtNombreBuscar.Text = p.pNombre;
         }
 
         public void cargarPropiedad(Propiedad prop) //Carga y muestra los datos de una propiedad que viene de Nuevo Contrato
@@ -594,6 +560,56 @@ namespace Interfaz
 
         #region CONFIGURACIONES DATAGRID VIEWS
 
+        //DGV NUEVA PROPIEDAD
+
+        private void ConfiguracionDgvNuevaPropiedad()
+        {
+            var dgv = dgvNuevaProp;
+            dgv.BackgroundColor = Color.White;
+            dgv.BorderStyle = BorderStyle.FixedSingle;
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+
+            //COLUMNAS
+            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(229, 134, 89);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.Orange;
+            dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.AutoGenerateColumns = false;
+            dgv.Columns.Clear();
+            dgv.Columns.Add("idPropiedad", "idPropiedad");
+            dgv.Columns[0].Visible = false;
+
+            dgv.Columns.Add("Calle", "Calle:");
+            dgv.Columns.Add("Numero", "Número:");
+
+            dgv.Columns.Add("Piso", "Piso:");
+            dgv.Columns.Add("Depto", "Depto.:");
+
+            //FUENTE
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font(dgv.Font, FontStyle.Bold);
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Oxygen", 9);
+            dgv.ColumnHeadersHeight = 20;
+
+            //FILAS
+            dgv.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(177, 179, 190);
+            dgv.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.RowsDefaultCellStyle.Font = new Font(dgv.Font, FontStyle.Regular);
+            dgv.RowsDefaultCellStyle.Font = new Font("Oxygen", 9);
+
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
+
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgv.RowHeadersVisible = false;
+
+            dgv.AllowUserToResizeColumns = false;
+            dgv.AllowUserToResizeRows = false;
+        }
+
         //DGV PROPIEDADES
 
         private void seleccion()
@@ -634,7 +650,7 @@ namespace Interfaz
                     }
                 }
 
-                caracteristicasP = pAd.CargarCaracteristicas(Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value));
+                caracteristicasP = pAd.MostrarCaracteristicas(Convert.ToInt32(dgvPropiedades.CurrentRow.Cells[0].Value));
 
                 dgvCaracteristicas.Rows.Clear();
                 foreach (var i in caracteristicasP)
@@ -701,7 +717,7 @@ namespace Interfaz
 
             rtxtObservaciones.Text = prop.pDescripcion;
 
-            caracteristicasP = pAd.CargarCaracteristicas(prop.pId_propiedad);
+            caracteristicasP = pAd.MostrarCaracteristicas(prop.pId_propiedad);
 
             dgvCaracteristicas.Rows.Clear();
             foreach (var i in caracteristicasP)
@@ -820,7 +836,7 @@ namespace Interfaz
             seleccion();
         }
 
-            //DGV CARACTERÍSTICAS
+        //DGV CARACTERÍSTICAS
 
         private void ConfiguracionDgvCaracteristicas()
         {
@@ -1297,10 +1313,6 @@ namespace Interfaz
             }
         }
 
-
-
         #endregion
-
-       
     }
 }

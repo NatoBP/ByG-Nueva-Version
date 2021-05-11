@@ -16,6 +16,7 @@ namespace Interfaz
     public partial class AlquileresVigentes : Form
     {
         AlquileresAD alq = new AlquileresAD();
+        PropiedadAD pAd = new PropiedadAD();
         Persona pr;
 
         public AlquileresVigentes()
@@ -74,7 +75,13 @@ namespace Interfaz
                 DialogResult opcion = MessageBox.Show("¿Está segura que desea dar de baja el contrato?", "Baja Contrato", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                 if (opcion == DialogResult.Yes)
                 {
-                    alq.bajaContrato(DateTime.Today, Convert.ToInt32(dgvAlquileresV.CurrentRow.Cells[12].Value));
+                    int idContrato = Convert.ToInt32(dgvAlquileresV.CurrentRow.Cells[12].Value);
+                    int idPropiedad = pAd.BuscarIdPropiedad(idContrato);
+
+                    if (idPropiedad != 0)
+                        pAd.AltaPropiedad(idPropiedad);
+
+                    alq.bajaContrato(DateTime.Today, idContrato);
                 }
             }
             buscarVigentes();

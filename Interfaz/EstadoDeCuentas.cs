@@ -132,6 +132,7 @@ namespace Interfaz
 
             limpiarCampos(1);
             ConfiguracionDgvAsientoDelDia();
+            HabilitarAsientoDia();
 
             if(cboOperacion.SelectedIndex == 1)
             {
@@ -158,7 +159,7 @@ namespace Interfaz
                     dgvAsientoDelDia.DataSource = ec.consultaComprobanteCompleto(id).Tables[0];
 
                 invisibilizarColumnas();
-
+                DeshabilitarAsientoDia();
                 TotalAsientoDia(0);
                 rtbNotas.Text = dgvEstadoDeuda.CurrentRow.Cells[5].Value.ToString();
                 
@@ -187,7 +188,7 @@ namespace Interfaz
                     dgvAsientoDelDia.DataSource = ec.consultaComprobanteCompleto(id).Tables[0];
 
                 invisibilizarColumnas();
-
+                DeshabilitarAsientoDia();
                 TotalAsientoDia(0);
                 rtbNotas.Text = dgvEstadoDeuda.CurrentRow.Cells[5].Value.ToString();
             }
@@ -461,6 +462,7 @@ namespace Interfaz
 
         private void RefreshEstadoCuenta(int dni, int tipo)
         {
+            dgvEstadoDeuda.DataSource = null;
             dgvEstadoDeuda.Columns.Clear();
             dgvEstadoDeuda.DataSource = ec.buscarEstadoCuenta(dni, tipo).Tables[0];
             dgvEstadoDeuda.Columns[5].Visible = false;
@@ -502,7 +504,7 @@ namespace Interfaz
                 }
             }
 
-            ValidarNumeros();
+            
             double totalApagar = suma;
             lblSumatoria.Text = Convert.ToString(totalApagar);
             if (i == 0)
@@ -574,7 +576,9 @@ namespace Interfaz
             lblSumatoria.Text = "";
             rtbNotas.Clear();
 
+            dgvAsientoDelDia.DataSource = null;
             dgvAsientoDelDia.Rows.Clear();
+
             if (dgvEstadoDeuda.CurrentRow != null && dgvEstadoDeuda.SelectedRows.Count > 0)
             {
                 dgvEstadoDeuda.DataSource = null;
@@ -597,7 +601,8 @@ namespace Interfaz
         {
             foreach (Control c in grpAsiento.Controls)
             {
-                c.Enabled = false;
+                if (c != cboOperacion)
+                    c.Enabled = false;
             }
         }
 

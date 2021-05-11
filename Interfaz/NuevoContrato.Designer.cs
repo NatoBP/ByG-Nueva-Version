@@ -128,7 +128,7 @@
             this.cboUsoPropiedad = new System.Windows.Forms.ComboBox();
             this.label27 = new System.Windows.Forms.Label();
             this.txtDiaVencimiento = new System.Windows.Forms.TextBox();
-            this.txtIntereses = new System.Windows.Forms.TextBox();
+            this.txtMoraDiaria = new System.Windows.Forms.TextBox();
             this.btnRegistrarContrato = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -1099,7 +1099,7 @@
             this.grpContrato.Controls.Add(this.cboUsoPropiedad);
             this.grpContrato.Controls.Add(this.label27);
             this.grpContrato.Controls.Add(this.txtDiaVencimiento);
-            this.grpContrato.Controls.Add(this.txtIntereses);
+            this.grpContrato.Controls.Add(this.txtMoraDiaria);
             this.grpContrato.Controls.Add(this.btnRegistrarContrato);
             this.grpContrato.Controls.Add(this.label20);
             this.grpContrato.Controls.Add(this.label21);
@@ -1225,15 +1225,15 @@
             this.txtDiaVencimiento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDiaVencimiento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDiaVencimiento_KeyPress);
             // 
-            // txtIntereses
+            // txtMoraDiaria
             // 
-            this.txtIntereses.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtIntereses.Location = new System.Drawing.Point(152, 80);
-            this.txtIntereses.Name = "txtIntereses";
-            this.txtIntereses.Size = new System.Drawing.Size(60, 20);
-            this.txtIntereses.TabIndex = 1;
-            this.txtIntereses.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtIntereses.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIntereses_KeyPress);
+            this.txtMoraDiaria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMoraDiaria.Location = new System.Drawing.Point(152, 80);
+            this.txtMoraDiaria.Name = "txtMoraDiaria";
+            this.txtMoraDiaria.Size = new System.Drawing.Size(60, 20);
+            this.txtMoraDiaria.TabIndex = 1;
+            this.txtMoraDiaria.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtMoraDiaria.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIntereses_KeyPress);
             // 
             // btnRegistrarContrato
             // 
@@ -1483,7 +1483,7 @@
         private System.Windows.Forms.ComboBox cboUsoPropiedad;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox txtDiaVencimiento;
-        private System.Windows.Forms.TextBox txtIntereses;
+        private System.Windows.Forms.TextBox txtMoraDiaria;
         private System.Windows.Forms.Button btnRegistrarContrato;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;

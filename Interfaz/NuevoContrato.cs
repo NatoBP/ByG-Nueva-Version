@@ -33,6 +33,10 @@ namespace Interfaz
         List<Persona> listaGarantes = new List<Persona>();
         int[] ubicacion = new int[4];
 
+        string dia; //Se usan para la generación del contrato
+        string mes;
+        string anio;
+
         //INTERFAZ
         Clientes c;
 
@@ -43,6 +47,7 @@ namespace Interfaz
         }
 
         //BOTONES 
+
                 //Locador
         private void btnBuscarProp_Click(object sender, EventArgs e)
         {
@@ -337,7 +342,7 @@ namespace Interfaz
                     ct.TipoDniInquilino = locatario.pTipoDNI;
                     ct.Duracion = Convert.ToInt32(txtDuracion.Text);
                     ct.PrecioAlquiler = Convert.ToDouble(txtPrecioAlquiler.Text);
-                    ct.InteresDiario = Convert.ToDecimal(txtIntereses.Text);
+                    ct.InteresDiario = Convert.ToDecimal(txtMoraDiaria.Text);
                     ct.Deposito = Convert.ToDouble(txtDeposito.Text);
                     ct.UsoPropiedad = Convert.ToInt32(cboUsoPropiedad.SelectedValue);
                     ct.Vigencia = dtpFechaFin.Value;
@@ -348,9 +353,15 @@ namespace Interfaz
                     ct.Fecha2daActualizacion = dtpActualizacion2.Value;
                     ct.Aumento2daActualizacion = Convert.ToDouble(txt2doAumento.Text);
 
+                    dia = dtpFechaInicio.Value.Day.ToString(); //Se usan para la generación del contrato
+                    mes = dtpFechaInicio.Value.Month.ToString();
+                    anio = dtpFechaInicio.Value.Year.ToString();
+
                     //Insertar Contrato en BD
                     alq.insertarContrato(ct);
                     ct.IdContrato = alq.buscarIdContrato(); //Busca el Id del último contrato creado
+
+                    p.BajaPropiedad(ct.IdPropiedad); //Se da la baja lógica para que no aparezca entre las Propiedades Disponibles
 
                     //Insertar Garantes
                     foreach (var item in ct.listarGarantes)
@@ -360,12 +371,13 @@ namespace Interfaz
                             alq.InsertarGarante(item, ct.IdContrato);
                         }
                     }
-
-                    GenerarContrato(ct);
-
                     limpiarCamposLocador();
                     limpiarCamposLocatario();
                     limpiarCamposGarante();
+                    limpiarDetallesContrato();
+
+                    GenerarContrato(ct);
+                    
                 }
                 catch (Exception ex)
                 {
@@ -377,6 +389,7 @@ namespace Interfaz
                 MessageBox.Show("Debe ingresar todos los campos");
             }
         }
+
 
         private string establecerTipoDNI(int i)
         {
@@ -559,8 +572,8 @@ namespace Interfaz
 
                 object fechaInicio = "fechaInicioAlquiler";
                 Word.Range fInicio = ObjDoc.Bookmarks.get_Item(ref fechaInicio).Range;
-                fInicio.Text = "" + dtpFechaInicio.Value.ToShortDateString() + ", venciendo en consecuencia, de pleno derecho y sin necesidad de interpelación judicial o extrajudicial previa, " +
-                               "el día " + dtpFechaFin.Value.ToShortDateString() + "";
+                fInicio.Text = "" + ct.FechaInicioContrato.ToShortDateString() + ", venciendo en consecuencia, de pleno derecho y sin necesidad de interpelación judicial o extrajudicial previa, " +
+                               "el día " + ct.FechaFin.ToShortDateString() + "";
                 ObjDoc.Bookmarks.Add(fechaInicio.ToString(), fInicio);
 
                 object usoProp = "usoQueLeDaran";
@@ -570,32 +583,32 @@ namespace Interfaz
 
                 object moraLetras = "moraLetra";
                 Word.Range moraD = ObjDoc.Bookmarks.get_Item(ref moraLetras).Range;
-                moraD.Text = enLetras(txtIntereses.Text);
+                moraD.Text = enLetras(Convert.ToString(ct.InteresDiario));
                 ObjDoc.Bookmarks.Add(moraLetras.ToString(), moraD);
 
                 object multaDiaria = "MoraDiaria";
                 Word.Range multaD = ObjDoc.Bookmarks.get_Item(ref multaDiaria).Range;
-                multaD.Text = txtIntereses.Text;
+                multaD.Text = Convert.ToString(ct.InteresDiario);
                 ObjDoc.Bookmarks.Add(multaDiaria.ToString(), multaD);
 
                 object precioAlquiler = "precioAlquilerLetras";
                 Word.Range precioAlq = ObjDoc.Bookmarks.get_Item(ref precioAlquiler).Range;
-                precioAlq.Text = enLetras(txtPrecioAlquiler.Text);
+                precioAlq.Text = enLetras(Convert.ToString(ct.PrecioAlquiler));
                 ObjDoc.Bookmarks.Add(precioAlquiler.ToString(), precioAlq);
 
                 object precioAlquilerN = "precioAlquilerNros";
                 Word.Range precioAlqN = ObjDoc.Bookmarks.get_Item(ref precioAlquilerN).Range;
-                precioAlqN.Text = txtPrecioAlquiler.Text;
+                precioAlqN.Text = Convert.ToString(ct.PrecioAlquiler);
                 ObjDoc.Bookmarks.Add(precioAlquilerN.ToString(), precioAlqN);
 
                 object diaDePago = "diaDePago";
                 Word.Range diaPago = ObjDoc.Bookmarks.get_Item(ref diaDePago).Range;
-                diaPago.Text = txtDiaVencimiento.Text;
+                diaPago.Text = Convert.ToString(ct.DiaDeVencimiento);
                 ObjDoc.Bookmarks.Add(diaDePago.ToString(), diaPago);
 
                 object diaDePagoL = "diaDePagoLetras";
                 Word.Range diaPagoL = ObjDoc.Bookmarks.get_Item(ref diaDePagoL).Range;
-                diaPagoL.Text = enLetras(txtDiaVencimiento.Text);
+                diaPagoL.Text = enLetras(Convert.ToString(ct.DiaDeVencimiento));
                 ObjDoc.Bookmarks.Add(diaDePagoL.ToString(), diaPagoL);
 
                 object apelG1 = "ApellidoGarante";
@@ -619,7 +632,7 @@ namespace Interfaz
                         foreach (var item in ct.listarGarantes[i].pTelefono)
                         {
                             telefono = item.pcodigoArea + " " + item.pnumero;
-                            break;
+                            break; //Con el primero alcanza
                         }
                     }
                     if (i == 0)
@@ -636,14 +649,14 @@ namespace Interfaz
 
                 object deposLetras = "depositoLetras";
                 Word.Range depL = ObjDoc.Bookmarks.get_Item(ref deposLetras).Range;
-                depL.Text = enLetras(txtDeposito.Text);
+                depL.Text = enLetras(Convert.ToString(ct.Deposito));
                 ObjDoc.Bookmarks.Add(deposLetras.ToString(), depL);
 
                 object deposito = "DepositoNro";
                 Word.Range depo = ObjDoc.Bookmarks.get_Item(ref deposito).Range;
-                depo.Text = txtDeposito.Text;
+                depo.Text = Convert.ToString(ct.Deposito);
                 ObjDoc.Bookmarks.Add(deposito.ToString(), depo);
-
+                
                 object mailLoc = "mailLocataria";
                 Word.Range mailL = ObjDoc.Bookmarks.get_Item(ref mailLoc).Range;
                 mailL.Text = locatario.pMail;
@@ -651,17 +664,17 @@ namespace Interfaz
 
                 object diaCont = "diaContrato";
                 Word.Range diaC = ObjDoc.Bookmarks.get_Item(ref diaCont).Range;
-                diaC.Text = dtpFechaInicio.Value.Day.ToString();
+                diaC.Text = dia;
                 ObjDoc.Bookmarks.Add(diaCont.ToString(), diaC);
 
                 object mesCont = "mesContrato";
                 Word.Range mesC = ObjDoc.Bookmarks.get_Item(ref mesCont).Range;
-                mesC.Text = dtpFechaInicio.Value.Month.ToString();
+                mesC.Text = mes;
                 ObjDoc.Bookmarks.Add(mesCont.ToString(), mesC);
 
                 object anCont = "añoContrato";
                 Word.Range anC = ObjDoc.Bookmarks.get_Item(ref anCont).Range;
-                anC.Text = dtpFechaInicio.Value.Year.ToString();
+                anC.Text = anio;
                 ObjDoc.Bookmarks.Add(anCont.ToString(), anC);
 
                 object loca = "Locador";
@@ -802,6 +815,7 @@ namespace Interfaz
             }
         }
 
+
         //ENVÍO Y RECEPCIÓN DE DATOS A OTRAS VENTANAS
         //Cargar campos desde Clientes / Propiedad 
 
@@ -935,6 +949,7 @@ namespace Interfaz
 
 
         //CONFIGURACIONES
+
                 //Carga Inicial
         private void cargaInicial()
         {
@@ -1059,6 +1074,7 @@ namespace Interfaz
             dgv.AllowUserToResizeRows = false;
         }
 
+
         #region VALIDACIONES Y LIMPIEZAS
 
         private bool ValidarPestanaContrato()
@@ -1067,7 +1083,7 @@ namespace Interfaz
             if (txtDNILocador.Text != "" && cboTipo.SelectedIndex != -1 && dgvPropiedades.SelectedRows.Count > 0
                 && txtDNILocatario.Text != "" && cboTipoLocatario.SelectedIndex != -1 && lblApeLocatario.Text != ""
                 && lblNomLocatario.Text != "" && dgvGarantes.SelectedRows.Count > 0 && txtDuracion.Text != "" && txtPrecioAlquiler.Text != ""
-                && txtDiaVencimiento.Text != "" && txtDeposito.Text != "" && txtIntereses.Text != "" && dtpFechaFin.Value != DateTime.Now.Date
+                && txtDiaVencimiento.Text != "" && txtDeposito.Text != "" && txtMoraDiaria.Text != "" && dtpFechaFin.Value != DateTime.Now.Date
                 && txt1erAumento.Text != "" && txt2doAumento.Text != "")
             {
                 Validar = true;
@@ -1115,6 +1131,33 @@ namespace Interfaz
             cboCiudadGarante.SelectedIndex = -1;
             cboDeptoGarante.SelectedIndex = -1;
             cboProvinciaGarante.SelectedIndex = -1;
+        }
+
+        private void limpiarDetallesContrato()
+        {
+            txtDNILocador.Clear();
+            cboTipo.SelectedIndex = -1;
+            dgvPropiedades.Rows.Clear();
+
+            txtDNILocatario.Clear();
+            cboTipoLocatario.SelectedIndex = -1;
+
+            txtDNIGarante.Clear();
+            cboTipoGarante.SelectedIndex = -1;
+            dgvGarantes.Rows.Clear();
+
+            foreach(Control c in grpContrato.Controls)
+            {
+                if (c is TextBox)
+                    c.Text = "";
+            }
+
+            dtpFechaInicio.Value = DateTime.Today;
+            dtpFechaFin.Value = DateTime.Today;
+            dtpActualizacion1.Value = DateTime.Today;
+            dtpActualizacion2.Value = DateTime.Today;
+
+            cboUsoPropiedad.SelectedIndex = -1;
         }
 
         private void txtDNILocador_KeyPress(object sender, KeyPressEventArgs e)
@@ -1191,7 +1234,7 @@ namespace Interfaz
             {
                 e.Handled = false;
             }
-            else if (e.KeyChar == ',' && !txtIntereses.Text.Contains(","))
+            else if (e.KeyChar == ',' && !txtMoraDiaria.Text.Contains(","))
             {
                 e.Handled = false;
             }
@@ -1282,7 +1325,5 @@ namespace Interfaz
         }
 
         #endregion
-
-        
     }
 }

@@ -18,7 +18,7 @@ namespace Interfaz
         PropiedadAD pAd = new PropiedadAD();
         List<Foto> listaFotos = new List<Foto>();
 
-        int posicion = 1;
+        int posicion = 0;
         int items = 0;
 
         public VisorDeFotos(int id)
@@ -55,7 +55,6 @@ namespace Interfaz
                 posicion++;
                 pctFotos.Image = convertir(listaFotos[posicion].pFotoBinaria);
             }
-
         }
 
         private void btnRetroceder_Click(object sender, EventArgs e)
