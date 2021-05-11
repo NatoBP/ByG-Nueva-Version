@@ -19,11 +19,12 @@ namespace Interfaz
         TransaccionAD tc = new TransaccionAD();
         PropiedadAD pAd = new PropiedadAD();
         ClienteAD cl = new ClienteAD();
-        Persona per;
+        Persona locador;
 
         Propiedad p = new Propiedad();
 
         List<LocadorDTO> lista = new List<LocadorDTO>();
+        List<Propiedad> listaProp = new List<Propiedad>();
         List<CaracteristicaPropiedad> caracteristicasP = new List<CaracteristicaPropiedad>();
         List<Foto> listaFoto = new List<Foto>();
 
@@ -50,8 +51,12 @@ namespace Interfaz
         //Buscar Propiedades
         private void btnBuscarLoc_Click(object sender, EventArgs e)
         {
+            
             lista = null;
             lista = pAd.BuscarPropiedadPorNombreDireccion(txtApellido.Text, txtDireccion.Text);
+
+            txtApellido.Clear();
+            txtDireccion.Clear();
 
             dgvPropiedades.Rows.Clear();
             foreach (var item in lista)
@@ -71,27 +76,77 @@ namespace Interfaz
         //Nueva Propiedad
         private void btnNuevaProp_Click(object sender, EventArgs e)
         {
+            if (dgvPropiedades.CurrentRow != null && dgvPropiedades.SelectedRows.Count > 0)
+                dgvPropiedades.Rows.Clear();
+
+            habilitarCampos();
+            limpiarCampos();
+            limpiarCuadros();
+            limpiarCamposNuevaProp(0);
             pnlNuevaProp.Visible = true;
             pnlNuevaProp.Show();
             grpPropiedad.SendToBack();
             dgvPropiedades.Enabled = false;
             ConfiguracionDgvNuevaPropiedad();
+            cboDepto.SelectedValue = 14021;
+            cboCiudad.SelectedValue = -1;
+            cboBarrio.SelectedValue = -1;
         }
 
         //Buscar locador por apellido
         private void btnBuscarApellido_Click(object sender, EventArgs e)
         {
+            dgvNuevaProp.Rows.Clear();
             
+            try
+            {
+                if (txtDniBuscar.Text != "" && cboTipoBuscar.SelectedIndex != -1)
+                {
+                    if (cl.VerificarPersona(Convert.ToInt32(cboTipoBuscar.SelectedValue), Convert.ToInt32(txtDniBuscar.Text)) > 0)
+                    {
+                        locador = new Persona();
+                        locador = cl.BuscarPersona(Convert.ToInt32(cboTipoBuscar.SelectedValue), Convert.ToInt32(txtDniBuscar.Text));
+
+                        txtApellidoBuscar.Text = locador.pApellido;
+                        txtNombreBuscar.Text = locador.pNombre;
+                        
+
+                        listaProp = pAd.CargarListaPropiedades(Convert.ToInt32(txtDniBuscar.Text), Convert.ToInt32(cboTipoBuscar.SelectedValue));
+                        foreach (var item in listaProp)
+                        {
+                            dgvNuevaProp.Rows.Add(item.pId_propiedad, item.pCalle, item.pNumeroCalle, item.pPiso, item.pDpto);
+                        }
+                    }
+                    else
+                    {
+                        limpiarCamposNuevaProp(1);
+
+                        DialogResult opcion = MessageBox.Show("El registro no existe. ¿Desea cargar un nuevo Locador/a?", "¿Nuevo Locador/a?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (opcion == DialogResult.Yes)
+                        {
+                            Clientes c = new Clientes();
+                            c.nuevaPropiedad = true;
+                            c.habilitarCamposCliente();
+                            c.nuevoCliente(Convert.ToInt32(cboTipoBuscar.SelectedValue), txtDniBuscar.Text, "");
+                            abrirVentana<Clientes>(c);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.ToString());
+            }
         }
 
         //Cancelar
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            limpiarCamposNuevaProp();
+            limpiarCamposNuevaProp(0);
             pnlNuevaProp.Visible = false;
-            dgvPropiedades.Enabled = true;
             deshabilitarCampos();
             limpiarCampos();
+            cargarPropiedades();
         }
 
         //Editar
@@ -358,9 +413,8 @@ namespace Interfaz
 
                     p.Caracteristicas.Clear();
                     limpiarCampos();
-                    limpiarCamposNuevaProp();
+                    limpiarCamposNuevaProp(0);
                     limpiarCuadros();
-                    cargarPropiedades();
                     deshabilitarCampos();
                     registroGuardado();
                 }
@@ -387,7 +441,7 @@ namespace Interfaz
 
                     p.Caracteristicas.Clear(); //Se limpia la lista de características
                     limpiarCampos();
-                    limpiarCamposNuevaProp();
+                    limpiarCamposNuevaProp(0);
                     limpiarCuadros();
                     deshabilitarCampos();
                     registroGuardado();
@@ -396,16 +450,15 @@ namespace Interfaz
                 if (NuevoContrato == true)
                 {
                     NuevoContrato nc = new NuevoContrato();
-                    nc.cargarCamposLocador(per);
-                    nc.cargarPropiedad(per);
+                    nc.cargarCamposLocador(locador);
+                    nc.cargarPropiedad(locador);
                     NuevoContrato = false;
                     abrirVentana<NuevoContrato>(nc);
                 }
             }
-            limpiarCampos();
-            limpiarCamposNuevaProp();
-            limpiarCuadros();
             cargarPropiedades();
+            pnlNuevaProp.Visible = false;
+            grpPropiedad.BringToFront();
         }
 
         private void btnCancelarProp_Click(object sender, EventArgs e)
@@ -462,10 +515,10 @@ namespace Interfaz
         //Carga datos del locador desde Nuevo Contrato
         public void nuevaPropiedad(Persona p)
         {
-            per = null;
-            per = p;
+            locador = null;
+            locador = p;
             limpiarCampos();
-            limpiarCamposNuevaProp();
+            limpiarCamposNuevaProp(0);
             limpiarCuadros();
             pnlNuevaProp.Visible = true;
             pnlNuevaProp.Show();
@@ -483,10 +536,10 @@ namespace Interfaz
 
         public void nuevoLocador(Persona p)
         {
-            per = null;
-            per = p;
+            locador = null;
+            locador = p;
 
-            limpiarCamposNuevaProp();
+            limpiarCamposNuevaProp(0);
             txtDniBuscar.Text = Convert.ToString(p.pDNI);
             cboTipoBuscar.SelectedValue = p.pTipoDNI;
             txtApellidoBuscar.Text = p.pApellido;
@@ -513,6 +566,7 @@ namespace Interfaz
                 dgvPropiedades.Rows.Add(item.Id, item.Dni, item.TipoDni, item.Apellido, item.Nombre, item.Calle, item.Nro, item.Piso,
                                         item.Depto, item.Descripcion, item.TipoPropiedad, item.IdBarrio, item.Barrio, item.Ciudad, item.Departamento, item.Provincia);
             }
+            dgvPropiedades.Enabled = true;
         }
 
         private void cargaInicial()
@@ -1036,21 +1090,39 @@ namespace Interfaz
             }
         }
 
-        private void limpiarCamposNuevaProp()
+        private void limpiarCamposNuevaProp(int i)
         {
-            foreach (Control item in grpNuevaProp.Controls)
+            if(i == 0)
             {
-                if (item is TextBox)
-                    item.Text = "";
+                foreach (Control item in grpNuevaProp.Controls)
+                {
+                    if (item is TextBox)
+                        item.Text = "";
+                }
             }
+            else
+            {
+                foreach (Control item in grpNuevaProp.Controls)
+                {
+                    if (item is TextBox && item != txtDniBuscar)
+                        item.Text = "";
+                }
+            }
+            
         }
 
         private void limpiarCuadros()
         {
-            dgvPropiedades.Rows.Clear();
-            dgvCaracteristicas.Rows.Clear();
-            lstNombreImagen.Items.Clear();
-            pctImagen.Image = null; 
+            if (dgvPropiedades.CurrentRow != null & dgvPropiedades.SelectedRows.Count > 0)
+                dgvPropiedades.Rows.Clear();
+            if (dgvCaracteristicas.CurrentRow != null && dgvCaracteristicas.SelectedRows.Count > 0)
+                dgvCaracteristicas.Rows.Clear();
+
+            if (lstNombreImagen.Items.Count > 0)
+                lstNombreImagen.Items.Clear();
+
+            if (pctImagen.Image != null)
+                pctImagen.Image = null;
         }
 
         private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
@@ -1311,6 +1383,11 @@ namespace Interfaz
             {
                 tc.traerCombo(cboBarrio, "Barrios", "id_barrio", "nombreBarr", "ciudad", Convert.ToInt32(cboCiudad.SelectedValue));
             }
+        }
+
+        private void cboTipoBuscar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            limpiarCamposNuevaProp(1);
         }
 
         #endregion

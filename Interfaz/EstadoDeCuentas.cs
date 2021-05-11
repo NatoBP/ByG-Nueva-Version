@@ -289,7 +289,10 @@ namespace Interfaz
                     }
                     break; //Hay que cortar el ciclo para que no salga más de un Message Box
                 }
+                else
+                    this.Close();
             }
+            
         }
 
         

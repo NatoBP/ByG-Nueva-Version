@@ -28,7 +28,7 @@ namespace AccesoDatos
             {
                 cmd.Connection = cn.Conectar();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "Select Count(*) From Personas Where tipoDNI = @tipo AND id_DNI = @dni";
+                cmd.CommandText = "Select Count(*) From Personas Where tipoDNI = @tipo AND id_DNI = @dni and bajaLogica = 1";
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@tipo", tipoDNI);
                 cmd.Parameters.AddWithValue("@dni", dni);

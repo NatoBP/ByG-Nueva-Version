@@ -56,19 +56,6 @@
             this.txtOtros = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
             this.cboCaracteristicas = new System.Windows.Forms.ComboBox();
-            this.pnlNuevaProp = new System.Windows.Forms.Panel();
-            this.grpNuevaProp = new System.Windows.Forms.GroupBox();
-            this.dgvNuevaProp = new System.Windows.Forms.DataGridView();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnBuscarApellido = new System.Windows.Forms.Button();
-            this.cboTipoBuscar = new System.Windows.Forms.ComboBox();
-            this.txtNombreBuscar = new System.Windows.Forms.TextBox();
-            this.txtApellidoBuscar = new System.Windows.Forms.TextBox();
-            this.txtDniBuscar = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.grpPropiedad = new System.Windows.Forms.GroupBox();
             this.btnIngresarBarrio = new System.Windows.Forms.Button();
             this.txtDireccionProp = new System.Windows.Forms.TextBox();
@@ -91,6 +78,19 @@
             this.cboDepto = new System.Windows.Forms.ComboBox();
             this.cboProvincia = new System.Windows.Forms.ComboBox();
             this.label44 = new System.Windows.Forms.Label();
+            this.pnlNuevaProp = new System.Windows.Forms.Panel();
+            this.grpNuevaProp = new System.Windows.Forms.GroupBox();
+            this.dgvNuevaProp = new System.Windows.Forms.DataGridView();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnBuscarApellido = new System.Windows.Forms.Button();
+            this.cboTipoBuscar = new System.Windows.Forms.ComboBox();
+            this.txtNombreBuscar = new System.Windows.Forms.TextBox();
+            this.txtApellidoBuscar = new System.Windows.Forms.TextBox();
+            this.txtDniBuscar = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.grpBuscar = new System.Windows.Forms.GroupBox();
             this.btnNuevaProp = new System.Windows.Forms.Button();
             this.btnVerFotos = new System.Windows.Forms.Button();
@@ -106,10 +106,10 @@
             this.grpCaracteristicas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctImagen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaracteristicas)).BeginInit();
+            this.grpPropiedad.SuspendLayout();
             this.pnlNuevaProp.SuspendLayout();
             this.grpNuevaProp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNuevaProp)).BeginInit();
-            this.grpPropiedad.SuspendLayout();
             this.grpBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPropiedades)).BeginInit();
             this.SuspendLayout();
@@ -428,141 +428,6 @@
             this.cboCaracteristicas.Size = new System.Drawing.Size(89, 21);
             this.cboCaracteristicas.TabIndex = 6;
             // 
-            // pnlNuevaProp
-            // 
-            this.pnlNuevaProp.Controls.Add(this.grpNuevaProp);
-            this.pnlNuevaProp.Location = new System.Drawing.Point(0, 0);
-            this.pnlNuevaProp.Name = "pnlNuevaProp";
-            this.pnlNuevaProp.Size = new System.Drawing.Size(1050, 204);
-            this.pnlNuevaProp.TabIndex = 121;
-            this.pnlNuevaProp.Visible = false;
-            // 
-            // grpNuevaProp
-            // 
-            this.grpNuevaProp.Controls.Add(this.dgvNuevaProp);
-            this.grpNuevaProp.Controls.Add(this.btnCancelar);
-            this.grpNuevaProp.Controls.Add(this.btnBuscarApellido);
-            this.grpNuevaProp.Controls.Add(this.cboTipoBuscar);
-            this.grpNuevaProp.Controls.Add(this.txtNombreBuscar);
-            this.grpNuevaProp.Controls.Add(this.txtApellidoBuscar);
-            this.grpNuevaProp.Controls.Add(this.txtDniBuscar);
-            this.grpNuevaProp.Controls.Add(this.label6);
-            this.grpNuevaProp.Controls.Add(this.label5);
-            this.grpNuevaProp.Controls.Add(this.label4);
-            this.grpNuevaProp.Controls.Add(this.label3);
-            this.grpNuevaProp.Location = new System.Drawing.Point(9, 7);
-            this.grpNuevaProp.Name = "grpNuevaProp";
-            this.grpNuevaProp.Size = new System.Drawing.Size(1033, 191);
-            this.grpNuevaProp.TabIndex = 0;
-            this.grpNuevaProp.TabStop = false;
-            this.grpNuevaProp.Text = "Nueva Propiedad:";
-            // 
-            // dgvNuevaProp
-            // 
-            this.dgvNuevaProp.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvNuevaProp.BackgroundColor = System.Drawing.Color.White;
-            this.dgvNuevaProp.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvNuevaProp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvNuevaProp.Enabled = false;
-            this.dgvNuevaProp.Location = new System.Drawing.Point(596, 23);
-            this.dgvNuevaProp.Name = "dgvNuevaProp";
-            this.dgvNuevaProp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNuevaProp.Size = new System.Drawing.Size(429, 148);
-            this.dgvNuevaProp.TabIndex = 15;
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
-            this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Location = new System.Drawing.Point(288, 148);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(140, 23);
-            this.btnCancelar.TabIndex = 14;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnBuscarApellido
-            // 
-            this.btnBuscarApellido.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
-            this.btnBuscarApellido.FlatAppearance.BorderSize = 0;
-            this.btnBuscarApellido.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscarApellido.Location = new System.Drawing.Point(288, 25);
-            this.btnBuscarApellido.Name = "btnBuscarApellido";
-            this.btnBuscarApellido.Size = new System.Drawing.Size(140, 23);
-            this.btnBuscarApellido.TabIndex = 13;
-            this.btnBuscarApellido.Text = "Buscar por D.N.I.";
-            this.btnBuscarApellido.UseVisualStyleBackColor = false;
-            this.btnBuscarApellido.Click += new System.EventHandler(this.btnBuscarApellido_Click);
-            // 
-            // cboTipoBuscar
-            // 
-            this.cboTipoBuscar.FormattingEnabled = true;
-            this.cboTipoBuscar.Location = new System.Drawing.Point(103, 69);
-            this.cboTipoBuscar.Name = "cboTipoBuscar";
-            this.cboTipoBuscar.Size = new System.Drawing.Size(140, 21);
-            this.cboTipoBuscar.TabIndex = 7;
-            // 
-            // txtNombreBuscar
-            // 
-            this.txtNombreBuscar.Enabled = false;
-            this.txtNombreBuscar.Location = new System.Drawing.Point(104, 148);
-            this.txtNombreBuscar.Name = "txtNombreBuscar";
-            this.txtNombreBuscar.Size = new System.Drawing.Size(140, 20);
-            this.txtNombreBuscar.TabIndex = 6;
-            // 
-            // txtApellidoBuscar
-            // 
-            this.txtApellidoBuscar.Enabled = false;
-            this.txtApellidoBuscar.Location = new System.Drawing.Point(104, 107);
-            this.txtApellidoBuscar.Name = "txtApellidoBuscar";
-            this.txtApellidoBuscar.Size = new System.Drawing.Size(140, 20);
-            this.txtApellidoBuscar.TabIndex = 5;
-            // 
-            // txtDniBuscar
-            // 
-            this.txtDniBuscar.Location = new System.Drawing.Point(103, 28);
-            this.txtDniBuscar.Name = "txtDniBuscar";
-            this.txtDniBuscar.Size = new System.Drawing.Size(140, 20);
-            this.txtDniBuscar.TabIndex = 4;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(49, 149);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Nombre:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(49, 107);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Apellido:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(66, 74);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Tipo:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(60, 31);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "D.N.I.:";
-            // 
             // grpPropiedad
             // 
             this.grpPropiedad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -800,6 +665,147 @@
             this.label44.TabIndex = 74;
             this.label44.Text = "Provincia:";
             // 
+            // pnlNuevaProp
+            // 
+            this.pnlNuevaProp.Controls.Add(this.grpNuevaProp);
+            this.pnlNuevaProp.Location = new System.Drawing.Point(0, 0);
+            this.pnlNuevaProp.Name = "pnlNuevaProp";
+            this.pnlNuevaProp.Size = new System.Drawing.Size(1050, 204);
+            this.pnlNuevaProp.TabIndex = 121;
+            this.pnlNuevaProp.Visible = false;
+            // 
+            // grpNuevaProp
+            // 
+            this.grpNuevaProp.Controls.Add(this.dgvNuevaProp);
+            this.grpNuevaProp.Controls.Add(this.btnCancelar);
+            this.grpNuevaProp.Controls.Add(this.btnBuscarApellido);
+            this.grpNuevaProp.Controls.Add(this.cboTipoBuscar);
+            this.grpNuevaProp.Controls.Add(this.txtNombreBuscar);
+            this.grpNuevaProp.Controls.Add(this.txtApellidoBuscar);
+            this.grpNuevaProp.Controls.Add(this.txtDniBuscar);
+            this.grpNuevaProp.Controls.Add(this.label6);
+            this.grpNuevaProp.Controls.Add(this.label5);
+            this.grpNuevaProp.Controls.Add(this.label4);
+            this.grpNuevaProp.Controls.Add(this.label3);
+            this.grpNuevaProp.Location = new System.Drawing.Point(9, 7);
+            this.grpNuevaProp.Name = "grpNuevaProp";
+            this.grpNuevaProp.Size = new System.Drawing.Size(1033, 191);
+            this.grpNuevaProp.TabIndex = 0;
+            this.grpNuevaProp.TabStop = false;
+            this.grpNuevaProp.Text = "Nueva Propiedad:";
+            // 
+            // dgvNuevaProp
+            // 
+            this.dgvNuevaProp.AllowUserToAddRows = false;
+            this.dgvNuevaProp.AllowUserToDeleteRows = false;
+            this.dgvNuevaProp.AllowUserToResizeColumns = false;
+            this.dgvNuevaProp.AllowUserToResizeRows = false;
+            this.dgvNuevaProp.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvNuevaProp.BackgroundColor = System.Drawing.Color.White;
+            this.dgvNuevaProp.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvNuevaProp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNuevaProp.Location = new System.Drawing.Point(596, 23);
+            this.dgvNuevaProp.Name = "dgvNuevaProp";
+            this.dgvNuevaProp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvNuevaProp.Size = new System.Drawing.Size(429, 148);
+            this.dgvNuevaProp.TabIndex = 15;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Location = new System.Drawing.Point(288, 148);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(140, 23);
+            this.btnCancelar.TabIndex = 14;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnBuscarApellido
+            // 
+            this.btnBuscarApellido.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(134)))), ((int)(((byte)(89)))));
+            this.btnBuscarApellido.FlatAppearance.BorderSize = 0;
+            this.btnBuscarApellido.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscarApellido.Location = new System.Drawing.Point(288, 25);
+            this.btnBuscarApellido.Name = "btnBuscarApellido";
+            this.btnBuscarApellido.Size = new System.Drawing.Size(140, 23);
+            this.btnBuscarApellido.TabIndex = 13;
+            this.btnBuscarApellido.Text = "Buscar por D.N.I.";
+            this.btnBuscarApellido.UseVisualStyleBackColor = false;
+            this.btnBuscarApellido.Click += new System.EventHandler(this.btnBuscarApellido_Click);
+            // 
+            // cboTipoBuscar
+            // 
+            this.cboTipoBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(179)))), ((int)(((byte)(190)))));
+            this.cboTipoBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboTipoBuscar.FormattingEnabled = true;
+            this.cboTipoBuscar.Location = new System.Drawing.Point(103, 69);
+            this.cboTipoBuscar.Name = "cboTipoBuscar";
+            this.cboTipoBuscar.Size = new System.Drawing.Size(140, 21);
+            this.cboTipoBuscar.TabIndex = 7;
+            this.cboTipoBuscar.SelectedIndexChanged += new System.EventHandler(this.cboTipoBuscar_SelectedIndexChanged);
+            // 
+            // txtNombreBuscar
+            // 
+            this.txtNombreBuscar.Enabled = false;
+            this.txtNombreBuscar.Location = new System.Drawing.Point(104, 148);
+            this.txtNombreBuscar.Name = "txtNombreBuscar";
+            this.txtNombreBuscar.Size = new System.Drawing.Size(140, 20);
+            this.txtNombreBuscar.TabIndex = 6;
+            // 
+            // txtApellidoBuscar
+            // 
+            this.txtApellidoBuscar.Enabled = false;
+            this.txtApellidoBuscar.Location = new System.Drawing.Point(104, 107);
+            this.txtApellidoBuscar.Name = "txtApellidoBuscar";
+            this.txtApellidoBuscar.Size = new System.Drawing.Size(140, 20);
+            this.txtApellidoBuscar.TabIndex = 5;
+            // 
+            // txtDniBuscar
+            // 
+            this.txtDniBuscar.Location = new System.Drawing.Point(103, 28);
+            this.txtDniBuscar.Name = "txtDniBuscar";
+            this.txtDniBuscar.Size = new System.Drawing.Size(140, 20);
+            this.txtDniBuscar.TabIndex = 4;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(49, 149);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Nombre:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(49, 107);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Apellido:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(66, 74);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Tipo:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(60, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "D.N.I.:";
+            // 
             // grpBuscar
             // 
             this.grpBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -960,12 +966,12 @@
             this.grpCaracteristicas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctImagen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaracteristicas)).EndInit();
+            this.grpPropiedad.ResumeLayout(false);
+            this.grpPropiedad.PerformLayout();
             this.pnlNuevaProp.ResumeLayout(false);
             this.grpNuevaProp.ResumeLayout(false);
             this.grpNuevaProp.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNuevaProp)).EndInit();
-            this.grpPropiedad.ResumeLayout(false);
-            this.grpPropiedad.PerformLayout();
             this.grpBuscar.ResumeLayout(false);
             this.grpBuscar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPropiedades)).EndInit();
